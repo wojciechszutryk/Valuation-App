@@ -1,11 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import { Provider } from 'react-redux'
+import App from './App'
+import { LanguageSwitcher } from 'components'
+import store from './data/state/store'
+import ThemeProvider from './utils'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+    <Provider store={store}>
+        <ThemeProvider>
+            <LanguageSwitcher />
+            <App />
+        </ThemeProvider>
+    </Provider>,
+    document.getElementById('root')
+)
