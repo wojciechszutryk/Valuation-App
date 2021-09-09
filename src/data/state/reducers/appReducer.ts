@@ -1,10 +1,11 @@
 import { AnyAction } from 'redux'
-import { THEME } from 'typings'
+import { LANGUAGE, THEME } from 'typings'
 import { AppReducer } from './interfaces'
 import * as types from '../constans'
 
 const initialState = {
     theme: 'lightTheme' as THEME,
+    language: 'en' as LANGUAGE,
 }
 
 const reducer = (
@@ -14,6 +15,8 @@ const reducer = (
     switch (action.type) {
         case types.SET_THEME:
             return { ...state, theme: action.payload }
+        case types.SET_LANGUAGE:
+            return { ...state, language: action.payload }
         default:
             return state
     }

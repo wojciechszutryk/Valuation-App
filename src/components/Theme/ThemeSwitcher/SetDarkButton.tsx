@@ -1,4 +1,4 @@
-import { faCloud, faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
+import { faCloud, faMoon } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, makeStyles } from '@material-ui/core'
 import React from 'react'
