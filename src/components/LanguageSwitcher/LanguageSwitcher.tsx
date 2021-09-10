@@ -12,7 +12,6 @@ import { useAppDispatch } from '../../utils/hooks/useAppDispach'
 import { useAppSelector } from '../../utils/hooks/useAppSelector'
 
 const useStyles = makeStyles((theme) => {
-    console.log(theme)
     return createStyles({
         formControl: {
             margin: theme.spacing(1),

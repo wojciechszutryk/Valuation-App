@@ -5,11 +5,7 @@ import SetLightButton from './SetLightButton'
 
 const ThemeSwitcher: React.FC = () => {
     const theme = useAppSelector((state) => state.app.theme)
-    return (
-        <div>
-            {theme === 'lightTheme' ? <SetDarkButton /> : <SetLightButton />}
-        </div>
-    )
+    return theme === 'lightTheme' ? <SetDarkButton /> : <SetLightButton />
 }
 
 export default ThemeSwitcher

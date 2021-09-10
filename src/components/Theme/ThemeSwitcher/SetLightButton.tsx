@@ -7,8 +7,9 @@ import { useAppDispatch } from '../../../utils/hooks/useAppDispach'
 
 const useStyles = makeStyles({
     button: {
-        backgroundColor: 'primary',
-        color: '#000',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        color: '#8f3c41',
+        minWidth: 0,
         display: 'inline-block',
         position: 'relative',
         width: '34px',
@@ -26,8 +27,8 @@ const useStyles = makeStyles({
         },
         '& svg:nth-child(2)': {
             position: 'absolute',
-            left: '5px',
-            top: '5px',
+            left: '7px',
+            top: '6px',
             transition: 'left .1s, transform .2s',
             fontSize: '20px',
         },
@@ -40,7 +41,7 @@ const useStyles = makeStyles({
         },
         '&:hover svg:nth-child(2)': {
             color: 'rgb(247, 244, 143)',
-            left: '8px',
+            left: '9px',
             transformOrigin: 'center',
             transform: 'rotate(60deg)',
             fontSize: '20px',
