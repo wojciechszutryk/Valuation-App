@@ -1,11 +1,42 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import './i18n'
-import { LanguageSwitcher, Layout, ThemeSwitcher } from './components'
+import { Layout } from './components'
+import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { ValuationNew, ValuationFinish, ValuationDetails } from './pages'
 
 function App() {
     const { t } = useTranslation()
-    return <Layout></Layout>
+    return (
+        <Layout>
+            <Router>
+                <div>
+                    <nav>
+                        <Link to="/valuation/new">Home</Link>
+                        <Link to="/valuation/finish">Foo</Link>
+                        <Link to="/valuation/details">Bar</Link>
+                    </nav>
+                    <Switch>
+                        <Route
+                            exact
+                            path="/valuation/new"
+                            component={ValuationNew}
+                        />
+                        <Route
+                            exact
+                            path="/valuation/finish"
+                            component={ValuationFinish}
+                        />
+                        <Route
+                            exact
+                            path="/valuation/details"
+                            component={ValuationDetails}
+                        />
+                    </Switch>
+                </div>
+            </Router>
+        </Layout>
+    )
 }
 
 export default App
