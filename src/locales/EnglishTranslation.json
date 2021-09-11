@@ -2,5 +2,10 @@
 "language": "language",
 "English": "English",
 "German": "German",
-"Polish": "Polish"
+"Polish": "Polish",
+  "You can't access that field before completing previous ones.": "You can't access that field before completing previous ones.",
+  "Add basic information": "Add basic information",
+  "Set details and parameters": "Set details and parameters",
+  "Finish valuation": "Finish valuation"
+
 }

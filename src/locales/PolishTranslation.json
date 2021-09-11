@@ -2,5 +2,9 @@
   "language": "język",
   "English": "Angielski",
   "German": "Niemiecki",
-  "Polish": "Polski"
+  "Polish": "Polski",
+  "You can't access that field before completing previous ones.": "Musisz wypełnić wczęsniejsze pola formularza",
+  "Add basic information": "Podstawowe informacje",
+  "Set details and parameters": "Szczegóły i parametry",
+  "Finish valuation": "Wyniki wyceny"
 }

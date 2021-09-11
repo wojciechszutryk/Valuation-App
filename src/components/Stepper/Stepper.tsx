@@ -16,10 +16,10 @@ import StepConnector from '@material-ui/core/StepConnector'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { StepIconProps } from '@material-ui/core/StepIcon'
+import { useTranslation } from 'react-i18next'
 import { Steps } from 'typings'
 import { useHistory } from 'react-router-dom'
 import { showToast } from '../../utils'
-import { useAppDispatch } from '../../utils/hooks/useAppDispach'
 import { useAppSelector } from '../../utils/hooks/useAppSelector'
 
 const Connector = withStyles((theme) => {
@@ -111,6 +111,13 @@ const useStyles = makeStyles((theme: Theme) =>
         button: {
             marginRight: theme.spacing(1),
         },
+        stepper: {
+            backgroundColor:
+                theme.palette.type === 'dark' ? '#4e4e4e' : '#f3f3ff',
+            borderRadius: 10,
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2),
+        },
         step: {
             cursor: 'pointer',
             '& svg': {
@@ -150,8 +157,10 @@ function getStepContent(step: number) {
 
 export default function CustomStepper({
     activeStepFromProps = 0,
+    children = <></>,
 }: {
     activeStepFromProps: Steps
+    children?: JSX.Element
 }) {
     const finishedSteps = useAppSelector(
         (state) => state.valuation.finishedSteps
@@ -160,20 +169,25 @@ export default function CustomStepper({
     const classes = useStyles()
     let history = useHistory()
     const steps = getSteps()
+    const { t } = useTranslation()
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => (prevActiveStep + 1) as Steps)
+        handleGoToStep((activeStep + 1) as Steps)
     }
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => (prevActiveStep - 1) as Steps)
+        handleGoToStep((activeStep - 1) as Steps)
     }
 
     const handleReset = () => {
         setActiveStep(0)
+        handleGoToStep(0)
     }
 
     const handleGoToStep = (step: Steps) => {
+        if (step > 2 || step < 0) return
         if (step === 0) {
             history.push('/valuation/new')
         } else if (step === 1) {
@@ -181,7 +195,9 @@ export default function CustomStepper({
         } else if (step === 2) {
             if (activeStep === 0 && finishedSteps < 2) {
                 showToast(
-                    "You can't access that field before completing previous ones."
+                    t(
+                        "You can't access that field before completing previous ones."
+                    )
                 )
                 return
             }
@@ -192,6 +208,7 @@ export default function CustomStepper({
     return (
         <div className={classes.root}>
             <Stepper
+                className={classes.stepper}
                 alternativeLabel
                 activeStep={activeStep}
                 connector={<Connector />}
@@ -202,11 +219,12 @@ export default function CustomStepper({
                             StepIconComponent={StepIcon}
                             onClick={() => handleGoToStep(index as Steps)}
                         >
-                            {label}
+                            {t(label)}
                         </StepLabel>
                     </Step>
                 ))}
             </Stepper>
+            {children}
             <div>
                 {activeStep === steps.length ? (
                     <div>

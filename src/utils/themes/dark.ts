@@ -19,6 +19,7 @@ export const darkTheme = createTheme({
         },
         background: {
             default: '#414141',
+            paper: '#4e4e4e',
         },
     },
     overrides: {

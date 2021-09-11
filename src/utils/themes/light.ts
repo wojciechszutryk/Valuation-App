@@ -19,6 +19,7 @@ export const lightTheme = createTheme({
         },
         background: {
             default: '#dfe2ff',
+            paper: '#f3f3ff',
         },
     },
     overrides: {
