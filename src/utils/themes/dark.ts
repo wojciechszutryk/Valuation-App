@@ -9,7 +9,7 @@ export const darkTheme = createTheme({
             dark: '#3e3e3e',
         },
         secondary: {
-            light: '#3e3e3e',
+            light: '#d66d6d',
             main: '#3e3e3e',
             dark: '#a70404',
         },
@@ -19,6 +19,19 @@ export const darkTheme = createTheme({
         },
         background: {
             default: '#414141',
+        },
+    },
+    overrides: {
+        MuiCssBaseline: {
+            '@global': {
+                '.Toastify__toast--info': {
+                    background: '#9b9b9b',
+                    color: '#fff',
+                },
+                '.Toastify__progress-bar--info': {
+                    background: '#a70404',
+                },
+            },
         },
     },
 })

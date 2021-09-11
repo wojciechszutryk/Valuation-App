@@ -21,4 +21,17 @@ export const lightTheme = createTheme({
             default: '#dfe2ff',
         },
     },
+    overrides: {
+        MuiCssBaseline: {
+            '@global': {
+                '.Toastify__toast--info': {
+                    background: '#6a4b9b',
+                    color: '#fff',
+                },
+                '.Toastify__progress-bar--info': {
+                    background: '#41006b',
+                },
+            },
+        },
+    },
 })

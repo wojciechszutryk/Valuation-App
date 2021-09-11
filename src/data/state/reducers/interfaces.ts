@@ -1,6 +1,10 @@
-import { LANGUAGE, THEME } from 'typings'
+import { FinishedSteps, Language, Theme } from 'typings'
 
 export interface AppReducer {
-    theme: THEME
-    language: LANGUAGE
+    theme: Theme
+    language: Language
+}
+
+export interface ValuationReducer {
+    finishedSteps: FinishedSteps
 }

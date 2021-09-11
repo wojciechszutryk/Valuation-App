@@ -18,6 +18,9 @@ import Typography from '@material-ui/core/Typography'
 import { StepIconProps } from '@material-ui/core/StepIcon'
 import { Steps } from 'typings'
 import { useHistory } from 'react-router-dom'
+import { showToast } from '../../utils'
+import { useAppDispatch } from '../../utils/hooks/useAppDispach'
+import { useAppSelector } from '../../utils/hooks/useAppSelector'
 
 const Connector = withStyles((theme) => {
     return createStyles({
@@ -57,7 +60,7 @@ const useIconStyles = makeStyles((theme) => {
             backgroundColor: theme.palette.type === 'dark' ? `none` : '#ccc',
             backgroundImage:
                 theme.palette.type === 'dark'
-                    ? `linear-gradient( 120deg,${theme.palette.primary.light} 0%,${theme.palette.primary.dark} 50%,${theme.palette.primary.dark} 100%)`
+                    ? `linear-gradient( 120deg,${theme.palette.primary.main} 0%,${theme.palette.primary.dark} 50%,${theme.palette.primary.dark} 100%)`
                     : 'none',
             zIndex: 1,
             color: '#fff',
@@ -150,9 +153,12 @@ export default function CustomStepper({
 }: {
     activeStepFromProps: Steps
 }) {
-    let history = useHistory()
-    const classes = useStyles()
+    const finishedSteps = useAppSelector(
+        (state) => state.valuation.finishedSteps
+    )
     const [activeStep, setActiveStep] = React.useState(activeStepFromProps)
+    const classes = useStyles()
+    let history = useHistory()
     const steps = getSteps()
 
     const handleNext = () => {
@@ -168,9 +174,19 @@ export default function CustomStepper({
     }
 
     const handleGoToStep = (step: Steps) => {
-        if (step === 0) history.push('/valuation/new')
-        else if (step === 1) history.push('/valuation/details')
-        else if (step === 2) history.push('/valuation/finish')
+        if (step === 0) {
+            history.push('/valuation/new')
+        } else if (step === 1) {
+            history.push('/valuation/details')
+        } else if (step === 2) {
+            if (activeStep === 0 && finishedSteps < 2) {
+                showToast(
+                    "You can't access that field before completing previous ones."
+                )
+                return
+            }
+            history.push('/valuation/finish')
+        }
     }
 
     return (

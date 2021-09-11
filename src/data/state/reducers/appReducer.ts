@@ -1,11 +1,11 @@
 import { AnyAction } from 'redux'
-import { LANGUAGE, THEME } from 'typings'
+import { Language, Theme } from 'typings'
 import { AppReducer } from './interfaces'
 import * as types from '../constans'
 
 const initialState = {
-    theme: 'lightTheme' as THEME,
-    language: 'en' as LANGUAGE,
+    theme: 'lightTheme' as Theme,
+    language: 'en' as Language,
 }
 
 const reducer = (
