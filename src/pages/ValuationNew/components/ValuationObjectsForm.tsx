@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import React, { useState } from 'react'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { useTranslation } from 'react-i18next'
-import { showToast } from '../../../utils'
+import { showToast, findDuplicatesInArray } from 'utils'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,8 +41,13 @@ const ValuationObjectsForm: React.FC = () => {
     const [valuationObjects, setValidationObjects] = useState<string[]>([''])
 
     const handleAddTextField = () => {
+        console.log(findDuplicatesInArray(valuationObjects))
         if (valuationObjects[valuationObjects.length - 1] === '') {
             showToast(t('Fill previous object before adding new one'))
+            return
+        }
+        if (findDuplicatesInArray(valuationObjects)) {
+            showToast(t('There are two objects with same name'))
             return
         }
         const valuationObjectsCopy = [...valuationObjects]
@@ -52,15 +57,13 @@ const ValuationObjectsForm: React.FC = () => {
 
     function handleTextFieldChange(
         e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-        id: string
+        id: number
     ) {
-        const indexOfField = parseInt(id)
+        const indexOfField = id
         const valuationObjectsCopy = [...valuationObjects]
         valuationObjectsCopy[indexOfField] = e.target.value
         setValidationObjects(valuationObjectsCopy)
     }
-
-    console.log(valuationObjects)
 
     return (
         <Paper className={classes.paper} elevation={0}>
@@ -68,31 +71,29 @@ const ValuationObjectsForm: React.FC = () => {
                 Define valuation objects
             </Typography>
             <form className={classes.form}>
-                {valuationObjects.map((object) => (
-                    <div className={classes.objectWrapper} key={object}>
-                        <Avatar className={classes.avatar} variant="rounded">
-                            {valuationObjects.indexOf(object)}
-                        </Avatar>
-                        <TextField
-                            id={valuationObjects.indexOf(object).toString()}
-                            size="small"
-                            className={classes.textField}
-                            label="Address or name"
-                            variant="outlined"
-                            onChange={(e) =>
-                                handleTextFieldChange(
-                                    e,
-                                    valuationObjects.indexOf(object).toString()
-                                )
-                            }
-                            // value={
-                            //     valuationObjects[
-                            //         valuationObjects.indexOf(object) - 1
-                            //     ]
-                            // }
-                        />
-                    </div>
-                ))}
+                {valuationObjects.map((object, index) => {
+                    return (
+                        <div className={classes.objectWrapper} key={index}>
+                            <Avatar
+                                className={classes.avatar}
+                                variant="rounded"
+                            >
+                                {index + 1}
+                            </Avatar>
+                            <TextField
+                                id={index.toString()}
+                                size="small"
+                                className={classes.textField}
+                                label="Address or name"
+                                variant="outlined"
+                                onChange={(e) =>
+                                    handleTextFieldChange(e, index)
+                                }
+                                value={valuationObjects[index]}
+                            />
+                        </div>
+                    )
+                })}
                 <Button
                     onClick={handleAddTextField}
                     className={classes.newButton}

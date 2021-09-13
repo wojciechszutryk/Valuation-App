@@ -1,3 +1,3 @@
 export { default } from './themes'
 
-export { showToast } from './functions'
+export { showToast, findDuplicatesInArray } from './functions'

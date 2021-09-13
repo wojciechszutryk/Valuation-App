@@ -6,5 +6,6 @@
   "You can't access that field before completing previous ones.": "Musisz wypełnić wczęsniejsze pola formularza",
   "Add basic information": "Podstawowe informacje",
   "Set details and parameters": "Szczegóły i parametry",
-  "Finish valuation": "Wyniki wyceny"
+  "Finish valuation": "Wyniki wyceny",
+  "There are two objects with same name":"Istnieją dwa obiekty o tej samej nazwie"
 }

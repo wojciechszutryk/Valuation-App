@@ -6,5 +6,6 @@
   "You can't access that field before completing previous ones.": "\nSie können nicht auf dieses Feld zugreifen, bevor Sie die vorherigen ausgefüllt haben.",
   "Add basic information": "Grundlegende Informationen hinzufügen",
   "Set details and parameters": "Details und Parameter einstellen",
-  "Finish valuation": "Bewertung abschließen"
+  "Finish valuation": "Bewertung abschließen",
+  "There are two objects with same name":"Es gibt zwei Objekte mit demselben Namen"
 }
