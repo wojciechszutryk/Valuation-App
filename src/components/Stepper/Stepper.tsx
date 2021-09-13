@@ -160,7 +160,7 @@ export default function CustomStepper({
     children = <></>,
 }: {
     activeStepFromProps: Steps
-    children?: JSX.Element
+    children?: JSX.Element | JSX.Element[]
 }) {
     const finishedSteps = useAppSelector(
         (state) => state.valuation.finishedSteps

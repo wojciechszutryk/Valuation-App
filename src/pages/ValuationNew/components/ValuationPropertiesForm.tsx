@@ -1,14 +1,13 @@
 import { Avatar, Button, Paper, TextField, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import React, { useState } from 'react'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { showToast, findDuplicatesInArray } from 'utils'
+import { findDuplicatesInArray, showToast } from '../../../utils'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
-            marginBottom: 20,
             padding: 20,
         },
         header: {
@@ -36,23 +35,23 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-const ValuationObjectsForm: React.FC = () => {
-    const { t } = useTranslation()
+const ValuationPropertiesForm: React.FC = () => {
     const classes = useStyles()
-    const [valuationCriteria, setValuationCriteria] = useState<string[]>([''])
+    const { t } = useTranslation()
+    const [valuationObjects, setValidationObjects] = useState<string[]>([''])
 
     const handleAddTextField = () => {
-        if (valuationCriteria[valuationCriteria.length - 1] === '') {
+        if (valuationObjects[valuationObjects.length - 1] === '') {
             showToast(t('Fill previous object before adding new one'))
             return
         }
-        if (findDuplicatesInArray(valuationCriteria)) {
-            showToast(t('There are two criteria with same name'))
+        if (findDuplicatesInArray(valuationObjects)) {
+            showToast(t('There are two objects with same name'))
             return
         }
-        const valuationCriteriaCopy = [...valuationCriteria]
-        valuationCriteriaCopy.push('')
-        setValuationCriteria(valuationCriteriaCopy)
+        const valuationObjectsCopy = [...valuationObjects]
+        valuationObjectsCopy.push('')
+        setValidationObjects(valuationObjectsCopy)
     }
 
     function handleTextFieldChange(
@@ -60,18 +59,18 @@ const ValuationObjectsForm: React.FC = () => {
         id: number
     ) {
         const indexOfField = id
-        const valuationCriteriaCopy = [...valuationCriteria]
-        valuationCriteriaCopy[indexOfField] = e.target.value
-        setValuationCriteria(valuationCriteriaCopy)
+        const valuationObjectsCopy = [...valuationObjects]
+        valuationObjectsCopy[indexOfField] = e.target.value
+        setValidationObjects(valuationObjectsCopy)
     }
 
     return (
         <Paper className={classes.paper} elevation={0}>
             <Typography className={classes.header} variant="h5">
-                {t('Define valuation objects')}
+                {t('Define valuation criteria')}
             </Typography>
             <form className={classes.form}>
-                {valuationCriteria.map((object, index) => {
+                {valuationObjects.map((object, index) => {
                     return (
                         <div className={classes.objectWrapper} key={index}>
                             <Avatar
@@ -84,12 +83,12 @@ const ValuationObjectsForm: React.FC = () => {
                                 id={index.toString()}
                                 size="small"
                                 className={classes.textField}
-                                label="Address or name"
+                                label={t('Criterion name')}
                                 variant="outlined"
                                 onChange={(e) =>
                                     handleTextFieldChange(e, index)
                                 }
-                                value={valuationCriteria[index]}
+                                value={valuationObjects[index]}
                             />
                         </div>
                     )
@@ -107,4 +106,4 @@ const ValuationObjectsForm: React.FC = () => {
     )
 }
 
-export default ValuationObjectsForm
+export default ValuationPropertiesForm

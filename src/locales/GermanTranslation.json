@@ -7,5 +7,10 @@
   "Add basic information": "Grundlegende Informationen hinzufügen",
   "Set details and parameters": "Details und Parameter einstellen",
   "Finish valuation": "Bewertung abschließen",
-  "There are two objects with same name":"Es gibt zwei Objekte mit demselben Namen"
+  "There are two objects with same name":"Es gibt zwei Objekte mit demselben Namen",
+  "There are two criteria with same name":"Es gibt zwei Kriterien mit demselben Namen",
+  "Define valuation objects": "Bewertungsobjekte definieren",
+  "Define valuation criteria": "Bewertungskriterien definieren",
+  "Address or name": "Adresse oder Name",
+  "Criterion name": "Kriteriumsname"
 }

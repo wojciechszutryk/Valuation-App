@@ -7,5 +7,10 @@
   "Add basic information": "Add basic information",
   "Set details and parameters": "Set details and parameters",
   "Finish valuation": "Finish valuation",
-  "There are two objects with same name": "There are two objects with same name"
+  "There are two objects with same name": "There are two objects with same name",
+  "There are two criteria with same name": "There are two objects with same name",
+  "Define valuation objects": "Define valuation objects",
+  "Define valuation criteria": "Define valuation criteria",
+  "Address or name": "Address or name",
+  "Criterion name": "Criterion name"
 }
