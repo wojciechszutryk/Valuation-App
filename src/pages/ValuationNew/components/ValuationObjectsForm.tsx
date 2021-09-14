@@ -36,23 +36,30 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-const ValuationObjectsForm: React.FC = () => {
+type Props = {
+    valuationObjects: string[]
+    setValidationObjects: (valuationObjects: string[]) => void
+}
+
+const ValuationObjectsForm = ({
+    valuationObjects,
+    setValidationObjects,
+}: Props) => {
     const { t } = useTranslation()
     const classes = useStyles()
-    const [valuationCriteria, setValuationCriteria] = useState<string[]>([''])
 
     const handleAddTextField = () => {
-        if (valuationCriteria[valuationCriteria.length - 1] === '') {
+        if (valuationObjects[valuationObjects.length - 1] === '') {
             showToast(t('Fill previous object before adding new one'))
             return
         }
-        if (findDuplicatesInArray(valuationCriteria)) {
+        if (findDuplicatesInArray(valuationObjects)) {
             showToast(t('There are two criteria with same name'))
             return
         }
-        const valuationCriteriaCopy = [...valuationCriteria]
+        const valuationCriteriaCopy = [...valuationObjects]
         valuationCriteriaCopy.push('')
-        setValuationCriteria(valuationCriteriaCopy)
+        setValidationObjects(valuationCriteriaCopy)
     }
 
     function handleTextFieldChange(
@@ -60,9 +67,9 @@ const ValuationObjectsForm: React.FC = () => {
         id: number
     ) {
         const indexOfField = id
-        const valuationCriteriaCopy = [...valuationCriteria]
+        const valuationCriteriaCopy = [...valuationObjects]
         valuationCriteriaCopy[indexOfField] = e.target.value
-        setValuationCriteria(valuationCriteriaCopy)
+        setValidationObjects(valuationCriteriaCopy)
     }
 
     return (
@@ -71,7 +78,7 @@ const ValuationObjectsForm: React.FC = () => {
                 {t('Define valuation objects')}
             </Typography>
             <form className={classes.form}>
-                {valuationCriteria.map((object, index) => {
+                {valuationObjects.map((object, index) => {
                     return (
                         <div className={classes.objectWrapper} key={index}>
                             <Avatar
@@ -89,7 +96,7 @@ const ValuationObjectsForm: React.FC = () => {
                                 onChange={(e) =>
                                     handleTextFieldChange(e, index)
                                 }
-                                value={valuationCriteria[index]}
+                                value={valuationObjects[index]}
                             />
                         </div>
                     )

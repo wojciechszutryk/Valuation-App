@@ -13,8 +13,6 @@ import CreateIcon from '@material-ui/icons/Create'
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd'
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck'
 import StepConnector from '@material-ui/core/StepConnector'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
 import { StepIconProps } from '@material-ui/core/StepIcon'
 import { useTranslation } from 'react-i18next'
 import { Steps } from 'typings'
@@ -142,25 +140,10 @@ function getSteps() {
     ]
 }
 
-function getStepContent(step: number) {
-    switch (step) {
-        case 0:
-            return 'Add basic information'
-        case 1:
-            return 'Set details and parameters'
-        case 2:
-            return 'Finish valuation'
-        default:
-            return 'Unknown step'
-    }
-}
-
 export default function CustomStepper({
     activeStepFromProps = 0,
-    children = <></>,
 }: {
     activeStepFromProps: Steps
-    children?: JSX.Element | JSX.Element[]
 }) {
     const finishedSteps = useAppSelector(
         (state) => state.valuation.finishedSteps
@@ -170,21 +153,6 @@ export default function CustomStepper({
     let history = useHistory()
     const steps = getSteps()
     const { t } = useTranslation()
-
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => (prevActiveStep + 1) as Steps)
-        handleGoToStep((activeStep + 1) as Steps)
-    }
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => (prevActiveStep - 1) as Steps)
-        handleGoToStep((activeStep - 1) as Steps)
-    }
-
-    const handleReset = () => {
-        setActiveStep(0)
-        handleGoToStep(0)
-    }
 
     const handleGoToStep = (step: Steps) => {
         if (step > 2 || step < 0) return
@@ -224,47 +192,6 @@ export default function CustomStepper({
                     </Step>
                 ))}
             </Stepper>
-            {children}
-            <div>
-                {activeStep === steps.length ? (
-                    <div>
-                        <Typography className={classes.instructions}>
-                            All steps completed - you&apos;re finished
-                        </Typography>
-                        <Button
-                            onClick={handleReset}
-                            className={classes.button}
-                        >
-                            Reset
-                        </Button>
-                    </div>
-                ) : (
-                    <div>
-                        <Typography className={classes.instructions}>
-                            {getStepContent(activeStep)}
-                        </Typography>
-                        <div>
-                            <Button
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                className={classes.button}
-                            >
-                                Back
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleNext}
-                                className={classes.button}
-                            >
-                                {activeStep === steps.length - 1
-                                    ? 'Finish'
-                                    : 'Next'}
-                            </Button>
-                        </div>
-                    </div>
-                )}
-            </div>
         </div>
     )
 }

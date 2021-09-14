@@ -12,5 +12,7 @@
   "Define valuation objects": "Bewertungsobjekte definieren",
   "Define valuation criteria": "Bewertungskriterien definieren",
   "Address or name": "Adresse oder Name",
-  "Criterion name": "Kriteriumsname"
+  "Criterion name": "Kriteriumsname",
+  "Fill previous object before adding new one": "Füllen Sie das vorherige Objekt, bevor Sie ein neues hinzufügen",
+  "Valuation Object" : "Bewertungsobjekt:"
 }
