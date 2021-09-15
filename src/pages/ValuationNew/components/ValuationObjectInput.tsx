@@ -1,30 +1,7 @@
-import { Box, Paper, TextField, Typography } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Paper, TextField, Typography } from '@material-ui/core'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        paper: {
-            marginBottom: 20,
-            padding: 20,
-            display: 'flex',
-            flexWrap: 'wrap',
-        },
-        avatar: {
-            backgroundColor: theme.palette.primary.light,
-        },
-        textField: {
-            flexGrow: 1,
-            marginLeft: theme.spacing(1),
-            marginBottom: theme.spacing(0.5),
-        },
-        header: {
-            color: theme.palette.primary.light,
-            lineHeight: 1.7,
-        },
-    })
-)
+import { useStyles } from './styles'
 
 type Props = {
     valuationObject: string
@@ -45,8 +22,8 @@ const ValuationObjectInput = ({
     }
 
     return (
-        <Paper className={classes.paper} elevation={0}>
-            <Typography className={classes.header} variant="h5">
+        <Paper className={classes.paperObj} elevation={0}>
+            <Typography className={classes.headerObj} variant="h5">
                 {t('Valuation Object')}
             </Typography>
             <TextField

@@ -7,59 +7,12 @@ import {
     TextField,
     Typography,
 } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { findDuplicatesInArray, showToast } from 'utils'
 import DeleteIcon from '@material-ui/icons/Delete'
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        paper: {
-            padding: 20,
-            marginBottom: 20,
-        },
-        header: {
-            marginBottom: theme.spacing(2),
-        },
-        form: {
-            display: 'flex',
-            flexWrap: 'wrap',
-        },
-        objectWrapper: {
-            flexBasis: '100%',
-            display: 'flex',
-        },
-        avatar: {
-            backgroundColor: theme.palette.primary.light,
-        },
-        textField: {
-            flexGrow: 1,
-            marginLeft: theme.spacing(1),
-            marginBottom: theme.spacing(0.5),
-        },
-        newButton: {
-            flexBasis: '100%',
-        },
-        sliderDescriptionWrapper: {
-            paddingLeft: theme.spacing(1),
-            paddingRight: theme.spacing(1),
-            marginBottom: 10,
-        },
-        sliderDescription: {
-            marginRight: theme.spacing(2),
-            whiteSpace: 'nowrap',
-        },
-        sliderValues: {
-            color: theme.palette.primary.main,
-        },
-        delete: {
-            backgroundColor: theme.palette.primary.light,
-            cursor: 'pointer',
-        },
-    })
-)
+import { useStyles } from './styles'
 
 type Props = {
     valuationCriteria: string[]
@@ -117,7 +70,7 @@ const ValuationPropertiesForm = ({
     }
 
     return (
-        <Paper className={classes.paper} elevation={0}>
+        <Paper className={classes.paperProp} elevation={0}>
             <Typography className={classes.header} variant="h5">
                 {t('Define valuation criteria')}
             </Typography>

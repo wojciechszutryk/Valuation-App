@@ -1,40 +1,10 @@
 import { Avatar, Button, Paper, TextField, Typography } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import React, { useState } from 'react'
+import DeleteIcon from '@material-ui/icons/Delete'
+import React from 'react'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { useTranslation } from 'react-i18next'
 import { showToast, findDuplicatesInArray } from 'utils'
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        paper: {
-            marginBottom: 20,
-            padding: 20,
-        },
-        header: {
-            marginBottom: theme.spacing(2),
-        },
-        form: {
-            display: 'flex',
-            flexWrap: 'wrap',
-        },
-        objectWrapper: {
-            flexBasis: '100%',
-            display: 'flex',
-        },
-        avatar: {
-            backgroundColor: theme.palette.primary.light,
-        },
-        textField: {
-            flexGrow: 1,
-            marginLeft: theme.spacing(1),
-            marginBottom: theme.spacing(0.5),
-        },
-        newButton: {
-            flexBasis: '100%',
-        },
-    })
-)
+import { useStyles } from './styles'
 
 type Props = {
     valuationObjects: string[]
@@ -72,6 +42,12 @@ const ValuationObjectsForm = ({
         setValidationObjects(valuationCriteriaCopy)
     }
 
+    function handleDeleteObject(index: number) {
+        const valuationObjectsCopy = [...valuationObjects]
+        valuationObjectsCopy.splice(index, 1)
+        setValidationObjects(valuationObjectsCopy)
+    }
+
     return (
         <Paper className={classes.paper} elevation={0}>
             <Typography className={classes.header} variant="h5">
@@ -98,6 +74,13 @@ const ValuationObjectsForm = ({
                                 }
                                 value={valuationObjects[index]}
                             />
+                            <Avatar
+                                className={classes.delete}
+                                variant="rounded"
+                                onClick={() => handleDeleteObject(index)}
+                            >
+                                <DeleteIcon />
+                            </Avatar>
                         </div>
                     )
                 })}
