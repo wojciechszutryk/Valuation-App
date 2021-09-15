@@ -14,5 +14,9 @@
   "Address or name": "Adresse oder Name",
   "Criterion name": "Kriteriumsname",
   "Fill previous object before adding new one": "Füllen Sie das vorherige Objekt, bevor Sie ein neues hinzufügen",
-  "Valuation Object" : "Bewertungsobjekt:"
+  "Valuation Object" : "Bewertungsobjekt:",
+  "Define valuation criteria": "Bewertungskriterien definieren",
+  "Creiteria scale": "Creiteria-Skala",
+  "from": "von",
+  "to": "zu"
 }

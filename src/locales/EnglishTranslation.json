@@ -14,5 +14,9 @@
   "Address or name": "Address or name",
   "Criterion name": "Criterion name",
   "Fill previous object before adding new one": "Fill previous object before adding new one",
-  "Valuation Object" : "Objekt wyceniany:"
+  "Valuation Object" : "Valuation Object:",
+  "Define valuation criteria": "Define valuation criteria",
+  "Creiteria scale": "Creiteria scale",
+  "from": "from",
+  "to": "to"
 }

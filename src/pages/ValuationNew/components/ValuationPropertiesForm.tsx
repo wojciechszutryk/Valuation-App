@@ -12,6 +12,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { findDuplicatesInArray, showToast } from 'utils'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -52,6 +53,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         sliderValues: {
             color: theme.palette.primary.main,
+        },
+        delete: {
+            backgroundColor: theme.palette.primary.light,
+            cursor: 'pointer',
         },
     })
 )
@@ -97,7 +102,18 @@ const ValuationPropertiesForm = ({
     }
 
     function handleSliderChange(e: any, newValue: number | number[]) {
+        if (
+            newValue instanceof Array &&
+            Math.abs(newValue[0] - newValue[1]) <= 0
+        )
+            return
         setValueCriteriaScale(newValue as number[])
+    }
+
+    function handleDeleteObject(index: number) {
+        const valuationObjectsCopy = [...valuationCriteria]
+        valuationObjectsCopy.splice(index, 1)
+        setValuationCriteria(valuationObjectsCopy)
     }
 
     return (
@@ -149,6 +165,13 @@ const ValuationPropertiesForm = ({
                                 }
                                 value={valuationCriteria[index]}
                             />
+                            <Avatar
+                                className={classes.delete}
+                                variant="rounded"
+                                onClick={() => handleDeleteObject(index)}
+                            >
+                                <DeleteIcon />
+                            </Avatar>
                         </div>
                     )
                 })}
