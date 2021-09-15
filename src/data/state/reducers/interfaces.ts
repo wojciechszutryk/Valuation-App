@@ -1,4 +1,12 @@
-import { FinishedSteps, Language, Theme } from 'typings'
+import {
+    FinishedSteps,
+    Language,
+    Theme,
+    ValuationObject,
+    ValuationObjects,
+    ValuationParametersObjects,
+    ValuationParametersScale,
+} from 'typings'
 
 export interface AppReducer {
     theme: Theme
@@ -7,4 +15,8 @@ export interface AppReducer {
 
 export interface ValuationReducer {
     finishedSteps: FinishedSteps
+    valuationObject: ValuationObject
+    valuationParametersScale: ValuationParametersScale
+    valuationParametersObjects: ValuationParametersObjects
+    valuationObjects: ValuationObjects
 }

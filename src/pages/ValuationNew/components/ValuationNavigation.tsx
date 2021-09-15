@@ -3,7 +3,13 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
-import { useAppSelector } from 'utils/hooks/useAppSelector'
+import {
+    setFinishedSteps,
+    setParametersObjects,
+    setParametersScale,
+    setValuationObject,
+    setValuationObjects,
+} from '../../../data/state/actions/valuationActions'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -12,6 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: 20,
             display: 'flex',
             flexWrap: 'wrap',
+            [theme.breakpoints.up('md')]: {
+                marginTop: 0,
+                marginBottom: 20,
+            },
         },
         avatar: {
             backgroundColor: theme.palette.primary.light,
@@ -28,23 +38,44 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-const ValuationNavigation: React.FC<{ allowNext: boolean }> = ({
-    allowNext,
+const ValuationNavigation: React.FC<{
+    valuationObject: string
+    valuationCriteria: string[]
+    valuationObjects: string[]
+    valueCriteriaScale: number[]
+}> = ({
+    valuationObject,
+    valuationCriteria,
+    valuationObjects,
+    valueCriteriaScale,
 }) => {
     const { t } = useTranslation()
     const classes = useStyles()
-    const finishedSteps = useAppSelector(
-        (state) => state.valuation.finishedSteps
-    )
-
     const dispatch = useAppDispatch()
+
+    function handleSubmit() {
+        dispatch(setValuationObject(valuationObject))
+        dispatch(setParametersScale(valueCriteriaScale))
+        dispatch(setParametersObjects(valuationCriteria))
+        dispatch(setValuationObjects(valuationObjects))
+        dispatch(setFinishedSteps(1))
+    }
+
     return (
         <Paper className={classes.paper} elevation={0}>
             <Typography className={classes.header} variant="h5">
                 {t('Valuation Object')}
             </Typography>
-            <Button disabled={allowNext}>Back</Button>
-            <Button>Next</Button>
+            <Button
+                disabled={
+                    valuationObjects === [''] &&
+                    valuationCriteria === [''] &&
+                    valuationObject === ''
+                }
+                onClick={handleSubmit}
+            >
+                Next
+            </Button>
         </Paper>
     )
 }
