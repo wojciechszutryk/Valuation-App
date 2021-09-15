@@ -3,19 +3,13 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import React, { useState } from 'react'
 import { Stepper } from 'components'
 import { Steps } from 'typings'
+import { useAppSelector } from '../../utils/hooks/useAppSelector'
 import {
     ValuationObjectInput,
     ValuationNavigation,
     ValuationObjectsForm,
     ValuationPropertiesForm,
 } from './components'
-
-const initialState = {
-    valuationObjects: [''],
-    valuationCriteria: [''],
-    valuationObject: '',
-    valueCriteriaScale: [0, 5],
-}
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,17 +25,27 @@ export const useStyles = makeStyles((theme: Theme) =>
 )
 
 const ValuationNew: React.FC = () => {
+    const storeValuationObjects = useAppSelector(
+        (state) => state.valuation.valuationObjects
+    )
+    const storeValuationCriteria = useAppSelector(
+        (state) => state.valuation.valuationParametersObjects
+    )
+    const storeValuationObject = useAppSelector(
+        (state) => state.valuation.valuationObject
+    )
+    const storeValueCriteriaScale = useAppSelector(
+        (state) => state.valuation.valuationParametersScale
+    )
     const [valuationObjects, setValidationObjects] = useState<string[]>(
-        initialState.valuationObjects
+        storeValuationObjects
     )
     const [valuationCriteria, setValuationCriteria] = useState<string[]>(
-        initialState.valuationCriteria
+        storeValuationCriteria
     )
-    const [valuationObject, setValuationObject] = useState(
-        initialState.valuationObject
-    )
+    const [valuationObject, setValuationObject] = useState(storeValuationObject)
     const [valueCriteriaScale, setValueCriteriaScale] = useState<number[]>(
-        initialState.valueCriteriaScale
+        storeValueCriteriaScale
     )
     const classes = useStyles()
     return (
