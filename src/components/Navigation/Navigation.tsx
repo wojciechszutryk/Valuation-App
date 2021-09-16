@@ -6,10 +6,8 @@ import {
     Drawer,
     Hidden,
     IconButton,
-    List,
     makeStyles,
     Toolbar,
-    Typography,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import React from 'react'

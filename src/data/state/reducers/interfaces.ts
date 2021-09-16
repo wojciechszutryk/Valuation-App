@@ -19,4 +19,5 @@ export interface ValuationReducer {
     valuationParametersScale: ValuationParametersScale
     valuationParametersObjects: ValuationParametersObjects
     valuationObjects: ValuationObjects
+    mapReference: any
 }

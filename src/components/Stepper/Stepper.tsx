@@ -148,7 +148,6 @@ export default function CustomStepper({
     const finishedSteps = useAppSelector(
         (state) => state.valuation.finishedSteps
     )
-    const [activeStep, setActiveStep] = React.useState(activeStepFromProps)
     const classes = useStyles()
     let history = useHistory()
     const steps = getSteps()
@@ -161,7 +160,7 @@ export default function CustomStepper({
         } else if (step === 1) {
             history.push('/valuation/details')
         } else if (step === 2) {
-            if (activeStep === 0 && finishedSteps < 2) {
+            if (activeStepFromProps === 0 && finishedSteps < 2) {
                 showToast(
                     t(
                         "You can't access that field before completing previous ones."
@@ -178,7 +177,7 @@ export default function CustomStepper({
             <Stepper
                 className={classes.stepper}
                 alternativeLabel
-                activeStep={activeStep}
+                activeStep={activeStepFromProps}
                 connector={<Connector />}
             >
                 {steps.map((label, index) => (

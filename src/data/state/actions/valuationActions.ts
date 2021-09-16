@@ -38,3 +38,8 @@ export const setValuationObjects = (names: ValuationObjects): AnyAction => ({
     type: types.SET_VALUATION_OBJECTS,
     payload: names,
 })
+
+export const setMapReference = (map: any): AnyAction => ({
+    type: types.SET_MAP_REFERENCE,
+    payload: map,
+})

@@ -65,12 +65,6 @@ const ValuationNavigation: React.FC<{
         history.push('/valuation/details')
     }
 
-    console.log(
-        compareArrays(valuationObjects, ['']),
-        compareArrays(valuationCriteria, ['']),
-        valuationObject === ''
-    )
-
     return (
         <Paper className={classes.paper} elevation={0}>
             <Typography className={classes.header} variant="h5">

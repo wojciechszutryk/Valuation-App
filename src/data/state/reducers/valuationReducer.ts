@@ -10,6 +10,7 @@ const initialState = {
     valuationParametersScale: [0, 5],
     valuationParametersObjects: [''],
     valuationObjects: [''],
+    mapReference: null,
 }
 
 const reducer = (
@@ -27,6 +28,8 @@ const reducer = (
             return { ...state, valuationParametersObjects: action.payload }
         case types.SET_VALUATION_OBJECTS:
             return { ...state, valuationObjects: action.payload }
+        case types.SET_MAP_REFERENCE:
+            return { ...state, mapReference: action.payload }
         default:
             return state
     }

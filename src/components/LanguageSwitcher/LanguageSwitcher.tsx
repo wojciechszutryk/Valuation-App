@@ -42,7 +42,7 @@ const LanguageSwitcher = () => {
             i18n.changeLanguage(lng)
             dispatch(setLanguage(lng))
         },
-        [i18n]
+        [i18n, dispatch]
     )
 
     useEffect(() => {
