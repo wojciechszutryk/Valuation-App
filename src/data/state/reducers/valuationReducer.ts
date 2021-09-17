@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux'
-import { FinishedSteps } from 'typings'
+import { FinishedSteps, ValuationObjectsCoordinates } from 'typings'
 
 import { ValuationReducer } from './interfaces'
 import * as types from '../constans'
@@ -10,7 +10,9 @@ const initialState = {
     valuationParametersScale: [0, 5],
     valuationParametersObjects: [''],
     valuationObjects: [''],
+    valuationObjectsCoordinates: [[null, null]] as ValuationObjectsCoordinates,
     mapReference: null,
+    activeObject: 0 as number,
 }
 
 const reducer = (
@@ -28,8 +30,12 @@ const reducer = (
             return { ...state, valuationParametersObjects: action.payload }
         case types.SET_VALUATION_OBJECTS:
             return { ...state, valuationObjects: action.payload }
+        case types.SET_VALUATION_OBJECTS_COORDINATES:
+            return { ...state, valuationObjectsCoordinates: action.payload }
         case types.SET_MAP_REFERENCE:
             return { ...state, mapReference: action.payload }
+        case types.SET_ACTIVE_OBJECT:
+            return { ...state, activeObject: action.payload }
         default:
             return state
     }

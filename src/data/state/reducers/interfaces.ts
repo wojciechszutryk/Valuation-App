@@ -4,6 +4,7 @@ import {
     Theme,
     ValuationObject,
     ValuationObjects,
+    ValuationObjectsCoordinates,
     ValuationParametersObjects,
     ValuationParametersScale,
 } from 'typings'
@@ -19,5 +20,7 @@ export interface ValuationReducer {
     valuationParametersScale: ValuationParametersScale
     valuationParametersObjects: ValuationParametersObjects
     valuationObjects: ValuationObjects
+    valuationObjectsCoordinates: ValuationObjectsCoordinates
     mapReference: any
+    activeObject: number
 }

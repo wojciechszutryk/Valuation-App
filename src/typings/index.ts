@@ -8,3 +8,6 @@ export type ValuationObject = string
 export type ValuationParametersScale = number[]
 export type ValuationParametersObjects = string[]
 export type ValuationObjects = string[]
+export type ValuationObjectsCoordinates = Coordinates[]
+
+export type Coordinates = [number, number] | [null, null]

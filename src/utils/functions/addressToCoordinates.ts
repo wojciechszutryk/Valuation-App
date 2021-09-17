@@ -1,12 +1,15 @@
 import { getGeocode, getLatLng } from 'use-places-autocomplete'
+import type { Coordinates } from 'typings'
 
-export const addressToCoordinates = async (address: string) => {
-    await getGeocode({ address })
+type AddressToCoordinates = (address: string) => any
+
+export const addressToCoordinates: AddressToCoordinates = async (address) => {
+    return await getGeocode({ address })
         .then((results) => getLatLng(results[0]))
         .then(({ lat, lng }) => {
-            return { lat, lng }
+            return [lat, lng] as Coordinates
         })
         .catch((error) => {
-            console.log('😱 Error: ', error)
+            return [null, null] as Coordinates
         })
 }

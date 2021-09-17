@@ -1,24 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react'
-import {
-    GoogleMap,
-    useLoadScript,
-    Marker,
-    InfoWindow,
-} from '@react-google-maps/api'
-import { ClockLoader } from 'react-spinners'
-import { setLanguage } from '../../data/state/actions'
+import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api'
+import { useTranslation } from 'react-i18next'
 import { setMapReference } from '../../data/state/actions/valuationActions'
 import { useAppDispatch } from '../../utils/hooks/useAppDispach'
 import { useAppSelector } from '../../utils/hooks/useAppSelector'
 import { darkMapTheme, lightMapTheme } from './styles'
-
-const libraries = ['places'] as (
-    | 'places'
-    | 'drawing'
-    | 'geometry'
-    | 'localContext'
-    | 'visualization'
-)[]
+import { ValuationObjects, ValuationObjectsCoordinates } from 'typings'
 
 const mapContainerStyle = {
     width: '100%',
@@ -45,33 +32,41 @@ const lightThemeOptions = {
 type MarkerState = {
     lat: number
     lng: number
+    name: string
 } | null
 
-const MyGoogleMaps = ({ name }: { name: string }) => {
+interface Props {
+    valuationObjectsCoordinates: ValuationObjectsCoordinates
+    valuationObjects: ValuationObjects
+}
+
+const MyGoogleMaps = ({
+    valuationObjectsCoordinates,
+    valuationObjects,
+}: Props) => {
     const appTheme = useAppSelector((state) => state.app.theme)
-    const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-        libraries,
-    })
     const [marker, setMarker] = useState<MarkerState>(null)
     const [selected, setSelected] = useState(false)
+    const activeObject = useAppSelector((state) => state.valuation.activeObject)
     const dispatch = useAppDispatch()
+    const { t } = useTranslation()
 
     const onMapClick = useCallback((event) => {
         setMarker({
             lat: event.latLng.lat(),
             lng: event.latLng.lng(),
+            name: valuationObjects[activeObject],
         })
     }, [])
 
     const mapRef = useRef()
-    const onMapLoad = useCallback((map) => {
-        mapRef.current = map
-        dispatch(setMapReference(map))
-    }, [])
-
-    if (loadError) return <div>'Error Loading map'</div>
-    if (!isLoaded) return <ClockLoader size={150} />
+    const onMapLoad = useCallback(
+        (map) => {
+            mapRef.current = map
+            dispatch(setMapReference(map))
+        },
+        [mapRef, dispatch]
+    )
 
     return (
         <div>
@@ -96,14 +91,11 @@ const MyGoogleMaps = ({ name }: { name: string }) => {
                     />
                 ) : null}
                 {selected && marker ? (
-                    <InfoWindow
-                        position={{ lat: marker.lat, lng: marker.lng }}
-                        // onCloseClick={() => {
-                        //     setSelected((current) => !current)
-                        // }}
-                    >
+                    <InfoWindow position={{ lat: marker.lat, lng: marker.lng }}>
                         <div>
-                            <h2>{name}</h2>
+                            <h2>{marker.name}</h2>
+                            <p>{t('latitude') + ' :' + marker.lat + '°'}</p>
+                            <p>{t('longitude') + ' :' + marker.lng + '°'}</p>
                         </div>
                     </InfoWindow>
                 ) : null}

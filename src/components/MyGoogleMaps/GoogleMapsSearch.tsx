@@ -1,3 +1,5 @@
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import clsx from 'clsx'
 import React from 'react'
 import usePlacesAutocomplete, {
     getGeocode,
@@ -10,9 +12,55 @@ import {
     ComboboxList,
     ComboboxOption,
 } from '@reach/combobox'
-import { addressToCoordinates } from '../../utils/functions'
 import { useAppSelector } from '../../utils/hooks/useAppSelector'
-import LatLng = google.maps.LatLng
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        form__field: {
+            font: 'inherit',
+            fontWeight: 'normal',
+            fontFamily: 'Roboto',
+            fontSize: '16px',
+            width: '100%',
+            height: 40,
+            border:
+                theme.palette.type === 'dark'
+                    ? `1px solid ${theme.palette.grey[600]}`
+                    : `1px solid ${theme.palette.grey[500]}`,
+            outline: '0',
+            color: theme.palette.text.primary,
+            background: 'transparent',
+            borderRadius: 4,
+            padding: '7.5px 14px',
+            '&::placeholder': {
+                color:
+                    theme.palette.type === 'dark'
+                        ? theme.palette.grey[500]
+                        : theme.palette.grey[600],
+            },
+            '&:hover': {
+                border:
+                    theme.palette.type === 'dark'
+                        ? `1px solid ${theme.palette.grey[100]}`
+                        : `1px solid ${theme.palette.grey[900]}`,
+            },
+            '&:focus': {
+                border:
+                    theme.palette.type === 'dark'
+                        ? `2px solid ${theme.palette.grey[600]}`
+                        : `2px solid ${theme.palette.primary.light}`,
+                padding: '6.5px 13px',
+            },
+        },
+        form__li: {
+            cursor: 'pointer',
+            transition: '.2s',
+            '&:hover': {
+                backgroundColor: theme.palette.background.paper,
+            },
+        },
+    })
+)
 
 const GoogleMapsSearch: React.FC = () => {
     const {
@@ -22,18 +70,18 @@ const GoogleMapsSearch: React.FC = () => {
         setValue,
         clearSuggestions,
     } = usePlacesAutocomplete({
-        requestOptions: {
-            location: { lat: () => 43.6532, lng: () => -79.3832 } as LatLng,
-            radius: 100 * 1000,
-        },
+        requestOptions: {},
     })
     const mapRef = useAppSelector((state) => state.valuation.mapReference)
+    const classes = useStyles()
 
-    const panTo = React.useCallback(({ lat, lng }) => {
-        console.log(lat, lng)
-        mapRef.panTo({ lat, lng })
-        mapRef.setZoom(14)
-    }, [])
+    const panTo = React.useCallback(
+        ({ lat, lng }) => {
+            mapRef.panTo({ lat, lng })
+            mapRef.setZoom(17)
+        },
+        [mapRef]
+    )
 
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
@@ -58,13 +106,22 @@ const GoogleMapsSearch: React.FC = () => {
                     value={value}
                     onChange={handleInput}
                     disabled={!ready}
-                    placeholder="Search your location"
+                    placeholder="aaaaaa"
+                    id="name"
+                    className={classes.form__field}
                 />
                 <ComboboxPopover>
                     <ComboboxList>
                         {status === 'OK' &&
-                            data.map(({ id, description }) => (
-                                <ComboboxOption key={id} value={description} />
+                            data.map(({ id, description }, index) => (
+                                <ComboboxOption
+                                    className={clsx(
+                                        classes.form__field,
+                                        classes.form__li
+                                    )}
+                                    key={index}
+                                    value={description}
+                                />
                             ))}
                     </ComboboxList>
                 </ComboboxPopover>

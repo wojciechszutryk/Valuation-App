@@ -3,6 +3,7 @@ import {
     FinishedSteps,
     ValuationObject,
     ValuationObjects,
+    ValuationObjectsCoordinates,
     ValuationParametersObjects,
     ValuationParametersScale,
 } from 'typings'
@@ -39,7 +40,19 @@ export const setValuationObjects = (names: ValuationObjects): AnyAction => ({
     payload: names,
 })
 
+export const setValuationObjectsCoordinates = (
+    coordinates: ValuationObjectsCoordinates
+): AnyAction => ({
+    type: types.SET_VALUATION_OBJECTS_COORDINATES,
+    payload: coordinates,
+})
+
 export const setMapReference = (map: any): AnyAction => ({
     type: types.SET_MAP_REFERENCE,
     payload: map,
+})
+
+export const setActiveObject = (object: number): AnyAction => ({
+    type: types.SET_ACTIVE_OBJECT,
+    payload: object,
 })
