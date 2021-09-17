@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api'
 import { useTranslation } from 'react-i18next'
 import { setMapReference } from '../../data/state/actions/valuationActions'
@@ -33,7 +33,7 @@ type MarkerState = {
     lat: number
     lng: number
     name: string
-} | null
+}
 
 interface Props {
     valuationObjectsCoordinates: ValuationObjectsCoordinates
@@ -44,19 +44,35 @@ const MyGoogleMaps = ({
     valuationObjectsCoordinates,
     valuationObjects,
 }: Props) => {
+    useEffect(() => {
+        const markerState = [] as MarkerState[]
+        valuationObjectsCoordinates.forEach((coord, index) => {
+            if (coord[0] && coord[1]) {
+                const marker = {} as MarkerState
+                marker.lat = coord[0]
+                marker.lng = coord[1]
+                marker.name = valuationObjects[index]
+                markerState.push(marker)
+            }
+        })
+        setMarkers(markerState)
+    }, [valuationObjects, valuationObjectsCoordinates])
     const appTheme = useAppSelector((state) => state.app.theme)
-    const [marker, setMarker] = useState<MarkerState>(null)
-    const [selected, setSelected] = useState(false)
+    const [markers, setMarkers] = useState<MarkerState[]>([])
+    const [selected, setSelected] = useState<MarkerState | null>(null)
     const activeObject = useAppSelector((state) => state.valuation.activeObject)
     const dispatch = useAppDispatch()
     const { t } = useTranslation()
 
     const onMapClick = useCallback((event) => {
-        setMarker({
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng(),
-            name: valuationObjects[activeObject],
-        })
+        setMarkers((current) => [
+            ...current,
+            {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng(),
+                name: valuationObjects[activeObject],
+            },
+        ])
     }, [])
 
     const mapRef = useRef()
@@ -82,20 +98,29 @@ const MyGoogleMaps = ({
                 onClick={onMapClick}
                 onLoad={onMapLoad}
             >
-                {marker ? (
-                    <Marker
-                        position={{ lat: marker.lat, lng: marker.lng }}
-                        onClick={() => {
-                            setSelected((current) => !current)
+                {markers.map((marker, index) => {
+                    if (marker)
+                        return (
+                            <Marker
+                                key={index}
+                                position={{ lat: marker.lat, lng: marker.lng }}
+                                onClick={() => {
+                                    setSelected(marker)
+                                }}
+                            />
+                        )
+                })}
+                {selected ? (
+                    <InfoWindow
+                        position={{ lat: selected.lat, lng: selected.lng }}
+                        onCloseClick={() => {
+                            setSelected(null)
                         }}
-                    />
-                ) : null}
-                {selected && marker ? (
-                    <InfoWindow position={{ lat: marker.lat, lng: marker.lng }}>
+                    >
                         <div>
-                            <h2>{marker.name}</h2>
-                            <p>{t('latitude') + ' :' + marker.lat + '°'}</p>
-                            <p>{t('longitude') + ' :' + marker.lng + '°'}</p>
+                            <h2>{selected.name}</h2>
+                            <p>{t('latitude') + ' :' + selected.lat + '°'}</p>
+                            <p>{t('longitude') + ' :' + selected.lng + '°'}</p>
                         </div>
                     </InfoWindow>
                 ) : null}

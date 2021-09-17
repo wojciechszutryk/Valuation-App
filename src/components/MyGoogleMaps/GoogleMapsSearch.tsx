@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
                     : `1px solid ${theme.palette.grey[500]}`,
             outline: '0',
             color: theme.palette.text.primary,
-            background: 'transparent',
+            background: theme.palette.background.default,
             borderRadius: 4,
             padding: '7.5px 14px',
             '&::placeholder': {
