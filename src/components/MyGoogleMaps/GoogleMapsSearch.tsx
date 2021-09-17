@@ -1,6 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
@@ -74,6 +75,7 @@ const GoogleMapsSearch: React.FC = () => {
     })
     const mapRef = useAppSelector((state) => state.valuation.mapReference)
     const classes = useStyles()
+    const { t } = useTranslation()
 
     const panTo = React.useCallback(
         ({ lat, lng }) => {
@@ -106,7 +108,7 @@ const GoogleMapsSearch: React.FC = () => {
                     value={value}
                     onChange={handleInput}
                     disabled={!ready}
-                    placeholder="aaaaaa"
+                    placeholder={t('city, address')}
                     id="name"
                     className={classes.form__field}
                 />

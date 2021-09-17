@@ -18,5 +18,8 @@
   "Define valuation criteria": "Bewertungskriterien definieren",
   "Creiteria scale": "Creiteria-Skala",
   "from": "von",
-  "to": "zu"
+  "to": "zu",
+  "latitude": "Breite",
+  "longitude": "Längengrad",
+  "city, address": "Stadt, Adresse"
 }
