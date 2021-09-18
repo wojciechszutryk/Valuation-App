@@ -5,6 +5,7 @@ import {
     ValuationObject,
     ValuationObjects,
     ValuationObjectsCoordinates,
+    Coordinates,
     ValuationParametersObjects,
     ValuationParametersScale,
 } from 'typings'
@@ -21,6 +22,7 @@ export interface ValuationReducer {
     valuationParametersObjects: ValuationParametersObjects
     valuationObjects: ValuationObjects
     valuationObjectsCoordinates: ValuationObjectsCoordinates
+    valuationObjectCoordinates: Coordinates
     mapReference: any
     activeObject: number
 }

@@ -4,6 +4,7 @@ import {
     ValuationObject,
     ValuationObjects,
     ValuationObjectsCoordinates,
+    Coordinates,
     ValuationParametersObjects,
     ValuationParametersScale,
 } from 'typings'
@@ -44,6 +45,13 @@ export const setValuationObjectsCoordinates = (
     coordinates: ValuationObjectsCoordinates
 ): AnyAction => ({
     type: types.SET_VALUATION_OBJECTS_COORDINATES,
+    payload: coordinates,
+})
+
+export const setValuationObjectCoordinates = (
+    coordinates: Coordinates
+): AnyAction => ({
+    type: types.SET_VALUATION_OBJECT_COORDINATES,
     payload: coordinates,
 })
 

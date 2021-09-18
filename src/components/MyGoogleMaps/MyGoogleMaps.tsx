@@ -5,7 +5,7 @@ import { setMapReference, setValuationObjectsCoordinates } from '../../data/stat
 import { useAppDispatch } from '../../utils/hooks/useAppDispach'
 import { useAppSelector } from '../../utils/hooks/useAppSelector'
 import { darkMapTheme, lightMapTheme } from './styles'
-import { ValuationObjects, ValuationObjectsCoordinates } from 'typings'
+import { ValuationObjects, ValuationObjectsCoordinates, Coordinates } from 'typings'
 
 const mapContainerStyle = {
     width: '100%',
@@ -37,12 +37,16 @@ type MarkerState = {
 
 interface Props {
     valuationObjectsCoordinates: ValuationObjectsCoordinates
+    valuationObjectCoordinates: Coordinates
     valuationObjects: ValuationObjects
+    valuationObject: string
 }
 
 const MyGoogleMaps = ({
     valuationObjectsCoordinates,
+    valuationObjectCoordinates,
     valuationObjects,
+    valuationObject,
 }: Props) => {
     useEffect(() => {
         const markerState = [] as MarkerState[]
@@ -55,8 +59,15 @@ const MyGoogleMaps = ({
                 markerState.push(marker)
             }
         })
+        if (valuationObjectCoordinates[0] && valuationObjectCoordinates[1]) {
+            const marker = {} as MarkerState
+            marker.lat = valuationObjectCoordinates[0]
+            marker.lng = valuationObjectCoordinates[1]
+            marker.name = valuationObject
+            markerState.push(marker)
+        }
         setMarkers(markerState)
-    }, [valuationObjects, valuationObjectsCoordinates])
+    }, [valuationObjects, valuationObjectsCoordinates, valuationObject, valuationObjectCoordinates])
     const appTheme = useAppSelector((state) => state.app.theme)
     const [markers, setMarkers] = useState<MarkerState[]>([])
     const [selected, setSelected] = useState<MarkerState | null>(null)
