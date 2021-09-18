@@ -7,6 +7,7 @@ import { addressToCoordinates } from 'utils/functions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import { setValuationObjectsCoordinates, setValuationObjectCoordinates } from '../../data/state/actions/valuationActions'
+import {ValuationObjectsCardsWrapper} from './components'
 
 const ValuationDetails: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -62,6 +63,11 @@ const ValuationDetails: React.FC = () => {
                 valuationObject={storeValuationObject}
             />
             <GoogleMapsSearch />
+            <ValuationObjectsCardsWrapper
+                valuationObjects={storeValuationObjects}
+                valuationObject={storeValuationObject}
+                valuationCriteria={storeValuationCriteria}
+            />
         </Container>
     )
 }
