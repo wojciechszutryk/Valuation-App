@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api'
 import { useTranslation } from 'react-i18next'
-import { setMapReference } from '../../data/state/actions/valuationActions'
+import { setMapReference, setValuationObjectsCoordinates } from '../../data/state/actions/valuationActions'
 import { useAppDispatch } from '../../utils/hooks/useAppDispach'
 import { useAppSelector } from '../../utils/hooks/useAppSelector'
 import { darkMapTheme, lightMapTheme } from './styles'
@@ -65,14 +65,11 @@ const MyGoogleMaps = ({
     const { t } = useTranslation()
 
     const onMapClick = useCallback((event) => {
-        setMarkers((current) => [
-            ...current,
-            {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
-                name: valuationObjects[activeObject],
-            },
-        ])
+        const valuationObjectsCoordinatesCopy = [...valuationObjectsCoordinates];
+        valuationObjectsCoordinates.forEach((coord, index) => {
+            if (index === activeObject) valuationObjectsCoordinatesCopy[index] = [event.latLng.lat(), event.latLng.lng()]
+        })
+        dispatch(setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy))
     }, [])
 
     const mapRef = useRef()
