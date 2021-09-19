@@ -2,12 +2,14 @@ import { Container } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { GoogleMaps, Stepper } from 'components'
 import { Steps, ValuationObjectsCoordinates } from 'typings'
-import GoogleMapsSearch from 'components/MyGoogleMaps/GoogleMapsSearch'
 import { addressToCoordinates } from 'utils/functions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import { setValuationObjectsCoordinates, setValuationObjectCoordinates } from '../../data/state/actions/valuationActions'
-import {ValuationObjectsCardsWrapper} from './components'
+import {
+    setValuationObjectsCoordinates,
+    setValuationObjectCoordinates,
+} from '../../data/state/actions/valuationActions'
+import { ValuationObjectsCardsWrapper } from './components'
 
 const ValuationDetails: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -26,9 +28,6 @@ const ValuationDetails: React.FC = () => {
     const storeObjectCoordinates = useAppSelector(
         (state) => state.valuation.valuationObjectCoordinates
     )
-    const storeValueCriteriaScale = useAppSelector(
-        (state) => state.valuation.valuationParametersScale
-    )
 
     const exampleObjects = [
         'dębica, gawrysia 19',
@@ -40,7 +39,6 @@ const ValuationDetails: React.FC = () => {
     const objectsToCoords = async () => {
         const coords: ValuationObjectsCoordinates = []
         for (const obj of storeValuationObjects) {
-            // for (const obj of exampleObjects) {
             const coord = await addressToCoordinates(obj)
             await coords.push(coord)
         }
@@ -62,11 +60,12 @@ const ValuationDetails: React.FC = () => {
                 valuationObjects={storeValuationObjects}
                 valuationObject={storeValuationObject}
             />
-            <GoogleMapsSearch />
             <ValuationObjectsCardsWrapper
                 valuationObjects={storeValuationObjects}
                 valuationObject={storeValuationObject}
                 valuationCriteria={storeValuationCriteria}
+                valuationObjectsCoordinates={storeObjectsCoordinates}
+                valuationObjectCoordinates={storeObjectCoordinates}
             />
         </Container>
     )

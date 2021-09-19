@@ -13,6 +13,11 @@ import {
     ComboboxList,
     ComboboxOption,
 } from '@reach/combobox'
+import {
+    setActiveObject,
+    setValuationObjectsCoordinates,
+} from '../../data/state/actions/valuationActions'
+import { useAppDispatch } from '../../utils/hooks/useAppDispach'
 import { useAppSelector } from '../../utils/hooks/useAppSelector'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -74,8 +79,13 @@ const GoogleMapsSearch: React.FC = () => {
         requestOptions: {},
     })
     const mapRef = useAppSelector((state) => state.valuation.mapReference)
+    const activeObject = useAppSelector((state) => state.valuation.activeObject)
+    const valuationObjectsCoordinates = useAppSelector(
+        (state) => state.valuation.valuationObjectsCoordinates
+    )
     const classes = useStyles()
     const { t } = useTranslation()
+    const dispatch = useAppDispatch()
 
     const panTo = React.useCallback(
         ({ lat, lng }) => {
@@ -95,6 +105,13 @@ const GoogleMapsSearch: React.FC = () => {
         try {
             const results = await getGeocode({ address })
             const { lat, lng } = await getLatLng(results[0])
+            const valuationObjectsCoordinatesCopy = [
+                ...valuationObjectsCoordinates,
+            ]
+            valuationObjectsCoordinatesCopy[activeObject] = [lat, lng]
+            dispatch(
+                setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy)
+            )
             panTo({ lat, lng })
         } catch (error) {
             console.log('😱 Error: ', error)

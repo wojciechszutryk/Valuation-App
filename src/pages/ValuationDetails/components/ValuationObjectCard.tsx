@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
 import { ValuationObjects, ValuationParametersObjects } from 'typings'
-import { Card, CardActions, CardContent, Typography, Slider } from '@material-ui/core';
+import {
+    Card,
+    CardActions,
+    CardContent,
+    Typography,
+    Slider,
+    Box,
+} from '@material-ui/core'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
+import GoogleMapsSearch from '../../../components/MyGoogleMaps/GoogleMapsSearch'
 
 interface Props {
     valuationCriteria: ValuationParametersObjects
@@ -11,12 +19,24 @@ const ValuationObjectCard = ({ valuationCriteria, title }: Props) => {
     const valuationParametersScale = useAppSelector(
         (state) => state.valuation.valuationParametersScale
     )
-    const [criteriaValues, setCriteriaValues] = useState<number[]>(Array(valuationCriteria.length).fill(valuationParametersScale[1] - Math.floor((valuationParametersScale[1] - valuationParametersScale[0]) / 2)));
+    const [criteriaValues, setCriteriaValues] = useState<number[]>(
+        Array(valuationCriteria.length).fill(
+            valuationParametersScale[1] -
+                Math.floor(
+                    (valuationParametersScale[1] -
+                        valuationParametersScale[0]) /
+                        2
+                )
+        )
+    )
 
-    const handleCriteriaChange = (criteria: number, value: number | number[]) => {
+    const handleCriteriaChange = (
+        criteria: number,
+        value: number | number[]
+    ) => {
         if (typeof value === 'number') {
-            const criteriaValuesCopy = [...criteriaValues];
-            criteriaValuesCopy[criteria] = value;
+            const criteriaValuesCopy = [...criteriaValues]
+            criteriaValuesCopy[criteria] = value
             setCriteriaValues(criteriaValuesCopy)
         }
     }
@@ -27,11 +47,11 @@ const ValuationObjectCard = ({ valuationCriteria, title }: Props) => {
                 <Typography gutterBottom variant="h2">
                     {title}
                 </Typography>
+                <GoogleMapsSearch />
                 {valuationCriteria.map((criteria, index) => (
-                    <>
+                    <Box key={criteria}>
                         <Typography gutterBottom>{criteria}</Typography>
                         <Slider
-                            key={criteria}
                             aria-label="Valuation Criteria"
                             defaultValue={30}
                             valueLabelDisplay="auto"
@@ -40,13 +60,15 @@ const ValuationObjectCard = ({ valuationCriteria, title }: Props) => {
                             value={criteriaValues[index]}
                             min={valuationParametersScale[0]}
                             max={valuationParametersScale[1]}
-                            onChange={(event, value) => handleCriteriaChange(index, value)}
+                            onChange={(event, value) =>
+                                handleCriteriaChange(index, value)
+                            }
                         />
-                    </>
+                    </Box>
                 ))}
             </CardContent>
         </Card>
     )
 }
 
-export default ValuationObjectCard;
+export default ValuationObjectCard

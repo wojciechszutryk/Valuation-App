@@ -1,11 +1,18 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api'
 import { useTranslation } from 'react-i18next'
-import { setMapReference, setValuationObjectsCoordinates } from '../../data/state/actions/valuationActions'
+import {
+    setMapReference,
+    setValuationObjectsCoordinates,
+} from '../../data/state/actions/valuationActions'
 import { useAppDispatch } from '../../utils/hooks/useAppDispach'
 import { useAppSelector } from '../../utils/hooks/useAppSelector'
 import { darkMapTheme, lightMapTheme } from './styles'
-import { ValuationObjects, ValuationObjectsCoordinates, Coordinates } from 'typings'
+import {
+    ValuationObjects,
+    ValuationObjectsCoordinates,
+    Coordinates,
+} from 'typings'
 
 const mapContainerStyle = {
     width: '100%',
@@ -67,7 +74,12 @@ const MyGoogleMaps = ({
             markerState.push(marker)
         }
         setMarkers(markerState)
-    }, [valuationObjects, valuationObjectsCoordinates, valuationObject, valuationObjectCoordinates])
+    }, [
+        valuationObjects,
+        valuationObjectsCoordinates,
+        valuationObject,
+        valuationObjectCoordinates,
+    ])
     const appTheme = useAppSelector((state) => state.app.theme)
     const [markers, setMarkers] = useState<MarkerState[]>([])
     const [selected, setSelected] = useState<MarkerState | null>(null)
@@ -75,13 +87,24 @@ const MyGoogleMaps = ({
     const dispatch = useAppDispatch()
     const { t } = useTranslation()
 
-    const onMapClick = useCallback((event) => {
-        const valuationObjectsCoordinatesCopy = [...valuationObjectsCoordinates];
-        valuationObjectsCoordinates.forEach((coord, index) => {
-            if (index === activeObject) valuationObjectsCoordinatesCopy[index] = [event.latLng.lat(), event.latLng.lng()]
-        })
-        dispatch(setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy))
-    }, [])
+    const onMapClick = useCallback(
+        (event) => {
+            const valuationObjectsCoordinatesCopy = [
+                ...valuationObjectsCoordinates,
+            ]
+            valuationObjectsCoordinates.forEach((coord, index) => {
+                if (index === activeObject)
+                    valuationObjectsCoordinatesCopy[index] = [
+                        event.latLng.lat(),
+                        event.latLng.lng(),
+                    ]
+            })
+            dispatch(
+                setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy)
+            )
+        },
+        [dispatch, valuationObjectsCoordinates, activeObject]
+    )
 
     const mapRef = useRef()
     const onMapLoad = useCallback(
@@ -117,6 +140,7 @@ const MyGoogleMaps = ({
                                 }}
                             />
                         )
+                    return null
                 })}
                 {selected ? (
                     <InfoWindow
