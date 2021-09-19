@@ -1,3 +1,4 @@
+import { createStyles, makeStyles } from '@material-ui/core'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +14,14 @@ import {
     ValuationObjectsCoordinates,
     Coordinates,
 } from 'typings'
+
+const useStyles = makeStyles((theme) => {
+    return createStyles({
+        infoWindow: {
+            color: '#000000',
+        },
+    })
+})
 
 const mapContainerStyle = {
     width: '100%',
@@ -80,6 +89,7 @@ const MyGoogleMaps = ({
         valuationObject,
         valuationObjectCoordinates,
     ])
+    const classes = useStyles()
     const appTheme = useAppSelector((state) => state.app.theme)
     const [markers, setMarkers] = useState<MarkerState[]>([])
     const [selected, setSelected] = useState<MarkerState | null>(null)
@@ -149,7 +159,7 @@ const MyGoogleMaps = ({
                             setSelected(null)
                         }}
                     >
-                        <div>
+                        <div className={classes.infoWindow}>
                             <h2>{selected.name}</h2>
                             <p>{t('latitude') + ' :' + selected.lat + '°'}</p>
                             <p>{t('longitude') + ' :' + selected.lng + '°'}</p>

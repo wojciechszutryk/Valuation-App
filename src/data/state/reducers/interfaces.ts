@@ -22,6 +22,10 @@ export interface ValuationReducer {
     valuationParametersObjects: ValuationParametersObjects
     valuationObjects: ValuationObjects
     valuationObjectsCoordinates: ValuationObjectsCoordinates
+    valuationObjectsAreas: number[]
+    valuationObjectArea: number
+    valuationObjectsPrices: number[]
+    valuationObjectPrice: number
     valuationObjectCoordinates: Coordinates
     mapReference: any
     activeObject: number

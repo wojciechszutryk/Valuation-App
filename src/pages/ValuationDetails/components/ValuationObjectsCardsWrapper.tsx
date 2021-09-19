@@ -74,6 +74,7 @@ const ValuationObjectsCardsWrapper = ({
                     onClick={() => handleSelectObject(index)}
                 >
                     <ValuationObjectCard
+                        index={index}
                         active={activeObject === index}
                         title={obj}
                         address={
