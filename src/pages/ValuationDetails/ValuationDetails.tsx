@@ -6,7 +6,8 @@ import GoogleMapsSearch from 'components/MyGoogleMaps/GoogleMapsSearch'
 import { addressToCoordinates } from 'utils/functions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import { setValuationObjectsCoordinates } from '../../data/state/actions/valuationActions'
+import { setValuationObjectsCoordinates, setValuationObjectCoordinates } from '../../data/state/actions/valuationActions'
+import {ValuationObjectsCardsWrapper} from './components'
 
 const ValuationDetails: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -21,6 +22,9 @@ const ValuationDetails: React.FC = () => {
     )
     const storeObjectsCoordinates = useAppSelector(
         (state) => state.valuation.valuationObjectsCoordinates
+    )
+    const storeObjectCoordinates = useAppSelector(
+        (state) => state.valuation.valuationObjectCoordinates
     )
     const storeValueCriteriaScale = useAppSelector(
         (state) => state.valuation.valuationParametersScale
@@ -40,7 +44,9 @@ const ValuationDetails: React.FC = () => {
             const coord = await addressToCoordinates(obj)
             await coords.push(coord)
         }
+        const coord = await addressToCoordinates(storeValuationObject)
         dispatch(setValuationObjectsCoordinates(coords))
+        dispatch(setValuationObjectCoordinates(coord))
     }
 
     useEffect(() => {
@@ -52,9 +58,16 @@ const ValuationDetails: React.FC = () => {
             <Stepper activeStepFromProps={1 as Steps} />
             <GoogleMaps
                 valuationObjectsCoordinates={storeObjectsCoordinates}
+                valuationObjectCoordinates={storeObjectCoordinates}
                 valuationObjects={storeValuationObjects}
+                valuationObject={storeValuationObject}
             />
             <GoogleMapsSearch />
+            <ValuationObjectsCardsWrapper
+                valuationObjects={storeValuationObjects}
+                valuationObject={storeValuationObject}
+                valuationCriteria={storeValuationCriteria}
+            />
         </Container>
     )
 }

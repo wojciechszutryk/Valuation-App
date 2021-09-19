@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api'
 import { useTranslation } from 'react-i18next'
-import { setMapReference } from '../../data/state/actions/valuationActions'
+import { setMapReference, setValuationObjectsCoordinates } from '../../data/state/actions/valuationActions'
 import { useAppDispatch } from '../../utils/hooks/useAppDispach'
 import { useAppSelector } from '../../utils/hooks/useAppSelector'
 import { darkMapTheme, lightMapTheme } from './styles'
-import { ValuationObjects, ValuationObjectsCoordinates } from 'typings'
+import { ValuationObjects, ValuationObjectsCoordinates, Coordinates } from 'typings'
 
 const mapContainerStyle = {
     width: '100%',
@@ -37,12 +37,16 @@ type MarkerState = {
 
 interface Props {
     valuationObjectsCoordinates: ValuationObjectsCoordinates
+    valuationObjectCoordinates: Coordinates
     valuationObjects: ValuationObjects
+    valuationObject: string
 }
 
 const MyGoogleMaps = ({
     valuationObjectsCoordinates,
+    valuationObjectCoordinates,
     valuationObjects,
+    valuationObject,
 }: Props) => {
     useEffect(() => {
         const markerState = [] as MarkerState[]
@@ -55,8 +59,15 @@ const MyGoogleMaps = ({
                 markerState.push(marker)
             }
         })
+        if (valuationObjectCoordinates[0] && valuationObjectCoordinates[1]) {
+            const marker = {} as MarkerState
+            marker.lat = valuationObjectCoordinates[0]
+            marker.lng = valuationObjectCoordinates[1]
+            marker.name = valuationObject
+            markerState.push(marker)
+        }
         setMarkers(markerState)
-    }, [valuationObjects, valuationObjectsCoordinates])
+    }, [valuationObjects, valuationObjectsCoordinates, valuationObject, valuationObjectCoordinates])
     const appTheme = useAppSelector((state) => state.app.theme)
     const [markers, setMarkers] = useState<MarkerState[]>([])
     const [selected, setSelected] = useState<MarkerState | null>(null)
@@ -65,14 +76,11 @@ const MyGoogleMaps = ({
     const { t } = useTranslation()
 
     const onMapClick = useCallback((event) => {
-        setMarkers((current) => [
-            ...current,
-            {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
-                name: valuationObjects[activeObject],
-            },
-        ])
+        const valuationObjectsCoordinatesCopy = [...valuationObjectsCoordinates];
+        valuationObjectsCoordinates.forEach((coord, index) => {
+            if (index === activeObject) valuationObjectsCoordinatesCopy[index] = [event.latLng.lat(), event.latLng.lng()]
+        })
+        dispatch(setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy))
     }, [])
 
     const mapRef = useRef()
