@@ -46,18 +46,21 @@ const ValuationObjectsCardsWrapper = ({
         [mapRef]
     )
 
-    const handleSelectObject = useCallback((index: number) => {
-        dispatch(setActiveObject(index))
-        if (valuationObjectsCoordinates[index][0] !== null)
-            panTo(
-                Object.fromEntries(
-                    new Map([
-                        ['lat', valuationObjectsCoordinates[index][0]],
-                        ['lng', valuationObjectsCoordinates[index][1]],
-                    ])
+    const handleSelectObject = useCallback(
+        (index: number) => {
+            dispatch(setActiveObject(index))
+            if (valuationObjectsCoordinates[index][0] !== null)
+                panTo(
+                    Object.fromEntries(
+                        new Map([
+                            ['lat', valuationObjectsCoordinates[index][0]],
+                            ['lng', valuationObjectsCoordinates[index][1]],
+                        ])
+                    )
                 )
-            )
-    }, [])
+        },
+        [activeObject, valuationObjectsCoordinates, dispatch, panTo]
+    )
 
     return (
         <Grid container spacing={2} className={classes.wrapper}>
@@ -71,7 +74,13 @@ const ValuationObjectsCardsWrapper = ({
                     onClick={() => handleSelectObject(index)}
                 >
                     <ValuationObjectCard
+                        active={activeObject === index}
                         title={obj}
+                        address={
+                            valuationObjectsCoordinates[index] !== null
+                                ? obj
+                                : ''
+                        }
                         valuationCriteria={valuationCriteria}
                     />
                 </Grid>

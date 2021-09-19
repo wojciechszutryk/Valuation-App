@@ -1,21 +1,38 @@
 import React, { useState } from 'react'
-import { ValuationObjects, ValuationParametersObjects } from 'typings'
+import { ValuationParametersObjects } from 'typings'
 import {
     Card,
-    CardActions,
     CardContent,
     Typography,
     Slider,
     Box,
+    makeStyles,
+    createStyles,
 } from '@material-ui/core'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import GoogleMapsSearch from '../../../components/MyGoogleMaps/GoogleMapsSearch'
+import GoogleMapsSearch from 'components/MyGoogleMaps/GoogleMapsSearch'
+
+const useStyles = makeStyles((theme) => {
+    return createStyles({
+        active: {
+            boxShadow: `0px 0px 0px 3px ${theme.palette.primary.light} inset`,
+        },
+    })
+})
 
 interface Props {
     valuationCriteria: ValuationParametersObjects
     title: string
+    address: string
+    active: boolean
 }
-const ValuationObjectCard = ({ valuationCriteria, title }: Props) => {
+const ValuationObjectCard = ({
+    valuationCriteria,
+    title,
+    address,
+    active,
+}: Props) => {
+    const classes = useStyles()
     const valuationParametersScale = useAppSelector(
         (state) => state.valuation.valuationParametersScale
     )
@@ -42,12 +59,12 @@ const ValuationObjectCard = ({ valuationCriteria, title }: Props) => {
     }
 
     return (
-        <Card>
+        <Card className={active ? classes.active : undefined}>
             <CardContent>
                 <Typography gutterBottom variant="h2">
                     {title}
                 </Typography>
-                <GoogleMapsSearch />
+                <GoogleMapsSearch address={address} />
                 {valuationCriteria.map((criteria, index) => (
                     <Box key={criteria}>
                         <Typography gutterBottom>{criteria}</Typography>

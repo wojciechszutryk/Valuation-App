@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import usePlacesAutocomplete, {
     getGeocode,
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-const GoogleMapsSearch: React.FC = () => {
+const GoogleMapsSearch = ({ address }: { address: string }) => {
     const {
         ready,
         value,
@@ -78,6 +78,9 @@ const GoogleMapsSearch: React.FC = () => {
     } = usePlacesAutocomplete({
         requestOptions: {},
     })
+    useMemo(() => {
+        setValue(address)
+    }, [address])
     const mapRef = useAppSelector((state) => state.valuation.mapReference)
     const activeObject = useAppSelector((state) => state.valuation.activeObject)
     const valuationObjectsCoordinates = useAppSelector(
