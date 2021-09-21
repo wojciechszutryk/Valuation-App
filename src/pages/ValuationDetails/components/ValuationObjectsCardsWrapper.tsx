@@ -10,6 +10,7 @@ import { setActiveObject } from 'data/state/actions/valuationActions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import ValuationObjectCard from './ValuationObjectCard'
+import ValuationObjectsCard from './ValuationObjectsCard'
 
 const useStyles = makeStyles((theme) => {
     return createStyles({
@@ -47,7 +48,19 @@ const ValuationObjectsCardsWrapper = ({
     )
 
     const handleSelectObject = useCallback(
-        (index: number) => {
+        (index: number | null) => {
+            if (index === null) {
+                if (valuationObjectCoordinates[0] !== null)
+                    panTo(
+                        Object.fromEntries(
+                            new Map([
+                                ['lat', valuationObjectCoordinates[0]],
+                                ['lng', valuationObjectCoordinates[1]],
+                            ])
+                        )
+                    )
+                return
+            }
             dispatch(setActiveObject(index))
             if (valuationObjectsCoordinates[index][0] !== null)
                 panTo(
@@ -64,6 +77,23 @@ const ValuationObjectsCardsWrapper = ({
 
     return (
         <Grid container spacing={2} className={classes.wrapper}>
+            <Grid
+                item
+                xs={12}
+                sm={6}
+                lg={4}
+                onClick={() => handleSelectObject(null)}
+            >
+                <ValuationObjectCard
+                    title={valuationObject}
+                    address={
+                        valuationObjectCoordinates[0] !== null
+                            ? valuationObject
+                            : ''
+                    }
+                    valuationCriteria={valuationCriteria}
+                />
+            </Grid>
             {valuationObjects.map((obj, index) => (
                 <Grid
                     item
@@ -73,7 +103,7 @@ const ValuationObjectsCardsWrapper = ({
                     lg={4}
                     onClick={() => handleSelectObject(index)}
                 >
-                    <ValuationObjectCard
+                    <ValuationObjectsCard
                         index={index}
                         active={activeObject === index}
                         title={obj}

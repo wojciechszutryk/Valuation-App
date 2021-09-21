@@ -4,6 +4,13 @@ import React from 'react'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { useTranslation } from 'react-i18next'
 import { showToast, findDuplicatesInArray } from 'utils'
+import {
+    setValuationObjectsAreas,
+    setValuationObjectsCoordinates,
+    setValuationObjectsPrices,
+} from '../../../data/state/actions/valuationActions'
+import { useAppDispatch } from '../../../utils/hooks/useAppDispach'
+import { useAppSelector } from '../../../utils/hooks/useAppSelector'
 import { useStyles } from './styles'
 
 type Props = {
@@ -15,8 +22,18 @@ const ValuationObjectsForm = ({
     valuationObjects,
     setValidationObjects,
 }: Props) => {
+    const valuationObjectsPrices = useAppSelector(
+        (state) => state.valuation.valuationObjectsPrices
+    )
+    const valuationObjectsAreas = useAppSelector(
+        (state) => state.valuation.valuationObjectsAreas
+    )
+    const valuationObjectsCoordinates = useAppSelector(
+        (state) => state.valuation.valuationObjectsCoordinates
+    )
     const { t } = useTranslation()
     const classes = useStyles()
+    const dispatch = useAppDispatch()
 
     const handleAddTextField = () => {
         if (valuationObjects[valuationObjects.length - 1] === '') {
@@ -46,6 +63,25 @@ const ValuationObjectsForm = ({
         const valuationObjectsCopy = [...valuationObjects]
         valuationObjectsCopy.splice(index, 1)
         setValidationObjects(valuationObjectsCopy)
+        if (valuationObjectsPrices[index] !== 0) {
+            const valuationObjectsPricesCopy = [...valuationObjectsPrices]
+            valuationObjectsPricesCopy.splice(index, 1)
+            dispatch(setValuationObjectsPrices(valuationObjectsPricesCopy))
+        }
+        if (valuationObjectsAreas[index] !== 0) {
+            const valuationObjectsAreasCopy = [...valuationObjectsAreas]
+            valuationObjectsAreasCopy.splice(index, 1)
+            dispatch(setValuationObjectsAreas(valuationObjectsAreasCopy))
+        }
+        if (valuationObjectsCoordinates[index][0] !== null) {
+            const valuationObjectsCoordinatesCopy = [
+                ...valuationObjectsCoordinates,
+            ]
+            valuationObjectsCoordinatesCopy.splice(index, 1)
+            dispatch(
+                setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy)
+            )
+        }
     }
 
     return (

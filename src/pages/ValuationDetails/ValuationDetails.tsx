@@ -10,7 +10,7 @@ import {
     setValuationObjectCoordinates,
 } from 'data/state/actions/valuationActions'
 import { StickyContainer, Sticky } from 'react-sticky'
-import { ValuationObjectsCardsWrapper } from './components'
+import { ValuationObjectsCardsWrapper, ValuationNavigation } from './components'
 
 const useStyles = makeStyles((theme) => {
     return createStyles({
@@ -91,6 +91,7 @@ const ValuationDetails: React.FC = () => {
                     valuationObjectsCoordinates={storeObjectsCoordinates}
                     valuationObjectCoordinates={storeObjectCoordinates}
                 />
+                <ValuationNavigation />
             </StickyContainer>
         </Container>
     )

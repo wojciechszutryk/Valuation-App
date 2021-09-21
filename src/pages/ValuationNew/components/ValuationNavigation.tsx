@@ -68,7 +68,7 @@ const ValuationNavigation: React.FC<{
     return (
         <Paper className={classes.paper} elevation={0}>
             <Typography className={classes.header} variant="h5">
-                {t('Valuation Object')}
+                {t('Confirm and continue')}
             </Typography>
             <Button
                 disabled={

@@ -21,5 +21,10 @@
   "to": "to",
   "latitude": "latitude",
   "longitude": "longitude",
-  "city, address": "city, address"
+  "city, address": "city, address",
+  "Confirm and continue": "Confirm and continue",
+  "Make sure the details are correct and continue": "Make sure the details are correct and continue",
+  "Valuation object area can not be unset": "Valuation object area can not be unset",
+  "Valuation object price can not be unset": "Valuation object price can not be unset"
+
 }

@@ -15,8 +15,8 @@ import {
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import GoogleMapsSearch from 'components/MyGoogleMaps/GoogleMapsSearch'
 import {
-    setValuationObjectArea,
-    setValuationObjectPrice,
+    setValuationObjectsAreas,
+    setValuationObjectsPrices,
 } from 'data/state/actions/valuationActions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import EuroIcon from '@material-ui/icons/Euro'
@@ -24,8 +24,8 @@ import AspectRatioIcon from '@material-ui/icons/AspectRatio'
 
 const useStyles = makeStyles((theme) => {
     return createStyles({
-        card: {
-            backgroundColor: theme.palette.primary.main,
+        active: {
+            boxShadow: `0px 0px 0px 3px ${theme.palette.primary.light} inset`,
         },
     })
 })
@@ -34,17 +34,25 @@ interface Props {
     valuationCriteria: ValuationParametersObjects
     title: string
     address: string
+    active: boolean
+    index: number
 }
-const ValuationObjectCard = ({ valuationCriteria, title, address }: Props) => {
+const ValuationObjectsCard = ({
+    valuationCriteria,
+    title,
+    address,
+    active,
+    index,
+}: Props) => {
     const classes = useStyles()
     const valuationParametersScale = useAppSelector(
         (state) => state.valuation.valuationParametersScale
     )
-    const valuationObjectArea = useAppSelector(
-        (state) => state.valuation.valuationObjectArea
+    const valuationObjectsAreas = useAppSelector(
+        (state) => state.valuation.valuationObjectsAreas
     )
-    const valuationObjectPrice = useAppSelector(
-        (state) => state.valuation.valuationObjectPrice
+    const valuationObjectsPrices = useAppSelector(
+        (state) => state.valuation.valuationObjectsPrices
     )
     const [criteriaValues, setCriteriaValues] = useState<number[]>(
         Array(valuationCriteria.length).fill(
@@ -73,17 +81,21 @@ const ValuationObjectCard = ({ valuationCriteria, title, address }: Props) => {
     function handlePriceChange(
         e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) {
-        dispatch(setValuationObjectPrice(parseInt(e.target.value)))
+        const valuationObjectsPricesCopy = [...valuationObjectsPrices]
+        valuationObjectsPricesCopy[index] = parseInt(e.target.value)
+        dispatch(setValuationObjectsPrices(valuationObjectsPricesCopy))
     }
 
     function handleAreaChange(
         e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) {
-        dispatch(setValuationObjectArea(parseInt(e.target.value)))
+        const valuationObjectsAreasCopy = [...valuationObjectsAreas]
+        valuationObjectsAreasCopy[index] = parseInt(e.target.value)
+        dispatch(setValuationObjectsAreas(valuationObjectsAreasCopy))
     }
 
     return (
-        <Card className={classes.card}>
+        <Card className={active ? classes.active : undefined}>
             <CardContent>
                 <Typography gutterBottom variant="h2">
                     {title}
@@ -100,7 +112,11 @@ const ValuationObjectCard = ({ valuationCriteria, title, address }: Props) => {
                             </InputAdornment>
                         ),
                     }}
-                    value={isNaN(valuationObjectArea) ? 0 : valuationObjectArea}
+                    value={
+                        isNaN(valuationObjectsAreas[index])
+                            ? 0
+                            : valuationObjectsAreas[index]
+                    }
                     onChange={(e) => handleAreaChange(e)}
                 />
                 <TextField
@@ -115,7 +131,9 @@ const ValuationObjectCard = ({ valuationCriteria, title, address }: Props) => {
                         ),
                     }}
                     value={
-                        isNaN(valuationObjectPrice) ? 0 : valuationObjectPrice
+                        isNaN(valuationObjectsPrices[index])
+                            ? 0
+                            : valuationObjectsPrices[index]
                     }
                     onChange={(e) => handlePriceChange(e)}
                 />
@@ -142,4 +160,4 @@ const ValuationObjectCard = ({ valuationCriteria, title, address }: Props) => {
     )
 }
 
-export default ValuationObjectCard
+export default ValuationObjectsCard

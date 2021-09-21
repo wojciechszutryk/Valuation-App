@@ -21,5 +21,9 @@
   "to": "zu",
   "latitude": "Breite",
   "longitude": "Längengrad",
-  "city, address": "Stadt, Adresse"
+  "city, address": "Stadt, Adresse",
+  "Confirm and continue": "Bestätigen und fortfahren",
+  "Make sure the details are correct and continue": "Überprüfen Sie, ob die Angaben korrekt sind und fahren Sie fort",
+  "Valuation object area can not be unset": "Bewertungsobjektbereich kann nicht deaktiviert werden",
+  "Valuation object price can not be unset": "Bewertungsobjektpreis kann nicht rückgängig gemacht werden"
 }
