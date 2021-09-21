@@ -16,6 +16,7 @@ import { useAppSelector } from 'utils/hooks/useAppSelector'
 import GoogleMapsSearch from 'pages/ValuationDetails/components/MyGoogleMaps/GoogleMapsSearch'
 import {
     setValuationObjectsAreas,
+    setValuationObjectsParameters,
     setValuationObjectsPrices,
 } from 'data/state/actions/valuationActions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
@@ -58,8 +59,25 @@ const ValuationObjectsCard = ({
     const valuationObjectsPrices = useAppSelector(
         (state) => state.valuation.valuationObjectsPrices
     )
-    const [criteriaValues, setCriteriaValues] = useState<number[]>(
-        Array(valuationCriteria.length).fill(
+    const valuationObjectsParameters = useAppSelector(
+        (state) => state.valuation.valuationObjectsParameters
+    )
+
+    let initialState = []
+    try {
+        initialState =
+            Object.keys(valuationObjectsParameters[0])[0] === ''
+                ? Array(valuationCriteria.length).fill(
+                      valuationParametersScale[1] -
+                          Math.floor(
+                              (valuationParametersScale[1] -
+                                  valuationParametersScale[0]) /
+                                  2
+                          )
+                  )
+                : Object.values(valuationObjectsParameters[index])
+    } catch (e) {
+        initialState = Array(valuationCriteria.length).fill(
             valuationParametersScale[1] -
                 Math.floor(
                     (valuationParametersScale[1] -
@@ -67,7 +85,9 @@ const ValuationObjectsCard = ({
                         2
                 )
         )
-    )
+    }
+
+    const [criteriaValues, setCriteriaValues] = useState<number[]>(initialState)
     const dispatch = useAppDispatch()
     const { t } = useTranslation()
 
@@ -76,8 +96,10 @@ const ValuationObjectsCard = ({
         valuationCriteria.forEach((criteria, index) => {
             objectParameters[criteria] = criteriaValues[index]
         })
-        console.log(objectParameters)
-    }, [criteriaValues, valuationCriteria])
+        const valuationObjectsParametersCopy = [...valuationObjectsParameters]
+        valuationObjectsParametersCopy[index] = objectParameters
+        dispatch(setValuationObjectsParameters(valuationObjectsParametersCopy))
+    }, [criteriaValues, valuationCriteria, dispatch, index])
 
     const handleCriteriaChange = (
         criteria: number,

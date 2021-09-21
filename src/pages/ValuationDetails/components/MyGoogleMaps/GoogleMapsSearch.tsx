@@ -13,7 +13,10 @@ import {
     ComboboxList,
     ComboboxOption,
 } from '@reach/combobox'
-import { setValuationObjectsCoordinates } from 'data/state/actions/valuationActions'
+import {
+    setValuationObjectCoordinates,
+    setValuationObjectsCoordinates,
+} from 'data/state/actions/valuationActions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 
@@ -56,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         form__li: {
+            height: 'unset',
             cursor: 'pointer',
             transition: '.2s',
             '&:hover': {
@@ -115,6 +119,8 @@ const GoogleMapsSearch = ({ address }: { address: string }) => {
                         valuationObjectsCoordinatesCopy
                     )
                 )
+            } else {
+                dispatch(setValuationObjectCoordinates([lat, lng]))
             }
             panTo({ lat, lng })
         } catch (error) {

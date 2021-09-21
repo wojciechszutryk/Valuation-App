@@ -4,6 +4,7 @@ import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api'
 import { useTranslation } from 'react-i18next'
 import {
     setMapReference,
+    setValuationObjectCoordinates,
     setValuationObjectsCoordinates,
 } from 'data/state/actions/valuationActions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
@@ -99,6 +100,13 @@ const MyGoogleMaps = ({
 
     const onMapClick = useCallback(
         (event) => {
+            if (null === activeObject)
+                dispatch(
+                    setValuationObjectCoordinates([
+                        event.latLng.lat(),
+                        event.latLng.lng(),
+                    ])
+                )
             const valuationObjectsCoordinatesCopy = [
                 ...valuationObjectsCoordinates,
             ]

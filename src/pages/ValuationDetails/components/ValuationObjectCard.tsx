@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ValuationParametersObjects } from 'typings'
 import {
@@ -16,6 +16,7 @@ import { useAppSelector } from 'utils/hooks/useAppSelector'
 import GoogleMapsSearch from 'pages/ValuationDetails/components/MyGoogleMaps/GoogleMapsSearch'
 import {
     setValuationObjectArea,
+    setValuationObjectParameters,
     setValuationObjectPrice,
 } from 'data/state/actions/valuationActions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
@@ -61,8 +62,24 @@ const ValuationObjectCard = ({
     const valuationObjectPrice = useAppSelector(
         (state) => state.valuation.valuationObjectPrice
     )
-    const [criteriaValues, setCriteriaValues] = useState<number[]>(
-        Array(valuationCriteria.length).fill(
+    const valuationObjectParameters = useAppSelector(
+        (state) => state.valuation.valuationObjectParameters
+    )
+    let initialState = []
+    try {
+        initialState =
+            Object.keys(valuationObjectParameters)[0] === ''
+                ? Array(valuationCriteria.length).fill(
+                      valuationParametersScale[1] -
+                          Math.floor(
+                              (valuationParametersScale[1] -
+                                  valuationParametersScale[0]) /
+                                  2
+                          )
+                  )
+                : Object.values(valuationObjectParameters)
+    } catch (e) {
+        initialState = Array(valuationCriteria.length).fill(
             valuationParametersScale[1] -
                 Math.floor(
                     (valuationParametersScale[1] -
@@ -70,10 +87,18 @@ const ValuationObjectCard = ({
                         2
                 )
         )
-    )
+    }
+    const [criteriaValues, setCriteriaValues] = useState<number[]>(initialState)
     const dispatch = useAppDispatch()
     const { t } = useTranslation()
 
+    useMemo(() => {
+        const objectParameters: { [key: string]: number } = {}
+        valuationCriteria.forEach((criteria, index) => {
+            objectParameters[criteria] = criteriaValues[index]
+        })
+        dispatch(setValuationObjectParameters(objectParameters))
+    }, [criteriaValues, valuationCriteria, dispatch])
     const handleCriteriaChange = (
         criteria: number,
         value: number | number[]

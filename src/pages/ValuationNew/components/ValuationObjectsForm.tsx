@@ -7,6 +7,7 @@ import { showToast, findDuplicatesInArray } from 'utils'
 import {
     setValuationObjectsAreas,
     setValuationObjectsCoordinates,
+    setValuationObjectsParameters,
     setValuationObjectsPrices,
 } from '../../../data/state/actions/valuationActions'
 import { useAppDispatch } from '../../../utils/hooks/useAppDispach'
@@ -30,6 +31,9 @@ const ValuationObjectsForm = ({
     )
     const valuationObjectsCoordinates = useAppSelector(
         (state) => state.valuation.valuationObjectsCoordinates
+    )
+    const valuationObjectsParameters = useAppSelector(
+        (state) => state.valuation.valuationObjectsParameters
     )
     const { t } = useTranslation()
     const classes = useStyles()
@@ -63,25 +67,28 @@ const ValuationObjectsForm = ({
         const valuationObjectsCopy = [...valuationObjects]
         valuationObjectsCopy.splice(index, 1)
         setValidationObjects(valuationObjectsCopy)
-        if (valuationObjectsPrices[index] !== 0) {
-            const valuationObjectsPricesCopy = [...valuationObjectsPrices]
-            valuationObjectsPricesCopy.splice(index, 1)
-            dispatch(setValuationObjectsPrices(valuationObjectsPricesCopy))
-        }
-        if (valuationObjectsAreas[index] !== 0) {
-            const valuationObjectsAreasCopy = [...valuationObjectsAreas]
-            valuationObjectsAreasCopy.splice(index, 1)
-            dispatch(setValuationObjectsAreas(valuationObjectsAreasCopy))
-        }
-        if (valuationObjectsCoordinates[index][0] !== null) {
-            const valuationObjectsCoordinatesCopy = [
-                ...valuationObjectsCoordinates,
-            ]
-            valuationObjectsCoordinatesCopy.splice(index, 1)
-            dispatch(
-                setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy)
-            )
-        }
+        // if (valuationObjectsPrices[index] !== 0) {
+        const valuationObjectsPricesCopy = [...valuationObjectsPrices]
+        valuationObjectsPricesCopy.splice(index, 1)
+        dispatch(setValuationObjectsPrices(valuationObjectsPricesCopy))
+        // }
+        // if (valuationObjectsAreas[index] !== 0) {
+        const valuationObjectsAreasCopy = [...valuationObjectsAreas]
+        valuationObjectsAreasCopy.splice(index, 1)
+        dispatch(setValuationObjectsAreas(valuationObjectsAreasCopy))
+        // }
+        // if (valuationObjectsCoordinates[index][0] !== null) {
+        const valuationObjectsCoordinatesCopy = [...valuationObjectsCoordinates]
+        valuationObjectsCoordinatesCopy.splice(index, 1)
+        dispatch(
+            setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy)
+        )
+        // }
+        // if (valuationObjectsParameters[index] !== {}) {
+        const valuationObjectsParametersCopy = [...valuationObjectsParameters]
+        valuationObjectsParametersCopy.splice(index, 1)
+        dispatch(setValuationObjectsParameters(valuationObjectsParametersCopy))
+        // }
         showToast(t('Valuation object deleted successfully'))
     }
 

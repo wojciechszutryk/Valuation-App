@@ -22,8 +22,8 @@ const initialState = {
     valuationObjectPrice: 0,
     mapReference: null,
     activeObject: null,
-    valuationObjectParameters: {},
-    valuationObjectsParameters: [{}],
+    valuationObjectParameters: { '': 0 },
+    valuationObjectsParameters: [{ '': 0 }],
 }
 
 const reducer = (
