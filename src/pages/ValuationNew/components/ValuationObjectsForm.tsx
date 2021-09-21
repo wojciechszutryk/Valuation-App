@@ -82,6 +82,7 @@ const ValuationObjectsForm = ({
                 setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy)
             )
         }
+        showToast(t('Valuation object deleted successfully'))
     }
 
     return (

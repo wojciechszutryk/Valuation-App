@@ -25,5 +25,7 @@
   "Confirm and continue": "Zatwierdź i kontynuuj",
   "Make sure the details are correct and continue": "Upewnij się, że dane są poprawne i przejdź dalej.",
   "Valuation object area can not be unset": "Pole powierzchni każdego obiektu musi być większe od zera",
-  "Valuation object price can not be unset": "Cena każdego obiektu musi być większe od zera"
+  "Valuation object price can not be unset": "Cena każdego obiektu musi być większe od zera",
+  "Valuation object deleted successfully": "Obiekt wyceny usunięty pomyślnie",
+  "Valuation property deleted successfully": "Właściwość wyceny została pomyślnie usunięta"
 }

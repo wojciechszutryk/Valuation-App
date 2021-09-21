@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ValuationParametersObjects } from 'typings'
 import {
@@ -13,7 +13,7 @@ import {
     InputAdornment,
 } from '@material-ui/core'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import GoogleMapsSearch from 'components/MyGoogleMaps/GoogleMapsSearch'
+import GoogleMapsSearch from 'pages/ValuationDetails/components/MyGoogleMaps/GoogleMapsSearch'
 import {
     setValuationObjectsAreas,
     setValuationObjectsPrices,
@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => {
     return createStyles({
         active: {
             boxShadow: `0px 0px 0px 3px ${theme.palette.primary.light} inset`,
+        },
+        header: {
+            fontSize: 40,
+            textAlign: 'center',
         },
     })
 })
@@ -67,6 +71,14 @@ const ValuationObjectsCard = ({
     const dispatch = useAppDispatch()
     const { t } = useTranslation()
 
+    useMemo(() => {
+        const objectParameters: { [key: string]: number } = {}
+        valuationCriteria.forEach((criteria, index) => {
+            objectParameters[criteria] = criteriaValues[index]
+        })
+        console.log(objectParameters)
+    }, [criteriaValues, valuationCriteria])
+
     const handleCriteriaChange = (
         criteria: number,
         value: number | number[]
@@ -97,7 +109,11 @@ const ValuationObjectsCard = ({
     return (
         <Card className={active ? classes.active : undefined}>
             <CardContent>
-                <Typography gutterBottom variant="h2">
+                <Typography
+                    gutterBottom
+                    variant="h2"
+                    className={classes.header}
+                >
                     {title}
                 </Typography>
                 <GoogleMapsSearch address={address} />

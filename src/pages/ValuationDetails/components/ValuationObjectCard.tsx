@@ -13,7 +13,7 @@ import {
     InputAdornment,
 } from '@material-ui/core'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import GoogleMapsSearch from 'components/MyGoogleMaps/GoogleMapsSearch'
+import GoogleMapsSearch from 'pages/ValuationDetails/components/MyGoogleMaps/GoogleMapsSearch'
 import {
     setValuationObjectArea,
     setValuationObjectPrice,
@@ -25,7 +25,16 @@ import AspectRatioIcon from '@material-ui/icons/AspectRatio'
 const useStyles = makeStyles((theme) => {
     return createStyles({
         card: {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.background.paper,
+        },
+        active: {
+            boxShadow: `0px 0px 0px 3px ${theme.palette.primary.light} inset`,
+        },
+        header: {
+            color: theme.palette.primary.light,
+            fontWeight: 'bold',
+            fontSize: 40,
+            textAlign: 'center',
         },
     })
 })
@@ -34,8 +43,14 @@ interface Props {
     valuationCriteria: ValuationParametersObjects
     title: string
     address: string
+    active: boolean
 }
-const ValuationObjectCard = ({ valuationCriteria, title, address }: Props) => {
+const ValuationObjectCard = ({
+    valuationCriteria,
+    title,
+    address,
+    active,
+}: Props) => {
     const classes = useStyles()
     const valuationParametersScale = useAppSelector(
         (state) => state.valuation.valuationParametersScale
@@ -83,9 +98,13 @@ const ValuationObjectCard = ({ valuationCriteria, title, address }: Props) => {
     }
 
     return (
-        <Card className={classes.card}>
+        <Card className={active ? classes.active : undefined}>
             <CardContent>
-                <Typography gutterBottom variant="h2">
+                <Typography
+                    gutterBottom
+                    variant="h2"
+                    className={classes.header}
+                >
                     {title}
                 </Typography>
                 <GoogleMapsSearch address={address} />
@@ -93,6 +112,7 @@ const ValuationObjectCard = ({ valuationCriteria, title, address }: Props) => {
                     label={t('area')}
                     fullWidth
                     size="small"
+                    color="secondary"
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="start">

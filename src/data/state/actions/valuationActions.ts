@@ -80,7 +80,21 @@ export const setValuationObjectsAreas = (areas: number[]): AnyAction => ({
     payload: areas,
 })
 
-export const setActiveObject = (object: number): AnyAction => ({
+export const setActiveObject = (object: number | null): AnyAction => ({
     type: types.SET_ACTIVE_OBJECT,
     payload: object,
+})
+
+export const setValuationObjectParameters = (object: {
+    [key: string]: number
+}): AnyAction => ({
+    type: types.SET_VALUATION_OBJECT_PARAMETERS,
+    payload: object,
+})
+
+export const setValuationObjectsParameters = (
+    objects: { [key: string]: number }[]
+): AnyAction => ({
+    type: types.SET_VALUATION_OBJECTS_PARAMETERS,
+    payload: objects,
 })

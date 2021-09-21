@@ -8,6 +8,8 @@ import {
     Coordinates,
     ValuationParametersObjects,
     ValuationParametersScale,
+    ValuationObjectProperties,
+    ValuationObjectsProperties,
 } from 'typings'
 
 export interface AppReducer {
@@ -28,5 +30,7 @@ export interface ValuationReducer {
     valuationObjectPrice: number
     valuationObjectCoordinates: Coordinates
     mapReference: any
-    activeObject: number
+    activeObject: number | null
+    valuationObjectParameters: { [key: string]: number }
+    valuationObjectsParameters: { [key: string]: number }[]
 }

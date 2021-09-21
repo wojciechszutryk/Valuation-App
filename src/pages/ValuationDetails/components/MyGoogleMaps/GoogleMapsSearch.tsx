@@ -13,12 +13,9 @@ import {
     ComboboxList,
     ComboboxOption,
 } from '@reach/combobox'
-import {
-    setActiveObject,
-    setValuationObjectsCoordinates,
-} from '../../data/state/actions/valuationActions'
-import { useAppDispatch } from '../../utils/hooks/useAppDispach'
-import { useAppSelector } from '../../utils/hooks/useAppSelector'
+import { setValuationObjectsCoordinates } from 'data/state/actions/valuationActions'
+import { useAppDispatch } from 'utils/hooks/useAppDispach'
+import { useAppSelector } from 'utils/hooks/useAppSelector'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -80,7 +77,7 @@ const GoogleMapsSearch = ({ address }: { address: string }) => {
     })
     useMemo(() => {
         setValue(address)
-    }, [address])
+    }, [address, setValue])
     const mapRef = useAppSelector((state) => state.valuation.mapReference)
     const activeObject = useAppSelector((state) => state.valuation.activeObject)
     const valuationObjectsCoordinates = useAppSelector(
@@ -108,13 +105,17 @@ const GoogleMapsSearch = ({ address }: { address: string }) => {
         try {
             const results = await getGeocode({ address })
             const { lat, lng } = await getLatLng(results[0])
-            const valuationObjectsCoordinatesCopy = [
-                ...valuationObjectsCoordinates,
-            ]
-            valuationObjectsCoordinatesCopy[activeObject] = [lat, lng]
-            dispatch(
-                setValuationObjectsCoordinates(valuationObjectsCoordinatesCopy)
-            )
+            if (activeObject !== null) {
+                const valuationObjectsCoordinatesCopy = [
+                    ...valuationObjectsCoordinates,
+                ]
+                valuationObjectsCoordinatesCopy[activeObject] = [lat, lng]
+                dispatch(
+                    setValuationObjectsCoordinates(
+                        valuationObjectsCoordinatesCopy
+                    )
+                )
+            }
             panTo({ lat, lng })
         } catch (error) {
             console.log('😱 Error: ', error)

@@ -49,6 +49,7 @@ const ValuationObjectsCardsWrapper = ({
 
     const handleSelectObject = useCallback(
         (index: number | null) => {
+            dispatch(setActiveObject(index))
             if (index === null) {
                 if (valuationObjectCoordinates[0] !== null)
                     panTo(
@@ -61,7 +62,6 @@ const ValuationObjectsCardsWrapper = ({
                     )
                 return
             }
-            dispatch(setActiveObject(index))
             if (valuationObjectsCoordinates[index][0] !== null)
                 panTo(
                     Object.fromEntries(
@@ -72,7 +72,12 @@ const ValuationObjectsCardsWrapper = ({
                     )
                 )
         },
-        [activeObject, valuationObjectsCoordinates, dispatch, panTo]
+        [
+            valuationObjectsCoordinates,
+            dispatch,
+            panTo,
+            valuationObjectCoordinates,
+        ]
     )
 
     return (
@@ -85,6 +90,7 @@ const ValuationObjectsCardsWrapper = ({
                 onClick={() => handleSelectObject(null)}
             >
                 <ValuationObjectCard
+                    active={activeObject === null}
                     title={valuationObject}
                     address={
                         valuationObjectCoordinates[0] !== null

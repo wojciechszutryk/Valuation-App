@@ -1,6 +1,6 @@
 import { Button, Paper, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
@@ -43,30 +43,26 @@ const ValuationNavigation: React.FC = () => {
     const classes = useStyles()
     const dispatch = useAppDispatch()
 
-    function handleSubmit() {
+    const handleSubmit = useCallback(() => {
         if (valuationObjectArea === 0 || valuationObjectsAreas.includes(0)) {
-            console.log(
-                valuationObjectArea,
-                valuationObjectsAreas,
-                valuationObjectPrice,
-                valuationObjectsPrices
-            )
             showToast(t('Valuation object price can not be unset'))
             return
         }
         if (valuationObjectPrice === 0 || valuationObjectsPrices.includes(0)) {
-            console.log(
-                valuationObjectArea,
-                valuationObjectsAreas,
-                valuationObjectPrice,
-                valuationObjectsPrices
-            )
             showToast(t('Valuation object area can not be unset'))
             return
         }
         dispatch(setFinishedSteps(2))
         history.push('/valuation/finish')
-    }
+    }, [
+        history,
+        t,
+        dispatch,
+        valuationObjectArea,
+        valuationObjectPrice,
+        valuationObjectsAreas,
+        valuationObjectsPrices,
+    ])
 
     return (
         <Paper className={classes.paper} elevation={0}>

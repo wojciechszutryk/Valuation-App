@@ -1,5 +1,5 @@
 import { Container, createStyles, makeStyles } from '@material-ui/core'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { GoogleMaps, Stepper } from 'components'
 import { Steps, ValuationObjectsCoordinates } from 'typings'
 import { addressToCoordinates } from 'utils/functions'
@@ -42,14 +42,7 @@ const ValuationDetails: React.FC = () => {
         (state) => state.valuation.valuationObjectCoordinates
     )
 
-    const exampleObjects = [
-        'dębica, gawrysia 19',
-        'kraków, świętokrzystak 12',
-        'kraków, karmelicka 17',
-        'dadsadsdsa',
-    ]
-
-    const objectsToCoords = async () => {
+    const objectsToCoords = useCallback(async () => {
         const coords: ValuationObjectsCoordinates = []
         for (const obj of storeValuationObjects) {
             const coord = await addressToCoordinates(obj)
@@ -58,11 +51,11 @@ const ValuationDetails: React.FC = () => {
         const coord = await addressToCoordinates(storeValuationObject)
         dispatch(setValuationObjectsCoordinates(coords))
         dispatch(setValuationObjectCoordinates(coord))
-    }
+    }, [dispatch, storeValuationObject, storeValuationObjects])
 
     useEffect(() => {
         objectsToCoords()
-    }, [])
+    }, [objectsToCoords])
 
     return (
         <Container>

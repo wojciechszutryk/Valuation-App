@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next'
 import {
     setMapReference,
     setValuationObjectsCoordinates,
-} from '../../data/state/actions/valuationActions'
-import { useAppDispatch } from '../../utils/hooks/useAppDispach'
-import { useAppSelector } from '../../utils/hooks/useAppSelector'
+} from 'data/state/actions/valuationActions'
+import { useAppDispatch } from 'utils/hooks/useAppDispach'
+import { useAppSelector } from 'utils/hooks/useAppSelector'
 import { darkMapTheme, lightMapTheme } from './styles'
 import {
     ValuationObjects,
@@ -15,7 +15,7 @@ import {
     Coordinates,
 } from 'typings'
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
     return createStyles({
         infoWindow: {
             color: '#000000',

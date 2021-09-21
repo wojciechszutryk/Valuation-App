@@ -25,6 +25,7 @@
   "Confirm and continue": "Confirm and continue",
   "Make sure the details are correct and continue": "Make sure the details are correct and continue",
   "Valuation object area can not be unset": "Valuation object area can not be unset",
-  "Valuation object price can not be unset": "Valuation object price can not be unset"
-
+  "Valuation object price can not be unset": "Valuation object price can not be unset",
+  "Valuation object deleted successfully": "Valuation object deleted successfully",
+  "Valuation property deleted successfully": "Valuation property deleted successfully"
 }

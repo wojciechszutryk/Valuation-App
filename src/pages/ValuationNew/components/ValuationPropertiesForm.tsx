@@ -67,6 +67,7 @@ const ValuationPropertiesForm = ({
         const valuationObjectsCopy = [...valuationCriteria]
         valuationObjectsCopy.splice(index, 1)
         setValuationCriteria(valuationObjectsCopy)
+        showToast(t('Valuation property deleted successfully'))
     }
 
     return (
