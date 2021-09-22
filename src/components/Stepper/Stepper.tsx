@@ -154,7 +154,7 @@ export default function CustomStepper({
     const { t } = useTranslation()
 
     const handleGoToStep = (step: Steps) => {
-        if (step > 2 || step < 0) return
+        if (step > 2 || step < 0 || activeStepFromProps <= step) return
         if (step === 0) {
             history.push('/valuation/new')
         } else if (step === 1) {
@@ -168,7 +168,7 @@ export default function CustomStepper({
                 )
                 return
             }
-            history.push('/valuation/finish')
+            history.push('/valuation/details')
         }
     }
 

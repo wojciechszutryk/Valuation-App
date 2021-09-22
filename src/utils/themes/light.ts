@@ -32,6 +32,23 @@ export const lightTheme = createTheme({
                 '.Toastify__progress-bar--info': {
                     background: '#41006b',
                 },
+                '::-webkit-scrollbar-track': {
+                    '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.3)',
+                    backgroundColor: '#f3f3ff',
+                },
+
+                '::-webkit-scrollbar': {
+                    width: window.innerWidth < 600 ? '1px' : '6px',
+                    backgroundColor: '#6a4b9b',
+                    transition: 'background-color .1s',
+                },
+
+                '::-webkit-scrollbar-thumb': {
+                    backgroundColor: '#b092e7',
+                },
+                '::-webkit-scrollbar-thumb:hover': {
+                    backgroundColor: '#9377c1',
+                },
             },
         },
     },

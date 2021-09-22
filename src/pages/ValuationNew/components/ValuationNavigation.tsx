@@ -11,7 +11,8 @@ import {
     setValuationObject,
     setValuationObjects,
 } from 'data/state/actions/valuationActions'
-import { compareArrays } from '../../../utils/functions/compareArrays'
+import { showToast } from 'utils'
+import { compareArrays } from 'utils/functions/compareArrays'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -59,8 +60,8 @@ const ValuationNavigation: React.FC<{
     function handleSubmit() {
         dispatch(setValuationObject(valuationObject))
         dispatch(setParametersScale(valueCriteriaScale))
-        dispatch(setParametersObjects(valuationCriteria))
-        dispatch(setValuationObjects(valuationObjects))
+        dispatch(setParametersObjects(valuationCriteria.filter((e) => e)))
+        dispatch(setValuationObjects(valuationObjects.filter((e) => e)))
         dispatch(setFinishedSteps(1))
         history.push('/valuation/details')
     }

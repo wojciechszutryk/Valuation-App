@@ -24,10 +24,18 @@ const useStyles = makeStyles(() => {
     })
 })
 
-const mapContainerStyle = {
-    width: '100%',
-    height: '50vh',
-}
+const mapContainerStyle =
+    window.innerWidth < 900
+        ? {
+              width: '100%',
+              height: '50vh',
+          }
+        : {
+              width: '100%',
+              height: '35vh',
+          }
+
+console.log(mapContainerStyle)
 
 const center = {
     lat: 50.0926,
