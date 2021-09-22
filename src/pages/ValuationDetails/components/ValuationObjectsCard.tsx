@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ValuationParametersObjects } from 'typings'
 import {
@@ -91,7 +91,7 @@ const ValuationObjectsCard = ({
     const dispatch = useAppDispatch()
     const { t } = useTranslation()
 
-    useMemo(() => {
+    useEffect(() => {
         const objectParameters: { [key: string]: number } = {}
         valuationCriteria.forEach((criteria, index) => {
             objectParameters[criteria] = criteriaValues[index]

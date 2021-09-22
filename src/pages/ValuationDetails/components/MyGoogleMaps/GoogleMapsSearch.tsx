@@ -65,6 +65,8 @@ const useStyles = makeStyles((theme: Theme) =>
             '&:hover': {
                 backgroundColor: theme.palette.background.paper,
             },
+            zIndex: 22222000,
+            position: 'relative',
         },
     })
 )
