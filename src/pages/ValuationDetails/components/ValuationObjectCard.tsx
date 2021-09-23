@@ -59,9 +59,6 @@ const ValuationObjectCard = ({
     const valuationObjectArea = useAppSelector(
         (state) => state.valuation.valuationObjectArea
     )
-    const valuationObjectPrice = useAppSelector(
-        (state) => state.valuation.valuationObjectPrice
-    )
     const valuationObjectParameters = useAppSelector(
         (state) => state.valuation.valuationObjectParameters
     )
@@ -110,12 +107,6 @@ const ValuationObjectCard = ({
         }
     }
 
-    function handlePriceChange(
-        e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-    ) {
-        dispatch(setValuationObjectPrice(parseInt(e.target.value)))
-    }
-
     function handleAreaChange(
         e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) {
@@ -147,22 +138,6 @@ const ValuationObjectCard = ({
                     }}
                     value={isNaN(valuationObjectArea) ? 0 : valuationObjectArea}
                     onChange={(e) => handleAreaChange(e)}
-                />
-                <TextField
-                    label={t('price')}
-                    fullWidth
-                    size="small"
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="start">
-                                <EuroIcon />
-                            </InputAdornment>
-                        ),
-                    }}
-                    value={
-                        isNaN(valuationObjectPrice) ? 0 : valuationObjectPrice
-                    }
-                    onChange={(e) => handlePriceChange(e)}
                 />
                 {valuationCriteria.map((criteria, index) => (
                     <Box key={criteria}>

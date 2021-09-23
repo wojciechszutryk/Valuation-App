@@ -35,8 +35,6 @@ const mapContainerStyle =
               height: '35vh',
           }
 
-console.log(mapContainerStyle)
-
 const center = {
     lat: 50.0926,
     lng: 21.3689,

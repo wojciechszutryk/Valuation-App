@@ -1,46 +1,187 @@
 {
-  "notes": [
+  "works": [
     {
-      "title": "Yoshi's birthday bash",
-      "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      "category": "reminders",
-      "id": 1
-    },
+      "id": "1",
+      "valuationObjectId": "1",
+      "valuationObjectsId": "1",
+      "date": "23.09.2021"
+    }
+  ],
+  "valuationObject": [
     {
-      "title": "Complete my ninja training",
-      "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.",
-      "category": "work",
-      "id": 2
-    },
+      "id": "1",
+      "name": "ul. Zielona",
+      "objectParameters": {
+        "Lokalizacja": 2,
+        "Sąsiedztwo i otoczenie": 1,
+        "Kształt i wielokość działki": 2,
+        "Uzbrojenie": 3,
+        "Dojazd": 2
+      },
+      "area": 1725
+    }
+  ],
+  "valuationObjects": [
     {
-      "title": "Order a pizza!",
-      "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      "category": "todos",
-      "id": 3
-    },
-    {
-      "title": "saddsa",
-      "details": "dasdsadsa",
-      "category": "reminders",
-      "id": 4
-    },
-    {
-      "title": "dsadsadsa",
-      "details": "dasdsadsa",
-      "category": "work",
-      "id": 5
-    },
-    {
-      "title": "dwadwaw",
-      "details": "dasdsadad",
-      "category": "reminders",
-      "id": 6
-    },
-    {
-      "title": "dsadsaasdw",
-      "details": "awdasdadasd",
-      "category": "todos",
-      "id": 7
+      "id": "1",
+      "names": [
+        "ul.Szybowcowa",
+        "ul.Podskarpie",
+        "Mąkołowiec",
+        "uk. Korfantego",
+        "ul. Kłodnicka",
+        "Zendek",
+        "ul. Piaskowa",
+        "ul. Oksywska",
+        "Żory",
+        "ul. Gombrowicza",
+        "ul. Starowapienna",
+        "Opatowice",
+        "ul. Zawodze Dolne",
+        "ul. Międzyświec",
+        "ul. Wiślica"
+      ],
+      "areas": [
+        833,
+        1324,
+        1467,
+        1706,
+        1706,
+        1207,
+        1162,
+        1492,
+        1865,
+        1705,
+        1070,
+        1470,
+        1963,
+        1577,
+        1645
+      ],
+      "prices": [
+        99960,
+        399000,
+        320000,
+        209838,
+        1180000,
+        86904,
+        268000,
+        179000,
+        140000,
+        203000,
+        93000,
+        150000,
+        228000,
+        110000,
+        99000
+      ],
+      "objectsParameters": [
+        {
+          "Lokalizacja": 2,
+          "Sąsiedztwo i otoczenie": 1,
+          "Kształt i wielokość działki": 2,
+          "Uzbrojenie": 3,
+          "Dojazd": 2
+        },
+        {
+          "Lokalizacja": 3,
+          "Sąsiedztwo i otoczenie": 3,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 4,
+          "Dojazd": 3
+        },
+        {
+          "Lokalizacja": 3,
+          "Sąsiedztwo i otoczenie": 3,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 3,
+          "Dojazd": 3
+        },
+        {
+          "Lokalizacja": 3,
+          "Sąsiedztwo i otoczenie": 3,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 1,
+          "Dojazd": 3
+        },
+        {
+          "Lokalizacja": 4,
+          "Sąsiedztwo i otoczenie": 4,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 4,
+          "Dojazd": 4
+        },
+        {
+          "Lokalizacja": 2,
+          "Sąsiedztwo i otoczenie": 1,
+          "Kształt i wielokość działki": 3,
+          "Uzbrojenie": 2,
+          "Dojazd": 1
+        },
+        {
+          "Lokalizacja": 3,
+          "Sąsiedztwo i otoczenie": 3,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 2,
+          "Dojazd": 3
+        },
+        {
+          "Lokalizacja": 2,
+          "Sąsiedztwo i otoczenie": 2,
+          "Kształt i wielokość działki": 3,
+          "Uzbrojenie": 2,
+          "Dojazd": 2
+        },
+        {
+          "Lokalizacja": 2,
+          "Sąsiedztwo i otoczenie": 2,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 2,
+          "Dojazd": 3
+        },
+        {
+          "Lokalizacja": 2,
+          "Sąsiedztwo i otoczenie": 2,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 3,
+          "Dojazd": 3
+        },
+        {
+          "Lokalizacja": 2,
+          "Sąsiedztwo i otoczenie": 2,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 2,
+          "Dojazd": 3
+        },
+        {
+          "Lokalizacja": 3,
+          "Sąsiedztwo i otoczenie": 3,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 3,
+          "Dojazd": 3
+        },
+        {
+          "Lokalizacja": 3,
+          "Sąsiedztwo i otoczenie": 2,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 2,
+          "Dojazd": 3
+        },
+        {
+          "Lokalizacja": 3,
+          "Sąsiedztwo i otoczenie": 2,
+          "Kształt i wielokość działki": 4,
+          "Uzbrojenie": 2,
+          "Dojazd": 1
+        },
+        {
+          "Lokalizacja": 2,
+          "Sąsiedztwo i otoczenie": 1,
+          "Kształt i wielokość działki": 2,
+          "Uzbrojenie": 2,
+          "Dojazd": 2
+        }
+      ]
     }
   ]
 }
