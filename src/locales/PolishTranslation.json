@@ -27,5 +27,9 @@
   "Valuation object area can not be unset": "Pole powierzchni każdego obiektu musi być większe od zera",
   "Valuation object price can not be unset": "Cena każdego obiektu musi być większe od zera",
   "Valuation object deleted successfully": "Obiekt wyceny usunięty pomyślnie",
-  "Valuation property deleted successfully": "Właściwość wyceny została pomyślnie usunięta"
+  "Valuation property deleted successfully": "Właściwość wyceny została pomyślnie usunięta",
+  "area": "obszar",
+  "price": "cena",
+  "BACK": "WSTECZ",
+  "NEXT": "DALEJ"
 }

@@ -35,9 +35,6 @@ const ValuationNavigation: React.FC = () => {
     const valuationObjectArea = useAppSelector(
         (state) => state.valuation.valuationObjectArea
     )
-    const valuationObjectPrice = useAppSelector(
-        (state) => state.valuation.valuationObjectPrice
-    )
     const history = useHistory()
     const { t } = useTranslation()
     const classes = useStyles()
@@ -48,7 +45,7 @@ const ValuationNavigation: React.FC = () => {
             showToast(t('Valuation object price can not be unset'))
             return
         }
-        if (valuationObjectPrice === 0 || valuationObjectsPrices.includes(0)) {
+        if (valuationObjectsPrices.includes(0)) {
             showToast(t('Valuation object area can not be unset'))
             return
         }
@@ -59,7 +56,6 @@ const ValuationNavigation: React.FC = () => {
         t,
         dispatch,
         valuationObjectArea,
-        valuationObjectPrice,
         valuationObjectsAreas,
         valuationObjectsPrices,
     ])
@@ -69,8 +65,10 @@ const ValuationNavigation: React.FC = () => {
             <Typography className={classes.header} variant="h5">
                 {t('Make sure the details are correct and continue.')}
             </Typography>
-            <Button onClick={() => history.push('/valuation/new')}>Back</Button>
-            <Button onClick={handleSubmit}>Next</Button>
+            <Button onClick={() => history.push('/valuation/new')}>
+                {t('BACK')}
+            </Button>
+            <Button onClick={handleSubmit}>{t('NEXT')}</Button>
         </Paper>
     )
 }

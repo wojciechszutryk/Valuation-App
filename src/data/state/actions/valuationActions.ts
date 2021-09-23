@@ -60,11 +60,6 @@ export const setMapReference = (map: any): AnyAction => ({
     payload: map,
 })
 
-export const setValuationObjectPrice = (price: number): AnyAction => ({
-    type: types.SET_VALUATION_OBJECT_PRICE,
-    payload: price,
-})
-
 export const setValuationObjectsPrices = (prices: number[]): AnyAction => ({
     type: types.SET_VALUATION_OBJECTS_PRICES,
     payload: prices,

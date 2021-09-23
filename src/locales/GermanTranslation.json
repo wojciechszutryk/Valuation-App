@@ -27,5 +27,9 @@
   "Valuation object area can not be unset": "Bewertungsobjektbereich kann nicht deaktiviert werden",
   "Valuation object price can not be unset": "Bewertungsobjektpreis kann nicht rückgängig gemacht werden",
   "Valuation object deleted successfully": "Bewertungsobjekt erfolgreich gelöscht",
-  "Valuation property deleted successfully": "Bewertungseigenschaft erfolgreich gelöscht"
+  "Valuation property deleted successfully": "Bewertungseigenschaft erfolgreich gelöscht",
+  "area": "Bereich",
+  "price": "Preis",
+  "BACK": "ZURÜCK",
+  "NEXT": "WEITER"
 }

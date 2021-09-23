@@ -27,5 +27,9 @@
   "Valuation object area can not be unset": "Valuation object area can not be unset",
   "Valuation object price can not be unset": "Valuation object price can not be unset",
   "Valuation object deleted successfully": "Valuation object deleted successfully",
-  "Valuation property deleted successfully": "Valuation property deleted successfully"
+  "Valuation property deleted successfully": "Valuation property deleted successfully",
+  "area": "area",
+  "price": "price",
+  "BACK": "BACK",
+  "NEXT": "NEXT"
 }

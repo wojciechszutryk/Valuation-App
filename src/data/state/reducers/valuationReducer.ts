@@ -19,7 +19,6 @@ const initialState = {
     valuationObjectsAreas: [0],
     valuationObjectArea: 0,
     valuationObjectsPrices: [0],
-    valuationObjectPrice: 0,
     mapReference: null,
     activeObject: null,
     valuationObjectParameters: { '': 0 },
@@ -47,8 +46,6 @@ const reducer = (
             return { ...state, valuationObjectCoordinates: action.payload }
         case types.SET_VALUATION_OBJECTS_PRICES:
             return { ...state, valuationObjectsPrices: action.payload }
-        case types.SET_VALUATION_OBJECT_PRICE:
-            return { ...state, valuationObjectPrice: action.payload }
         case types.SET_VALUATION_OBJECTS_AREAS:
             return { ...state, valuationObjectsAreas: action.payload }
         case types.SET_VALUATION_OBJECT_AREA:

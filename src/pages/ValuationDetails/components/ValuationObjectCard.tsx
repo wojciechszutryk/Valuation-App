@@ -17,10 +17,8 @@ import GoogleMapsSearch from 'pages/ValuationDetails/components/MyGoogleMaps/Goo
 import {
     setValuationObjectArea,
     setValuationObjectParameters,
-    setValuationObjectPrice,
 } from 'data/state/actions/valuationActions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
-import EuroIcon from '@material-ui/icons/Euro'
 import AspectRatioIcon from '@material-ui/icons/AspectRatio'
 
 const useStyles = makeStyles((theme) => {

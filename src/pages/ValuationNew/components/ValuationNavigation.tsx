@@ -11,7 +11,6 @@ import {
     setValuationObject,
     setValuationObjects,
 } from 'data/state/actions/valuationActions'
-import { showToast } from 'utils'
 import { compareArrays } from 'utils/functions/compareArrays'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,18 +20,11 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: 20,
             display: 'flex',
             flexWrap: 'wrap',
+            justifyContent: 'space-between',
             [theme.breakpoints.up('md')]: {
                 marginTop: 0,
                 marginBottom: 20,
             },
-        },
-        avatar: {
-            backgroundColor: theme.palette.primary.light,
-        },
-        textField: {
-            flexGrow: 1,
-            marginLeft: theme.spacing(1),
-            marginBottom: theme.spacing(0.5),
         },
         header: {
             color: theme.palette.primary.light,
@@ -79,7 +71,7 @@ const ValuationNavigation: React.FC<{
                 }
                 onClick={handleSubmit}
             >
-                Next
+                {t('NEXT')}
             </Button>
         </Paper>
     )
