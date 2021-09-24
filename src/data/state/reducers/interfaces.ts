@@ -8,8 +8,6 @@ import {
     Coordinates,
     ValuationParametersObjects,
     ValuationParametersScale,
-    ValuationObjectProperties,
-    ValuationObjectsProperties,
 } from 'typings'
 
 export interface AppReducer {

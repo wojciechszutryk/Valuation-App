@@ -59,19 +59,4 @@ export const FetchDataFromApiToState = async (workId: string) => {
             Math.max(...valuationObjectsParametersValues),
         ])
     )
-    // return {
-    // finishedSteps: 2,
-    // valuationObject: valuationObject,
-    // valuationParametersScale: [
-    //     Math.min(...valuationObjectsParametersValues),
-    //     Math.max(...valuationObjectsParametersValues),
-    // ],
-    // valuationParametersObjects: valuationParametersObjects,
-    // valuationObjects: valuationObjects,
-    // valuationObjectsAreas: valuationObjectsAreas,
-    // valuationObjectArea: valuationObjectArea,
-    // valuationObjectsPrices: valuationObjectsPrices,
-    // valuationObjectParameters: valuationObjectParameters,
-    // valuationObjectsParameters: valuationObjectsParameters,
-    // }
 }
