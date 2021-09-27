@@ -73,6 +73,7 @@ const ValuationFinish = () => {
                 Math.max(...valuationObjectsParametersValues),
             ])
         )
+        console.log(valuationObjectParameters)
     }
     //////////////////////////////////koniec kopii FetchDataFromApiToState
     return (

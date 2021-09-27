@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import { TableBody } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
@@ -10,11 +10,39 @@ import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-})
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        table: {
+            minWidth: 650,
+        },
+        tableHeadCell: {
+            padding: '8px',
+            textTransform: 'capitalize',
+            backgroundColor:
+                theme.palette.type === 'dark'
+                    ? theme.palette.secondary.dark
+                    : theme.palette.secondary.main,
+            color: 'white',
+        },
+        tableBodyCell: {
+            padding: '5px 8px',
+        },
+        tableBodyRow: {
+            '&:nth-child(2n+1)': {
+                backgroundColor:
+                    theme.palette.type === 'dark' ? '#5d5d5d' : '#e6e6ff',
+            },
+        },
+        tableBodyValuationObjectRow: {
+            padding: '5px 8px',
+            backgroundColor:
+                theme.palette.type === 'dark'
+                    ? theme.palette.secondary.dark
+                    : theme.palette.secondary.main,
+            color: 'white',
+        },
+    })
+)
 
 const ValuationDetailsTable = () => {
     const classes = useStyles()
@@ -81,17 +109,15 @@ const ValuationDetailsTable = () => {
         )
         rows.push(row)
     }
-    rows.push(
-        createData(
-            valuationObjects.length,
-            valuationObject,
-            valuationObjectArea,
-            valuationObjectParameters
-        )
+    const valuationObjectRow = createData(
+        valuationObjects.length + 1,
+        valuationObject,
+        valuationObjectArea,
+        valuationObjectParameters
     )
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} elevation={0}>
             <Table
                 className={classes.table}
                 aria-label="valuation details table"
@@ -99,20 +125,42 @@ const ValuationDetailsTable = () => {
                 <TableHead>
                     <TableRow>
                         {rowsHeader.map((row, index) => (
-                            <TableCell key={index}>{row}</TableCell>
+                            <TableCell
+                                key={index}
+                                className={classes.tableHeadCell}
+                            >
+                                {row}
+                            </TableCell>
                         ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map((row, index) => (
-                        <TableRow key={index}>
+                        <TableRow key={index} className={classes.tableBodyRow}>
                             {Object.values(row).map((value, index) => (
-                                <TableCell key={index} align="right">
+                                <TableCell
+                                    key={index}
+                                    className={classes.tableBodyCell}
+                                >
                                     {value}
                                 </TableCell>
                             ))}
                         </TableRow>
                     ))}
+                    <TableRow className={classes.tableBodyRow}>
+                        {Object.values(valuationObjectRow).map(
+                            (value, index) => (
+                                <TableCell
+                                    key={index}
+                                    className={
+                                        classes.tableBodyValuationObjectRow
+                                    }
+                                >
+                                    {value}
+                                </TableCell>
+                            )
+                        )}
+                    </TableRow>
                 </TableBody>
             </Table>
         </TableContainer>
