@@ -1,113 +1,7 @@
-const objects: { [key: string]: number }[] = [
-    {
-        Lokalizacja: 2,
-        'Sąsiedztwo i otoczenie': 1,
-        'Kształt i wielokość działki': 2,
-        Uzbrojenie: 3,
-        Dojazd: 2,
-    },
-    {
-        Lokalizacja: 3,
-        'Sąsiedztwo i otoczenie': 3,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 4,
-        Dojazd: 3,
-    },
-    {
-        Lokalizacja: 3,
-        'Sąsiedztwo i otoczenie': 3,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 3,
-        Dojazd: 3,
-    },
-    {
-        Lokalizacja: 3,
-        'Sąsiedztwo i otoczenie': 3,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 1,
-        Dojazd: 3,
-    },
-    {
-        Lokalizacja: 4,
-        'Sąsiedztwo i otoczenie': 4,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 4,
-        Dojazd: 4,
-    },
-    {
-        Lokalizacja: 2,
-        'Sąsiedztwo i otoczenie': 1,
-        'Kształt i wielokość działki': 3,
-        Uzbrojenie: 2,
-        Dojazd: 1,
-    },
-    {
-        Lokalizacja: 3,
-        'Sąsiedztwo i otoczenie': 3,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 2,
-        Dojazd: 3,
-    },
-    {
-        Lokalizacja: 2,
-        'Sąsiedztwo i otoczenie': 2,
-        'Kształt i wielokość działki': 3,
-        Uzbrojenie: 2,
-        Dojazd: 2,
-    },
-    {
-        Lokalizacja: 2,
-        'Sąsiedztwo i otoczenie': 2,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 2,
-        Dojazd: 3,
-    },
-    {
-        Lokalizacja: 2,
-        'Sąsiedztwo i otoczenie': 2,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 3,
-        Dojazd: 3,
-    },
-    {
-        Lokalizacja: 2,
-        'Sąsiedztwo i otoczenie': 2,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 2,
-        Dojazd: 3,
-    },
-    {
-        Lokalizacja: 3,
-        'Sąsiedztwo i otoczenie': 3,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 3,
-        Dojazd: 3,
-    },
-    {
-        Lokalizacja: 3,
-        'Sąsiedztwo i otoczenie': 2,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 2,
-        Dojazd: 3,
-    },
-    {
-        Lokalizacja: 3,
-        'Sąsiedztwo i otoczenie': 2,
-        'Kształt i wielokość działki': 4,
-        Uzbrojenie: 2,
-        Dojazd: 1,
-    },
-    {
-        Lokalizacja: 2,
-        'Sąsiedztwo i otoczenie': 1,
-        'Kształt i wielokość działki': 2,
-        Uzbrojenie: 2,
-        Dojazd: 2,
-    },
-]
-
-export const findObjectsWithOneNotEqualValue = () => {
-    const searchKey = 'Kształt i wielokość działki'
+export const findObjectsWithOneNotEqualValue = (
+    objects: { [key: string]: number }[],
+    searchKey: string
+) => {
     const IndexesOfObjectsWithOneNotEqualValue: number[][] = []
     for (let i = 0; i < objects.length; i++) {
         const firstObject: { [key: string]: number } = objects[i]
@@ -122,7 +16,6 @@ export const findObjectsWithOneNotEqualValue = () => {
                     JSON.stringify(secondObjectCopy) ===
                     JSON.stringify(firstObjectCopy)
                 ) {
-                    console.log([objects[i], objects[j]])
                     i < j
                         ? IndexesOfObjectsWithOneNotEqualValue.push([i, j])
                         : IndexesOfObjectsWithOneNotEqualValue.push([j, i])
@@ -136,5 +29,3 @@ export const findObjectsWithOneNotEqualValue = () => {
         )
     ).map((e) => JSON.parse(e))
 }
-
-findObjectsWithOneNotEqualValue()

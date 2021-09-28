@@ -24,6 +24,7 @@ import {
     setValuationObjectsPrices,
 } from '../../data/state/actions/valuationActions'
 import { useAppDispatch } from '../../utils/hooks/useAppDispach'
+import ValuationWeightsTables from './components/ValuationWeightsTables'
 /////////////////////////////////////////////
 
 const ValuationFinish = () => {
@@ -73,13 +74,13 @@ const ValuationFinish = () => {
                 Math.max(...valuationObjectsParametersValues),
             ])
         )
-        console.log(valuationObjectParameters)
     }
     //////////////////////////////////koniec kopii FetchDataFromApiToState
     return (
         <Container>
             <Stepper activeStepFromProps={2 as Steps} />
             <ValuationDetailsTable />
+            <ValuationWeightsTables />
             <button onClick={handleFetch}>fetch</button>
         </Container>
     )
