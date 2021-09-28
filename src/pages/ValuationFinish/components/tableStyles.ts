@@ -20,8 +20,8 @@ export const useStyles = makeStyles((theme: Theme) =>
             backgroundColor:
                 theme.palette.type === 'dark'
                     ? theme.palette.secondary.dark
-                    : theme.palette.secondary.main,
-            color: 'white',
+                    : '#d5d5fc',
+            color: theme.palette.type === 'dark' ? 'white' : 'black',
         },
         tableHeadCellWeights: {
             padding: '8px',
@@ -43,18 +43,25 @@ export const useStyles = makeStyles((theme: Theme) =>
             backgroundColor:
                 theme.palette.type === 'dark'
                     ? theme.palette.secondary.dark
-                    : theme.palette.secondary.main,
-            color: 'white',
+                    : '#d5d5fc',
+            color: theme.palette.type === 'dark' ? 'white' : 'black',
         },
         important: {
             backgroundColor:
-                theme.palette.type === 'dark' ? '#676767' : '#c5c4ff',
+                theme.palette.type === 'dark' ? '#676767' : '#e6e6ff',
         },
         tableBodyRowWeights: {
             '&:nth-child(4n), &:nth-child(4n+3)': {
                 backgroundColor:
                     theme.palette.type === 'dark' ? '#5d5d5d' : '#e6e6ff',
             },
+        },
+        tableBodyRowWeightsValues: {
+            backgroundColor:
+                theme.palette.type === 'dark'
+                    ? theme.palette.secondary.dark
+                    : '#e6e6ff',
+            color: 'white',
         },
     })
 )

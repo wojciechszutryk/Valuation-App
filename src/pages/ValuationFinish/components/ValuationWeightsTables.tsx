@@ -86,15 +86,32 @@ const ValuationWeightsTables = () => {
         )
     )
 
-    const weightsArray = similarParametersObjectsPairs.map((criteriaPairs) =>
-        criteriaPairs.map((pair) =>
-            Number.parseFloat(
-                Math.abs(unitPrices[pair[1]] - unitPrices[pair[0]]).toFixed(2)
-            )
+    const weightsArrays = diffPriceArray.map((categoryPricesArray) =>
+        categoryPricesArray.map((price) =>
+            Number.parseFloat((price / diffMaxMinPrice).toFixed(2))
         )
     )
 
-    console.log(weightsArray)
+    const weights = weightsArrays.map((weightsArray) => {
+        const weightsSum = weightsArray.reduce(
+            (previousValue, currentValue) => previousValue + currentValue,
+            0
+        )
+        return Number.parseFloat(
+            ((100 * weightsSum) / weightsArray.length).toFixed(2)
+        )
+    })
+
+    const weightsSum = weights.reduce(
+        (previousValue, currentValue) => previousValue + currentValue,
+        0
+    )
+
+    const standardizedWeights = weights.map((weight) =>
+        ((100 * weight) / weightsSum).toFixed(2)
+    )
+
+    console.log(diffPriceArray)
 
     return (
         <div>
@@ -102,7 +119,12 @@ const ValuationWeightsTables = () => {
                 {t('Criteria Weights')}
             </Typography>
             {similarParametersObjectsPairs.map((pairs, index) => (
-                <TableContainer component={Paper} key={index} elevation={3}>
+                <TableContainer
+                    component={Paper}
+                    key={index}
+                    elevation={0}
+                    className={classes.tableContainer}
+                >
                     <Table
                         className={classes.table}
                         aria-label="valuation details table"
@@ -125,9 +147,10 @@ const ValuationWeightsTables = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {pairs.map((pair, index) => (
+                            {pairs.map((pair, pairIndex) => (
                                 <>
                                     <TableRow
+                                        hover={true}
                                         key={pair[0]}
                                         className={classes.tableBodyRowWeights}
                                     >
@@ -143,8 +166,15 @@ const ValuationWeightsTables = () => {
                                                 </TableCell>
                                             )
                                         )}
+                                        <TableCell
+                                            className={classes.tableBodyCell}
+                                        />
+                                        <TableCell
+                                            className={classes.tableBodyCell}
+                                        />
                                     </TableRow>
                                     <TableRow
+                                        hover={true}
                                         key={pair[1]}
                                         className={classes.tableBodyRowWeights}
                                     >
@@ -163,14 +193,33 @@ const ValuationWeightsTables = () => {
                                         <TableCell
                                             className={classes.tableBodyCell}
                                         >
-                                            {Math.abs(
-                                                unitPrices[pair[1]] -
-                                                    unitPrices[pair[0]]
-                                            ).toFixed(2)}
+                                            {diffPriceArray[index][pairIndex]}
+                                        </TableCell>
+                                        <TableCell
+                                            className={classes.tableBodyCell}
+                                        >
+                                            {weightsArrays[index][pairIndex]}
                                         </TableCell>
                                     </TableRow>
                                 </>
                             ))}
+                            <TableRow
+                                className={classes.tableBodyRowWeightsValues}
+                            >
+                                <TableCell colSpan={2}>
+                                    {valuationParametersObjects[index]}
+                                </TableCell>
+                                <TableCell colSpan={2}>
+                                    {t('weight')}
+                                    {': '}
+                                    {weights[index]}%
+                                </TableCell>
+                                <TableCell colSpan={100}>
+                                    {t('standardized weight')}
+                                    {': '}
+                                    {standardizedWeights[index]}%
+                                </TableCell>
+                            </TableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>
