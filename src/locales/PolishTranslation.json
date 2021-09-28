@@ -31,5 +31,13 @@
   "area": "obszar",
   "price": "cena",
   "BACK": "WSTECZ",
-  "NEXT": "DALEJ"
+  "NEXT": "DALEJ",
+  "weight": "waga",
+  "standardized weight": "ustandaryzowana waga",
+  "Criteria Weights": "Wagi kryteriów",
+  "price difference": "różnica cen",
+  "unit price": "cena jednostkowa",
+  "name": "nazwa",
+  "index": "Lp.",
+  "Valuation summary": "Podsumowanie parametrów"
 }

@@ -31,5 +31,13 @@
   "area": "area",
   "price": "price",
   "BACK": "BACK",
-  "NEXT": "NEXT"
+  "NEXT": "NEXT",
+  "weight": "weight",
+  "standardized weight": "standardized weight",
+  "Criteria Weights": "Criteria Weights",
+  "price difference": "price difference",
+  "unit price": "unit price",
+  "name": "name",
+  "index": "index",
+  "Valuation summary": "Valuation summary"
 }

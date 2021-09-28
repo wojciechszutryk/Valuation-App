@@ -31,5 +31,13 @@
   "area": "Bereich",
   "price": "Preis",
   "BACK": "ZURÜCK",
-  "NEXT": "WEITER"
+  "NEXT": "WEITER",
+  "weight": "Gewicht",
+  "standardized weight": "standardisiertes Gewicht",
+  "Criteria Weights": "Kriteriengewichtungen",
+  "price difference": "Preisunterschied",
+  "unit price": "Einheitspreis",
+  "name": "Name",
+  "index": "index",
+  "Valuation summary": "Bewertungszusammenfassung"
 }
