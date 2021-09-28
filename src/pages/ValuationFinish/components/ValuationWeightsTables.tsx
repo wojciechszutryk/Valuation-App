@@ -1,7 +1,7 @@
+import clsx from 'clsx'
 import React from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
-import { TableBody } from '@material-ui/core'
+import { TableBody, Typography } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
@@ -9,33 +9,8 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import { findObjectsWithOneNotEqualValue } from '../../../utils/functions'
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        table: {
-            minWidth: 650,
-        },
-        tableHeadCell: {
-            padding: '8px',
-            textTransform: 'capitalize',
-            backgroundColor:
-                theme.palette.type === 'dark'
-                    ? theme.palette.secondary.dark
-                    : theme.palette.secondary.main,
-            color: 'white',
-        },
-        tableBodyCell: {
-            padding: '5px 8px',
-        },
-        tableBodyRow: {
-            '&:nth-child(2n+1)': {
-                backgroundColor:
-                    theme.palette.type === 'dark' ? '#5d5d5d' : '#e6e6ff',
-            },
-        },
-    })
-)
+import { findObjectsWithOneNotEqualValue } from 'utils/functions'
+import { useStyles } from './tableStyles'
 
 const ValuationWeightsTables = () => {
     const classes = useStyles()
@@ -62,22 +37,29 @@ const ValuationWeightsTables = () => {
         properties: { [key: string]: number },
         unitPrice: number | null = null
     ) {
-        return Object.assign({}, { index, name }, properties, { unitPrice })
+        return Object.assign({}, { index, name }, properties, {
+            unitPrice,
+        })
     }
 
     const unitPrices = valuationObjects.map((obj, index) => {
-        return parseInt(
+        return Number.parseFloat(
             (
                 valuationObjectsPrices[index] / valuationObjectsAreas[index]
             ).toFixed(2)
         )
     })
+    const minPrice = Math.min(...unitPrices)
+    const maxPrice = Math.max(...unitPrices)
+    const diffMaxMinPrice = maxPrice - minPrice
 
     const rowsHeader: string[] = []
     rowsHeader.push(t('index'))
     rowsHeader.push(t('name'))
     rowsHeader.push.apply(rowsHeader, valuationParametersObjects)
     rowsHeader.push(t('unit price'))
+    rowsHeader.push(t('price difference'))
+    rowsHeader.push(t('weight'))
 
     const rows: { [key: string]: number | string }[] = []
 
@@ -96,22 +78,46 @@ const ValuationWeightsTables = () => {
             findObjectsWithOneNotEqualValue(valuationObjectsParameters, key)
     )
 
-    console.log(similarParametersObjectsPairs)
+    const diffPriceArray = similarParametersObjectsPairs.map((criteriaPairs) =>
+        criteriaPairs.map((pair) =>
+            Number.parseFloat(
+                Math.abs(unitPrices[pair[1]] - unitPrices[pair[0]]).toFixed(2)
+            )
+        )
+    )
+
+    const weightsArray = similarParametersObjectsPairs.map((criteriaPairs) =>
+        criteriaPairs.map((pair) =>
+            Number.parseFloat(
+                Math.abs(unitPrices[pair[1]] - unitPrices[pair[0]]).toFixed(2)
+            )
+        )
+    )
+
+    console.log(weightsArray)
 
     return (
         <div>
+            <Typography variant="h2" className={classes.header}>
+                {t('Criteria Weights')}
+            </Typography>
             {similarParametersObjectsPairs.map((pairs, index) => (
-                <TableContainer component={Paper} key={index} elevation={0}>
+                <TableContainer component={Paper} key={index} elevation={3}>
                     <Table
                         className={classes.table}
                         aria-label="valuation details table"
                     >
                         <TableHead>
                             <TableRow>
-                                {rowsHeader.map((row, index) => (
+                                {rowsHeader.map((row, rowIndex) => (
                                     <TableCell
-                                        key={index}
-                                        className={classes.tableHeadCell}
+                                        key={rowIndex}
+                                        className={clsx(
+                                            classes.tableHeadCellWeights,
+                                            rowIndex - 2 === index
+                                                ? classes.important
+                                                : null
+                                        )}
                                     >
                                         {row}
                                     </TableCell>
@@ -123,7 +129,7 @@ const ValuationWeightsTables = () => {
                                 <>
                                     <TableRow
                                         key={pair[0]}
-                                        className={classes.tableBodyRow}
+                                        className={classes.tableBodyRowWeights}
                                     >
                                         {Object.values(rows[pair[0]]).map(
                                             (value, index) => (
@@ -139,8 +145,8 @@ const ValuationWeightsTables = () => {
                                         )}
                                     </TableRow>
                                     <TableRow
-                                        key={index}
-                                        className={classes.tableBodyRow}
+                                        key={pair[1]}
+                                        className={classes.tableBodyRowWeights}
                                     >
                                         {Object.values(rows[pair[1]]).map(
                                             (value, index) => (
@@ -154,6 +160,14 @@ const ValuationWeightsTables = () => {
                                                 </TableCell>
                                             )
                                         )}
+                                        <TableCell
+                                            className={classes.tableBodyCell}
+                                        >
+                                            {Math.abs(
+                                                unitPrices[pair[1]] -
+                                                    unitPrices[pair[0]]
+                                            ).toFixed(2)}
+                                        </TableCell>
                                     </TableRow>
                                 </>
                             ))}
@@ -163,40 +177,6 @@ const ValuationWeightsTables = () => {
             ))}
         </div>
     )
-
-    // <TableContainer component={Paper} elevation={0}>
-    //     <Table
-    //         className={classes.table}
-    //         aria-label="valuation details table"
-    //     >
-    //         <TableHead>
-    //             <TableRow>
-    //                 {rowsHeader.map((row, index) => (
-    //                     <TableCell
-    //                         key={index}
-    //                         className={classes.tableHeadCell}
-    //                     >
-    //                         {row}
-    //                     </TableCell>
-    //                 ))}
-    //             </TableRow>
-    //         </TableHead>
-    //         <TableBody>
-    //             {rows.map((row, index) => (
-    //                 <TableRow key={index} className={classes.tableBodyRow}>
-    //                     {Object.values(row).map((value, index) => (
-    //                         <TableCell
-    //                             key={index}
-    //                             className={classes.tableBodyCell}
-    //                         >
-    //                             {value}
-    //                         </TableCell>
-    //                     ))}
-    //                 </TableRow>
-    //             ))}
-    //         </TableBody>
-    //     </Table>
-    // </TableContainer>
 }
 
 export default ValuationWeightsTables
