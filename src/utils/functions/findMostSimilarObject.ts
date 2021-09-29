@@ -1,6 +1,7 @@
 export const findMostSimilarObject = (
     objects: { [key: string]: number }[],
-    object: { [key: string]: number }
+    object: { [key: string]: number },
+    excludeIndexes: number[] = []
 ) => {
     if (objects.length === 1 || objects.length === 0) return 0
 
@@ -16,7 +17,7 @@ export const findMostSimilarObject = (
     })
 
     //other iterations to compare if other object is more relevant
-    for (let i = 1; i < objects.length; i++) {
+    for (let i = 0; i < objects.length; i++) {
         const objectsObjectValues = Object.values(objects[i])
         let objectsObjectValuesDifference = 0
         objectsObjectValues.forEach((parameter, index) => {
@@ -26,7 +27,8 @@ export const findMostSimilarObject = (
         })
         if (
             objectsObjectValuesDifference <
-            mostSimilarObjectParametersDifference
+                mostSimilarObjectParametersDifference &&
+            !excludeIndexes.includes(i)
         ) {
             mostSimilarObjectIndex = i
             mostSimilarObjectParametersDifference =

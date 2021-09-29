@@ -51,5 +51,12 @@ export const lightTheme = createTheme({
                 },
             },
         },
+        MuiCheckbox: {
+            colorSecondary: {
+                '&$checked': {
+                    color: '#9377c1',
+                },
+            },
+        },
     },
 })

@@ -63,5 +63,14 @@ export const useStyles = makeStyles((theme: Theme) =>
                     : '#e6e6ff',
             color: 'white',
         },
+        tableBodyWithCheckboxCell: {
+            padding: '5px 8px',
+            width: '50px',
+            '& span': {
+                padding: 0,
+                width: '50px',
+                marginLeft: 'auto',
+            },
+        },
     })
 )

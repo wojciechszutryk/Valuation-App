@@ -9,13 +9,12 @@ import {
     setParametersScale,
     setValuationObject,
     setValuationObjectArea,
-    setValuationObjectCoordinates,
     setValuationObjectParameters,
     setValuationObjects,
     setValuationObjectsAreas,
     setValuationObjectsParameters,
     setValuationObjectsPrices,
-} from '../../data/state/actions/valuationActions'
+} from 'data/state/actions/valuationActions'
 import { useAppDispatch } from '../hooks/useAppDispach'
 
 export const FetchDataFromApiToState = async (workId: string) => {

@@ -87,6 +87,13 @@ export const setValuationObjectParameters = (object: {
     payload: object,
 })
 
+export const setValuationObjectsForValuation = (
+    objects: number[]
+): AnyAction => ({
+    type: types.SET_VALUATION_OBJECTS_FOR_VALUATION,
+    payload: objects,
+})
+
 export const setValuationObjectsParameters = (
     objects: { [key: string]: number }[]
 ): AnyAction => ({

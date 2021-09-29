@@ -23,6 +23,7 @@ const initialState = {
     activeObject: null,
     valuationObjectParameters: { '': 0 },
     valuationObjectsParameters: [{ '': 0 }],
+    valuationObjectsForValidation: [],
 }
 
 const reducer = (
@@ -58,6 +59,8 @@ const reducer = (
             return { ...state, valuationObjectParameters: action.payload }
         case types.SET_VALUATION_OBJECTS_PARAMETERS:
             return { ...state, valuationObjectsParameters: action.payload }
+        case types.SET_VALUATION_OBJECTS_FOR_VALUATION:
+            return { ...state, valuationObjectsForValidation: action.payload }
         default:
             return state
     }

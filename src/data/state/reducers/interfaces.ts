@@ -30,4 +30,5 @@ export interface ValuationReducer {
     activeObject: number | null
     valuationObjectParameters: { [key: string]: number }
     valuationObjectsParameters: { [key: string]: number }[]
+    valuationObjectsForValidation: number[]
 }

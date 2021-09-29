@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import Table from '@material-ui/core/Table'
-import { TableBody, Typography } from '@material-ui/core'
+import { Checkbox, TableBody, Typography } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
@@ -8,10 +8,14 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
+import { setValuationObjectsForValuation } from 'data/state/actions/valuationActions'
+import { listMostSimilarObjects } from 'utils/functions'
+import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useStyles } from './tableStyles'
 
 const ValuationDetailsTable = () => {
     const classes = useStyles()
+    const dispatch = useAppDispatch()
     const { t } = useTranslation()
     const valuationObjectsParameters = useAppSelector(
         (state) => state.valuation.valuationObjectsParameters
@@ -34,6 +38,22 @@ const ValuationDetailsTable = () => {
     const valuationObject = useAppSelector(
         (state) => state.valuation.valuationObject
     )
+    const valuationObjectsForValidation = useAppSelector(
+        (state) => state.valuation.valuationObjectsForValidation
+    )
+
+    useEffect(() => {
+        const mostSimilarObjectsToValuationObjectIndexes =
+            listMostSimilarObjects(
+                valuationObjectsParameters,
+                valuationObjectParameters
+            )
+        dispatch(
+            setValuationObjectsForValuation(
+                mostSimilarObjectsToValuationObjectIndexes
+            )
+        )
+    }, [valuationObjectsParameters, valuationObjectParameters, dispatch])
 
     function createData(
         index: number,
@@ -57,6 +77,7 @@ const ValuationDetailsTable = () => {
     rowsHeader.push(t('price'))
     rowsHeader.push(t('unit price'))
     rowsHeader.push.apply(rowsHeader, Object.keys(valuationObjectParameters))
+    rowsHeader.push(t('for valuation'))
 
     const rows: { [key: string]: number | string }[] = []
 
@@ -80,6 +101,34 @@ const ValuationDetailsTable = () => {
         valuationObject,
         valuationObjectArea,
         valuationObjectParameters
+    )
+
+    const handleCheckboxChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+            let valuationObjectsForValidationCopy = [
+                ...valuationObjectsForValidation,
+            ]
+            if (
+                valuationObjectsForValidationCopy.includes(index) &&
+                !event.target.checked
+            )
+                valuationObjectsForValidationCopy =
+                    valuationObjectsForValidationCopy.filter(
+                        (val) => val !== index
+                    )
+            else if (
+                !valuationObjectsForValidationCopy.includes(index) &&
+                event.target.checked
+            )
+                valuationObjectsForValidationCopy.push(index)
+            else return
+            dispatch(
+                setValuationObjectsForValuation(
+                    valuationObjectsForValidationCopy
+                )
+            )
+        },
+        [valuationObjectsForValidation, dispatch]
     )
 
     return (
@@ -122,6 +171,24 @@ const ValuationDetailsTable = () => {
                                         {value}
                                     </TableCell>
                                 ))}
+                                <TableCell
+                                    className={
+                                        classes.tableBodyWithCheckboxCell
+                                    }
+                                >
+                                    <Checkbox
+                                        checked={valuationObjectsForValidation.includes(
+                                            index
+                                        )}
+                                        color="secondary"
+                                        onChange={(event) =>
+                                            handleCheckboxChange(event, index)
+                                        }
+                                        inputProps={{
+                                            'aria-label': 'checkbox',
+                                        }}
+                                    />
+                                </TableCell>
                             </TableRow>
                         ))}
                         <TableRow className={classes.tableBodyRow}>
@@ -137,6 +204,9 @@ const ValuationDetailsTable = () => {
                                     </TableCell>
                                 )
                             )}
+                            <TableCell
+                                className={classes.tableBodyValuationObjectRow}
+                            />
                         </TableRow>
                     </TableBody>
                 </Table>
