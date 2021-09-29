@@ -12,11 +12,11 @@
       "id": "1",
       "name": "ul. Zielona",
       "objectParameters": {
-        "Lokalizacja": 2,
-        "Sąsiedztwo i otoczenie": 1,
-        "Kształt i wielokość działki": 2,
-        "Uzbrojenie": 3,
-        "Dojazd": 2
+        "Lokalizacja": 3,
+        "Sąsiedztwo i otoczenie": 2,
+        "Kształt i wielokość działki": 4,
+        "Uzbrojenie": 2,
+        "Dojazd": 3
       },
       "area": 1725
     }

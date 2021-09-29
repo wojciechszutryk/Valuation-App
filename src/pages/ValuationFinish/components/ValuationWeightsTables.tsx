@@ -111,8 +111,6 @@ const ValuationWeightsTables = () => {
         ((100 * weight) / weightsSum).toFixed(2)
     )
 
-    console.log(diffPriceArray)
-
     return (
         <div>
             <Typography variant="h2" className={classes.header}>
