@@ -10,10 +10,13 @@ import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import { findObjectsWithOneNotEqualValue } from 'utils/functions'
+import { setValuationParametersStandardizedWeights } from 'data/state/actions/valuationActions'
+import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useStyles } from './tableStyles'
 
 const ValuationWeightsTables = () => {
     const classes = useStyles()
+    const dispatch = useAppDispatch()
     const { t } = useTranslation()
     const valuationParametersObjects = useAppSelector(
         (state) => state.valuation.valuationParametersObjects
@@ -138,10 +141,13 @@ const ValuationWeightsTables = () => {
         [weights]
     )
 
-    const standardizedWeights = useMemo(
-        () => weights.map((weight) => ((100 * weight) / weightsSum).toFixed(2)),
-        [weightsSum, weights]
-    )
+    const standardizedWeights = useMemo(() => {
+        const standardizedWeights = weights.map((weight) =>
+            Number.parseFloat(((100 * weight) / weightsSum).toFixed(2))
+        )
+        dispatch(setValuationParametersStandardizedWeights(standardizedWeights))
+        return standardizedWeights
+    }, [weightsSum, weights])
 
     return (
         <div>

@@ -24,6 +24,7 @@ const initialState = {
     valuationObjectParameters: { '': 0 },
     valuationObjectsParameters: [{ '': 0 }],
     valuationObjectsForValidation: [],
+    valuationParametersStandardizedWeights: [],
 }
 
 const reducer = (
@@ -61,6 +62,11 @@ const reducer = (
             return { ...state, valuationObjectsParameters: action.payload }
         case types.SET_VALUATION_OBJECTS_FOR_VALUATION:
             return { ...state, valuationObjectsForValidation: action.payload }
+        case types.SET_VALUATION_PARAMETERS_STANDARDIZED_WEIGHTS:
+            return {
+                ...state,
+                valuationParametersStandardizedWeights: action.payload,
+            }
         default:
             return state
     }

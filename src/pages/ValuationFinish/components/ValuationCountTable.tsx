@@ -8,7 +8,10 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import { setValuationObjectsForValuation } from 'data/state/actions/valuationActions'
+import {
+    setValuationObjectsForValuation,
+    setValuationParametersStandardizedWeights,
+} from 'data/state/actions/valuationActions'
 import { listMostSimilarObjects } from 'utils/functions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useStyles } from './tableStyles'
@@ -40,6 +43,9 @@ const ValuationCountTable = () => {
     )
     const valuationObjectsForValidation = useAppSelector(
         (state) => state.valuation.valuationObjectsForValidation
+    )
+    const valuationParametersStandardizedWeights = useAppSelector(
+        (state) => state.valuation.valuationParametersStandardizedWeights
     )
 
     function createData(

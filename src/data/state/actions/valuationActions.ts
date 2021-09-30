@@ -100,3 +100,10 @@ export const setValuationObjectsParameters = (
     type: types.SET_VALUATION_OBJECTS_PARAMETERS,
     payload: objects,
 })
+
+export const setValuationParametersStandardizedWeights = (
+    standardizedParameters: number[]
+): AnyAction => ({
+    type: types.SET_VALUATION_PARAMETERS_STANDARDIZED_WEIGHTS,
+    payload: standardizedParameters,
+})
