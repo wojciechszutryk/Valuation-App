@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import Table from '@material-ui/core/Table'
 import { Checkbox, TableBody, Typography } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
@@ -25,6 +25,9 @@ const ValuationDetailsTable = () => {
     )
     const valuationObjectArea = useAppSelector(
         (state) => state.valuation.valuationObjectArea
+    )
+    const valuationParametersObjects = useAppSelector(
+        (state) => state.valuation.valuationParametersObjects
     )
     const valuationObjectsPrices = useAppSelector(
         (state) => state.valuation.valuationObjectsPrices
@@ -55,52 +58,78 @@ const ValuationDetailsTable = () => {
         )
     }, [valuationObjectsParameters, valuationObjectParameters, dispatch])
 
-    function createData(
-        index: number,
-        name: string,
-        area: number,
-        properties: { [key: string]: number },
-        price: number | null = null,
-        unitPrice: number | null = null
-    ) {
-        return Object.assign(
-            {},
-            { index, name, area, price, unitPrice },
-            properties
-        )
-    }
+    const createData = useCallback(
+        (
+            index: number,
+            name: string,
+            area: number,
+            properties: { [key: string]: number },
+            price: number | null = null,
+            unitPrice: number | null = null
+        ) => {
+            return Object.assign(
+                {},
+                { index, name, area, price, unitPrice },
+                properties
+            )
+        },
+        []
+    )
 
-    const rowsHeader: string[] = []
-    rowsHeader.push(t('index'))
-    rowsHeader.push(t('name'))
-    rowsHeader.push(t('area'))
-    rowsHeader.push(t('price'))
-    rowsHeader.push(t('unit price'))
-    rowsHeader.push.apply(rowsHeader, Object.keys(valuationObjectParameters))
-    rowsHeader.push(t('for valuation'))
+    const rowsHeader: string[] = useMemo(() => {
+        const rowsHeader: string[] = []
+        rowsHeader.push(t('index'))
+        rowsHeader.push(t('name'))
+        rowsHeader.push(t('area'))
+        rowsHeader.push(t('price'))
+        rowsHeader.push(t('unit price'))
+        rowsHeader.push.apply(rowsHeader, valuationParametersObjects)
+        rowsHeader.push(t('for valuation'))
+        return rowsHeader
+    }, [valuationParametersObjects, t])
 
-    const rows: { [key: string]: number | string }[] = []
+    const rows: { [key: string]: number | string }[] = useMemo(() => {
+        const rows: { [key: string]: number | string }[] = []
 
-    for (let i = 0; i < valuationObjects.length; i++) {
-        const row: { [key: string]: number | string } = createData(
-            i + 1,
-            valuationObjects[i],
-            valuationObjectsAreas[i],
-            valuationObjectsParameters[i],
-            valuationObjectsPrices[i],
-            parseInt(
-                (valuationObjectsPrices[i] / valuationObjectsAreas[i]).toFixed(
-                    2
+        for (let i = 0; i < valuationObjects.length; i++) {
+            const row: { [key: string]: number | string } = createData(
+                i + 1,
+                valuationObjects[i],
+                valuationObjectsAreas[i],
+                valuationObjectsParameters[i],
+                valuationObjectsPrices[i],
+                parseInt(
+                    (
+                        valuationObjectsPrices[i] / valuationObjectsAreas[i]
+                    ).toFixed(2)
                 )
             )
-        )
-        rows.push(row)
-    }
-    const valuationObjectRow = createData(
-        valuationObjects.length + 1,
-        valuationObject,
-        valuationObjectArea,
-        valuationObjectParameters
+            rows.push(row)
+        }
+        return rows
+    }, [
+        createData,
+        valuationObjects,
+        valuationObjectsAreas,
+        valuationObjectsPrices,
+        valuationObjectsParameters,
+    ])
+
+    const valuationObjectRow = useMemo(
+        () =>
+            createData(
+                valuationObjects.length + 1,
+                valuationObject,
+                valuationObjectArea,
+                valuationObjectParameters
+            ),
+        [
+            valuationObjects,
+            createData,
+            valuationObject,
+            valuationObjectArea,
+            valuationObjectParameters,
+        ]
     )
 
     const handleCheckboxChange = useCallback(

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import Table from '@material-ui/core/Table'
 import { TableBody, Typography } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
@@ -34,24 +34,32 @@ const ValuationWeightsTables = () => {
         (state) => state.valuation.valuationObjects
     )
 
-    function createData(
-        index: number,
-        name: string,
-        properties: { [key: string]: number },
-        unitPrice: number | null = null
-    ) {
-        return Object.assign({}, { index, name }, properties, {
-            unitPrice,
-        })
-    }
+    const createData = useCallback(
+        (
+            index: number,
+            name: string,
+            properties: { [key: string]: number },
+            unitPrice: number | null = null
+        ) => {
+            return Object.assign({}, { index, name }, properties, {
+                unitPrice,
+            })
+        },
+        []
+    )
 
-    const unitPrices = valuationObjects.map((obj, index) => {
-        return Number.parseFloat(
-            (
-                valuationObjectsPrices[index] / valuationObjectsAreas[index]
-            ).toFixed(2)
-        )
-    })
+    const unitPrices = useMemo(
+        () =>
+            valuationObjects.map((obj, index) => {
+                return Number.parseFloat(
+                    (
+                        valuationObjectsPrices[index] /
+                        valuationObjectsAreas[index]
+                    ).toFixed(2)
+                )
+            }),
+        [valuationObjects, valuationObjectsPrices, valuationObjectsAreas]
+    )
     const minPrice = useMemo(() => Math.min(...unitPrices), [unitPrices])
     const maxPrice = useMemo(() => Math.max(...unitPrices), [unitPrices])
     const diffMaxMinPrice = useMemo(
@@ -68,7 +76,7 @@ const ValuationWeightsTables = () => {
         rowsHeader.push(t('price difference'))
         rowsHeader.push(t('weight'))
         return rowsHeader
-    }, [valuationParametersObjects])
+    }, [valuationParametersObjects, t])
 
     const rows: { [key: string]: number | string }[] = useMemo(() => {
         const rows: { [key: string]: number | string }[] = []
@@ -147,7 +155,7 @@ const ValuationWeightsTables = () => {
         )
         dispatch(setValuationParametersStandardizedWeights(standardizedWeights))
         return standardizedWeights
-    }, [weightsSum, weights])
+    }, [weightsSum, weights, dispatch])
 
     return (
         <div>

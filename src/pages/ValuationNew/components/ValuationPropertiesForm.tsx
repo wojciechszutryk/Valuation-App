@@ -12,6 +12,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { findDuplicatesInArray, showToast } from 'utils'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { setValuationObjectsParameters } from '../../../data/state/actions/valuationActions'
+import { useAppDispatch } from '../../../utils/hooks/useAppDispach'
+import { useAppSelector } from '../../../utils/hooks/useAppSelector'
 import { useStyles } from './styles'
 
 type Props = {
@@ -27,6 +30,10 @@ const ValuationPropertiesForm = ({
     valueCriteriaScale,
     setValueCriteriaScale,
 }: Props) => {
+    const valuationObjectsParameters = useAppSelector(
+        (state) => state.valuation.valuationObjectsParameters
+    )
+    const dispatch = useAppDispatch()
     const classes = useStyles()
     const { t } = useTranslation()
 
@@ -67,6 +74,16 @@ const ValuationPropertiesForm = ({
         const valuationObjectsCopy = [...valuationCriteria]
         valuationObjectsCopy.splice(index, 1)
         setValuationCriteria(valuationObjectsCopy)
+        const valuationObjectsParametersCopy = JSON.parse(
+            JSON.stringify(valuationObjectsParameters)
+        )
+        const parameterName = Object.keys(valuationObjectsParametersCopy[0])[0]
+        valuationObjectsParametersCopy.forEach(
+            (object: { [key: string]: number }) => {
+                delete object[parameterName]
+            }
+        )
+        dispatch(setValuationObjectsParameters(valuationObjectsParametersCopy))
         showToast(t('Valuation property deleted successfully'))
     }
 

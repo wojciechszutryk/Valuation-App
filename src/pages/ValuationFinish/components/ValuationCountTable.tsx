@@ -48,23 +48,26 @@ const ValuationCountTable = () => {
         (state) => state.valuation.valuationParametersStandardizedWeights
     )
 
-    function createData(
-        attribute: string,
-        standardizedWeight: number,
-        shareOfTheAmount: number,
-        range: number,
-        weightFactor: number,
-        attributeValue: number
-    ) {
-        return {
-            attribute,
-            standardizedWeight,
-            shareOfTheAmount,
-            range,
-            weightFactor,
-            attributeValue,
-        }
-    }
+    const createData = useCallback(
+        (
+            attribute: string,
+            standardizedWeight: number,
+            shareOfTheAmount: number,
+            range: number,
+            weightFactor: number,
+            attributeValue: number
+        ) => {
+            return {
+                attribute,
+                standardizedWeight,
+                shareOfTheAmount,
+                range,
+                weightFactor,
+                attributeValue,
+            }
+        },
+        []
+    )
 
     const rowsHeader: string[] = []
     rowsHeader.push(t('attribute'))
