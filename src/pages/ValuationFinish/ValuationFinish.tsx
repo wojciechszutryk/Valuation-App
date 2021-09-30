@@ -2,7 +2,7 @@ import { Container } from '@material-ui/core'
 import React from 'react'
 import { Stepper } from 'components'
 import { Steps } from 'typings'
-import ValuationDetailsTable from './components'
+import { ValuationCountTable, ValuationDetailsTable } from './components'
 
 ///////////////////////////////////
 import { FetchDataFromApiToState } from 'utils/functions/fetchDataFromAPIToState'
@@ -81,6 +81,7 @@ const ValuationFinish = () => {
             <Stepper activeStepFromProps={2 as Steps} />
             <ValuationDetailsTable />
             <ValuationWeightsTables />
+            <ValuationCountTable />
             <button onClick={handleFetch}>fetch</button>
         </Container>
     )

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, { useMemo } from 'react'
 import Table from '@material-ui/core/Table'
 import { TableBody, Typography } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
@@ -49,66 +49,98 @@ const ValuationWeightsTables = () => {
             ).toFixed(2)
         )
     })
-    const minPrice = Math.min(...unitPrices)
-    const maxPrice = Math.max(...unitPrices)
-    const diffMaxMinPrice = maxPrice - minPrice
-
-    const rowsHeader: string[] = []
-    rowsHeader.push(t('index'))
-    rowsHeader.push(t('name'))
-    rowsHeader.push.apply(rowsHeader, valuationParametersObjects)
-    rowsHeader.push(t('unit price'))
-    rowsHeader.push(t('price difference'))
-    rowsHeader.push(t('weight'))
-
-    const rows: { [key: string]: number | string }[] = []
-
-    for (let i = 0; i < valuationObjects.length; i++) {
-        const row: { [key: string]: number | string } = createData(
-            i + 1,
-            valuationObjects[i],
-            valuationObjectsParameters[i],
-            unitPrices[i]
-        )
-        rows.push(row)
-    }
-
-    const similarParametersObjectsPairs = valuationParametersObjects.map(
-        (key) =>
-            findObjectsWithOneNotEqualValue(valuationObjectsParameters, key)
+    const minPrice = useMemo(() => Math.min(...unitPrices), [unitPrices])
+    const maxPrice = useMemo(() => Math.max(...unitPrices), [unitPrices])
+    const diffMaxMinPrice = useMemo(
+        () => maxPrice - minPrice,
+        [maxPrice, minPrice]
     )
 
-    const diffPriceArray = similarParametersObjectsPairs.map((criteriaPairs) =>
-        criteriaPairs.map((pair) =>
-            Number.parseFloat(
-                Math.abs(unitPrices[pair[1]] - unitPrices[pair[0]]).toFixed(2)
+    const rowsHeader: string[] = useMemo(() => {
+        const rowsHeader = []
+        rowsHeader.push(t('index'))
+        rowsHeader.push(t('name'))
+        rowsHeader.push.apply(rowsHeader, valuationParametersObjects)
+        rowsHeader.push(t('unit price'))
+        rowsHeader.push(t('price difference'))
+        rowsHeader.push(t('weight'))
+        return rowsHeader
+    }, [valuationParametersObjects])
+
+    const rows: { [key: string]: number | string }[] = useMemo(() => {
+        const rows: { [key: string]: number | string }[] = []
+
+        for (let i = 0; i < valuationObjects.length; i++) {
+            const row: { [key: string]: number | string } = createData(
+                i + 1,
+                valuationObjects[i],
+                valuationObjectsParameters[i],
+                unitPrices[i]
             )
-        )
+            rows.push(row)
+        }
+        return rows
+    }, [valuationObjects, valuationObjectsParameters, unitPrices, createData])
+
+    const similarParametersObjectsPairs = useMemo(
+        () =>
+            valuationParametersObjects.map((key) =>
+                findObjectsWithOneNotEqualValue(valuationObjectsParameters, key)
+            ),
+        [valuationObjectsParameters, valuationParametersObjects]
     )
 
-    const weightsArrays = diffPriceArray.map((categoryPricesArray) =>
-        categoryPricesArray.map((price) =>
-            Number.parseFloat((price / diffMaxMinPrice).toFixed(2))
-        )
+    const diffPriceArray = useMemo(
+        () =>
+            similarParametersObjectsPairs.map((criteriaPairs: number[][]) =>
+                criteriaPairs.map((pair: number[]) =>
+                    Number.parseFloat(
+                        Math.abs(
+                            unitPrices[pair[1]] - unitPrices[pair[0]]
+                        ).toFixed(2)
+                    )
+                )
+            ),
+        [similarParametersObjectsPairs, unitPrices]
     )
 
-    const weights = weightsArrays.map((weightsArray) => {
-        const weightsSum = weightsArray.reduce(
-            (previousValue, currentValue) => previousValue + currentValue,
-            0
-        )
-        return Number.parseFloat(
-            ((100 * weightsSum) / weightsArray.length).toFixed(2)
-        )
-    })
-
-    const weightsSum = weights.reduce(
-        (previousValue, currentValue) => previousValue + currentValue,
-        0
+    const weightsArrays = useMemo(
+        () =>
+            diffPriceArray.map((categoryPricesArray) =>
+                categoryPricesArray.map((price) =>
+                    Number.parseFloat((price / diffMaxMinPrice).toFixed(2))
+                )
+            ),
+        [diffPriceArray, diffMaxMinPrice]
     )
 
-    const standardizedWeights = weights.map((weight) =>
-        ((100 * weight) / weightsSum).toFixed(2)
+    const weights = useMemo(
+        () =>
+            weightsArrays.map((weightsArray) => {
+                const weightsSum = weightsArray.reduce(
+                    (previousValue, currentValue) =>
+                        previousValue + currentValue,
+                    0
+                )
+                return Number.parseFloat(
+                    ((100 * weightsSum) / weightsArray.length).toFixed(2)
+                )
+            }),
+        [weightsArrays]
+    )
+
+    const weightsSum = useMemo(
+        () =>
+            weights.reduce(
+                (previousValue, currentValue) => previousValue + currentValue,
+                0
+            ),
+        [weights]
+    )
+
+    const standardizedWeights = useMemo(
+        () => weights.map((weight) => ((100 * weight) / weightsSum).toFixed(2)),
+        [weightsSum, weights]
     )
 
     return (
