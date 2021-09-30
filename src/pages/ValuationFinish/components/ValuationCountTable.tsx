@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import Table from '@material-ui/core/Table'
-import { Checkbox, TableBody, Typography } from '@material-ui/core'
+import { TableBody, Typography } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
@@ -8,17 +8,10 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import {
-    setValuationObjectsForValuation,
-    setValuationParametersStandardizedWeights,
-} from 'data/state/actions/valuationActions'
-import { listMostSimilarObjects } from 'utils/functions'
-import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useStyles } from './tableStyles'
 
 const ValuationCountTable = () => {
     const classes = useStyles()
-    const dispatch = useAppDispatch()
     const { t } = useTranslation()
     const valuationObjectsParameters = useAppSelector(
         (state) => state.valuation.valuationObjectsParameters
@@ -26,26 +19,20 @@ const ValuationCountTable = () => {
     const valuationObjectsAreas = useAppSelector(
         (state) => state.valuation.valuationObjectsAreas
     )
-    const valuationObjectArea = useAppSelector(
-        (state) => state.valuation.valuationObjectArea
-    )
     const valuationObjectsPrices = useAppSelector(
         (state) => state.valuation.valuationObjectsPrices
     )
     const valuationObjectParameters = useAppSelector(
         (state) => state.valuation.valuationObjectParameters
     )
-    const valuationObjects = useAppSelector(
-        (state) => state.valuation.valuationObjects
-    )
     const valuationObject = useAppSelector(
         (state) => state.valuation.valuationObject
     )
-    const valuationObjectsForValidation = useAppSelector(
-        (state) => state.valuation.valuationObjectsForValidation
-    )
     const valuationParametersStandardizedWeights = useAppSelector(
         (state) => state.valuation.valuationParametersStandardizedWeights
+    )
+    const valuationParametersObjects = useAppSelector(
+        (state) => state.valuation.valuationParametersObjects
     )
 
     const createData = useCallback(
@@ -59,7 +46,7 @@ const ValuationCountTable = () => {
         ) => {
             return {
                 attribute,
-                standardizedWeight,
+                standardizedWeight: standardizedWeight + ' %',
                 shareOfTheAmount,
                 range,
                 weightFactor,
@@ -69,31 +56,77 @@ const ValuationCountTable = () => {
         []
     )
 
-    const rowsHeader: string[] = []
-    rowsHeader.push(t('attribute'))
-    rowsHeader.push(t('standardized weight'))
-    rowsHeader.push(t('share of the amount'))
-    rowsHeader.push(t('range'))
-    rowsHeader.push(t('weight factor'))
-    rowsHeader.push(valuationObject)
+    const rowsHeader: string[] = useMemo(() => {
+        const rowsHeader: string[] = []
+        rowsHeader.push(t('attribute'))
+        rowsHeader.push(t('standardized weight'))
+        rowsHeader.push(t('share of the amount'))
+        rowsHeader.push(t('range'))
+        rowsHeader.push(t('weight factor'))
+        rowsHeader.push(valuationObject)
+        return rowsHeader
+    }, [valuationObject, t])
 
-    const rows: { [key: string]: number | string }[] = []
+    const differenceMinAndMaxUnitPrice = useMemo(() => {
+        const unitPriceArray: number[] = valuationObjectsPrices.map(
+            (price, index) => price / valuationObjectsAreas[index]
+        )
+        return Math.max(...unitPriceArray) - Math.min(...unitPriceArray)
+    }, [valuationObjectsAreas, valuationObjectsPrices])
 
-    // for (let i = 0; i < Object.keys(valuationObjectParameters).length; i++) {
-    //     const row: { [key: string]: number | string } = createData(
-    //         Object.keys(valuationObjectParameters)[i],
-    //         valuationObjects[i],
-    //         valuationObjectsAreas[i],
-    //         valuationObjectsParameters[i],
-    //         valuationObjectsPrices[i],
-    //         parseInt(
-    //             (valuationObjectsPrices[i] / valuationObjectsAreas[i]).toFixed(
-    //                 2
-    //             )
-    //         )
-    //     )
-    //     rows.push(row)
-    // }
+    const attributesRanges: number[] = useMemo(() => {
+        const attributesRanges: number[] = []
+        const combinedObjectsParameters = [
+            ...valuationObjectsParameters,
+            valuationObjectParameters,
+        ]
+        for (let i = 0; i < valuationParametersObjects.length; i++) {
+            let minParam: number =
+                combinedObjectsParameters[0][valuationParametersObjects[i]]
+            let maxParam: number =
+                combinedObjectsParameters[0][valuationParametersObjects[i]]
+            combinedObjectsParameters.forEach((parameter) => {
+                if (parameter[valuationParametersObjects[i]] < minParam)
+                    minParam = parameter[valuationParametersObjects[i]]
+                if (parameter[valuationParametersObjects[i]] > maxParam)
+                    maxParam = parameter[valuationParametersObjects[i]]
+            })
+            attributesRanges.push(maxParam - minParam)
+        }
+        return attributesRanges
+    }, [
+        valuationObjectsParameters,
+        valuationObjectParameters,
+        valuationParametersObjects,
+    ])
+
+    const rows: { [key: string]: number | string }[] = useMemo(() => {
+        const rows: { [key: string]: number | string }[] = []
+
+        for (let i = 0; i < valuationParametersObjects.length; i++) {
+            const share =
+                (valuationParametersStandardizedWeights[i] *
+                    differenceMinAndMaxUnitPrice) /
+                100
+            const row: { [key: string]: number | string } = createData(
+                valuationParametersObjects[i],
+                valuationParametersStandardizedWeights[i],
+                Number.parseFloat(share.toFixed(2)),
+                attributesRanges[i],
+                Number.parseFloat((share / attributesRanges[i]).toFixed(2)),
+                Object.values(valuationObjectParameters)[i]
+            )
+            rows.push(row)
+        }
+        return rows
+    }, [
+        attributesRanges,
+        createData,
+        valuationObjectParameters,
+        valuationParametersStandardizedWeights,
+        differenceMinAndMaxUnitPrice,
+        valuationParametersObjects,
+    ])
 
     return (
         <>
@@ -107,7 +140,7 @@ const ValuationCountTable = () => {
             >
                 <Table
                     className={classes.table}
-                    aria-label="valuation details table"
+                    aria-label="valuation count table"
                 >
                     <TableHead>
                         <TableRow>
@@ -137,6 +170,20 @@ const ValuationCountTable = () => {
                                 ))}
                             </TableRow>
                         ))}
+                        <TableRow className={classes.tableBodyRow}>
+                            <TableCell
+                                className={classes.tableBodyCell}
+                                colSpan={2}
+                            >
+                                {t('Extreme Unit Prices difference') + ':'}
+                            </TableCell>
+                            <TableCell
+                                className={classes.tableBodyCell}
+                                colSpan={100}
+                            >
+                                {'Σ ' + differenceMinAndMaxUnitPrice.toFixed(2)}
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>
