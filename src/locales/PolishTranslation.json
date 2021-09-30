@@ -39,5 +39,8 @@
   "unit price": "cena jednostkowa",
   "name": "nazwa",
   "index": "Lp.",
-  "Valuation summary": "Podsumowanie parametrów"
+  "Valuation summary": "Podsumowanie parametrów",
+  "Extreme Unit Prices difference": "Ekstremalna różnica cen jednostkowych",
+  "for valuation": "do wyceny",
+  "Valuation": "Wycena"
 }

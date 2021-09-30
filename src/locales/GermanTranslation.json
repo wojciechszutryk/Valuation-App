@@ -39,5 +39,8 @@
   "unit price": "Einheitspreis",
   "name": "Name",
   "index": "index",
-  "Valuation summary": "Bewertungszusammenfassung"
+  "Valuation summary": "Bewertungszusammenfassung",
+  "Extreme Unit Prices difference": "Extreme Stückpreisdifferenz",
+  "for valuation": "zur Bewertung",
+  "Valuation": "Bewertung"
 }
