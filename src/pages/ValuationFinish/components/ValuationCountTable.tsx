@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import { useStyles } from './tableStyles'
+import ValuationComparisonTables from './ValuationComparisonTables'
 
 const ValuationCountTable = () => {
     const classes = useStyles()
@@ -100,20 +101,40 @@ const ValuationCountTable = () => {
         valuationParametersObjects,
     ])
 
-    const rows: { [key: string]: number | string }[] = useMemo(() => {
-        const rows: { [key: string]: number | string }[] = []
-
+    const shares = useMemo(() => {
+        const shares: number[] = []
         for (let i = 0; i < valuationParametersObjects.length; i++) {
             const share =
                 (valuationParametersStandardizedWeights[i] *
                     differenceMinAndMaxUnitPrice) /
                 100
+            shares.push(share)
+        }
+        return shares
+    }, [
+        valuationParametersStandardizedWeights,
+        differenceMinAndMaxUnitPrice,
+        valuationParametersObjects,
+    ])
+
+    const shareFactors = useMemo(() => {
+        const shareFactors: number[] = []
+        for (let i = 0; i < valuationParametersObjects.length; i++) {
+            const shareFactor = shares[i] / attributesRanges[i]
+            shareFactors.push(shareFactor)
+        }
+        return shareFactors
+    }, [attributesRanges, valuationParametersObjects])
+
+    const rows: { [key: string]: number | string }[] = useMemo(() => {
+        const rows: { [key: string]: number | string }[] = []
+        for (let i = 0; i < valuationParametersObjects.length; i++) {
             const row: { [key: string]: number | string } = createData(
                 valuationParametersObjects[i],
                 valuationParametersStandardizedWeights[i],
-                Number.parseFloat(share.toFixed(2)),
+                Number.parseFloat(shares[i].toFixed(2)),
                 attributesRanges[i],
-                Number.parseFloat((share / attributesRanges[i]).toFixed(2)),
+                Number.parseFloat(shareFactors[i].toFixed(2)),
                 Object.values(valuationObjectParameters)[i]
             )
             rows.push(row)
@@ -187,6 +208,11 @@ const ValuationCountTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <ValuationComparisonTables
+                valuationObjectParameters={valuationObjectParameters}
+                valuationObjectsParameters={valuationObjectsParameters}
+                shareFactors={shareFactors}
+            />
         </>
     )
 }
