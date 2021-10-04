@@ -1,46 +1,67 @@
-# Getting Started with Create React App
+### ValuationApp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+DEMO: *available soon
 
-## Available Scripts
+## Project Status
 
-In the project directory, you can run:
+Application for real estate valuation made using react and typescript
 
-### `npm start`
+## Project Status
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project is currently in development. Done in ~50%. There is error handling, optimaliztion and backend site to be made
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Project Screen Shot(s)
+![image](https://user-images.githubusercontent.com/72247608/135769267-8c58765a-e6c0-44f3-9799-6cc114de9d92.png)
 
-### `npm test`
+![image](https://user-images.githubusercontent.com/72247608/135769290-b8a8c6e0-496e-45d3-96e9-a0c8324aa057.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+-adding and removing valuation objects 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-adding and removing valuation criterias
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-setting criteria range on slider
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-switching languages at any time
 
-### `npm run eject`
+-switching theme between dark and white at any time
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+-setting objects parameters
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-showing objects on customized map
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+-adding objects coordinates by clicking on map
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+-panning to object location on map when selecting
 
-## Learn More
+-automatic sellecting suggested objects for valuation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-moving valuation form forward and backward and not loosing data
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-showing valuation report
+
+-website will look well at any device
+
+-showing notification
+
+
+## Installation and Setup Instructions
+
+Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
+
+Installation:
+
+`npm install`  
+
+To Start Server:
+
+`npm start`  
+
+To Visit App:
+
+`localhost:3000`  
+
+## Reflection
+
+Application written as my engineering thesis.
