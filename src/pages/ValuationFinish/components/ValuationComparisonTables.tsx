@@ -1,4 +1,4 @@
-import { TableBody } from '@material-ui/core'
+import { Box, TableBody, Typography } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
 import TableCell from '@material-ui/core/TableCell'
@@ -18,6 +18,7 @@ interface Props {
     valuationObject: string
     valuationParametersObjects: string[]
     valuationObjectsPrices: number[]
+    valuationObjectsAreas: number[]
 }
 
 const ValuationComparisonTables = ({
@@ -27,6 +28,7 @@ const ValuationComparisonTables = ({
     valuationObject,
     valuationParametersObjects,
     valuationObjectsPrices,
+    valuationObjectsAreas,
 }: Props) => {
     const classes = useStyles()
     const { t } = useTranslation()
@@ -35,6 +37,9 @@ const ValuationComparisonTables = ({
     )
     const valuationObjects = useAppSelector(
         (state) => state.valuation.valuationObjects
+    )
+    const valuationObjectArea = useAppSelector(
+        (state) => state.valuation.valuationObjectArea
     )
 
     const valuationObjectsForValidationNames = useMemo(
@@ -45,18 +50,20 @@ const ValuationComparisonTables = ({
         [valuationObjectsForValidationIndexes, valuationObjects]
     )
 
-    const valuationObjectsForValidationPrices = useMemo(
+    const valuationObjectsForValidationUnitPrices = useMemo(
         () =>
-            valuationObjectsPrices.filter((object, index) =>
-                valuationObjectsForValidationIndexes.includes(index)
-            ),
+            valuationObjectsPrices
+                .map((price, index) => price / valuationObjectsAreas[index])
+                .filter((object, index) =>
+                    valuationObjectsForValidationIndexes.includes(index)
+                ),
         [valuationObjectsForValidationIndexes, valuationObjectsPrices]
     )
 
     const createData = useCallback(
         (
             attribute: string,
-            weightFactor: number,
+            weightFactor: string,
             objectName: number,
             valuationObject: number,
             attributeDifference: number,
@@ -103,7 +110,7 @@ const ValuationComparisonTables = ({
 
                     const row: { [key: string]: number | string } = createData(
                         valuationParametersObjects[i],
-                        shareFactors[i],
+                        shareFactors[i].toFixed(2),
                         Object.values(valuationObjectParameters)[i],
                         Object.values(valuationObjectsParameters[objectIndex])[
                             i
@@ -147,6 +154,16 @@ const ValuationComparisonTables = ({
             valuationObjectsParameters,
         ]
     )
+
+    const suggestedUnitPrice: number = useMemo(() => {
+        let sum = 0
+        for (let i = 0; i < correctionsSumArray.length; i++) {
+            sum +=
+                correctionsSumArray[i] +
+                valuationObjectsForValidationUnitPrices[i]
+        }
+        return sum / correctionsSumArray.length
+    }, [correctionsSumArray, valuationObjectsForValidationUnitPrices])
 
     return (
         <>
@@ -217,13 +234,17 @@ const ValuationComparisonTables = ({
                                         classes.alignRight
                                     )}
                                 >
-                                    {t('price') + ' :'}
+                                    {t('unit price') + ' :'}
                                 </TableCell>
                                 <TableCell
                                     colSpan={100}
                                     className={classes.tableBodyCell}
                                 >
-                                    {valuationObjectsForValidationPrices[index]}
+                                    {
+                                        valuationObjectsForValidationUnitPrices[
+                                            index
+                                        ]
+                                    }
                                 </TableCell>
                             </TableRow>
                             <TableRow className={classes.tableBodyRow}>
@@ -235,25 +256,44 @@ const ValuationComparisonTables = ({
                                         classes.alignRight
                                     )}
                                 >
-                                    {t('suggested price') + ' :'}
+                                    {t('suggested unit price') + ' :'}
                                 </TableCell>
                                 <TableCell
                                     colSpan={100}
                                     className={clsx(
                                         classes.tableBodyCell,
                                         classes.upperCase,
-                                        classes.alignRight
+                                        classes.priceSummary
                                     )}
                                 >
-                                    {valuationObjectsForValidationPrices[
-                                        index
-                                    ] + correctionsSumArray[index]}
+                                    {(
+                                        valuationObjectsForValidationUnitPrices[
+                                            index
+                                        ] + correctionsSumArray[index]
+                                    ).toFixed(2)}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>
             ))}
+            <Typography variant={'h6'} className={classes.summaryHeader}>
+                {valuationObject +
+                    ' - ' +
+                    t('suggested unit price') +
+                    ': ' +
+                    suggestedUnitPrice.toFixed(2)}
+            </Typography>
+            <Box className={clsx(classes.summaryBox, classes.summaryHeader)}>
+                <Typography variant={'h2'}>
+                    {t('suggested price') + ': '}
+                </Typography>
+
+                <Typography variant={'h2'}>
+                    {Number.parseFloat(suggestedUnitPrice.toFixed(2)) *
+                        valuationObjectArea}
+                </Typography>
+            </Box>
         </>
     )
 }

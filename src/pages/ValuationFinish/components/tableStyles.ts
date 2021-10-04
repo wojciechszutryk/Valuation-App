@@ -78,5 +78,21 @@ export const useStyles = makeStyles((theme: Theme) =>
         alignRight: {
             textAlign: 'right',
         },
+        priceSummary: {
+            fontWeight: 'bold',
+            color: theme.palette.secondary.dark,
+        },
+        summaryHeader: {
+            color:
+                theme.palette.type === 'light'
+                    ? theme.palette.primary.light
+                    : '#ddd',
+        },
+        summaryBox: {
+            display: 'flex',
+            '& h2:nth-child(2)': {
+                color: theme.palette.secondary.dark,
+            },
+        },
     })
 )
