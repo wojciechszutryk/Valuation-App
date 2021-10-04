@@ -124,7 +124,7 @@ const ValuationCountTable = () => {
             shareFactors.push(shareFactor)
         }
         return shareFactors
-    }, [attributesRanges, valuationParametersObjects])
+    }, [attributesRanges, valuationParametersObjects, shares])
 
     const rows: { [key: string]: number | string }[] = useMemo(() => {
         const rows: { [key: string]: number | string }[] = []
@@ -141,11 +141,12 @@ const ValuationCountTable = () => {
         }
         return rows
     }, [
+        shares,
+        shareFactors,
         attributesRanges,
         createData,
         valuationObjectParameters,
         valuationParametersStandardizedWeights,
-        differenceMinAndMaxUnitPrice,
         valuationParametersObjects,
     ])
 
@@ -212,6 +213,8 @@ const ValuationCountTable = () => {
                 valuationObjectParameters={valuationObjectParameters}
                 valuationObjectsParameters={valuationObjectsParameters}
                 shareFactors={shareFactors}
+                valuationObject={valuationObject}
+                valuationParametersObjects={valuationParametersObjects}
             />
         </>
     )

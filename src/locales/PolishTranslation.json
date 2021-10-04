@@ -42,5 +42,9 @@
   "Valuation summary": "Podsumowanie parametrów",
   "Extreme Unit Prices difference": "Ekstremalna różnica cen jednostkowych",
   "for valuation": "do wyceny",
-  "Valuation": "Wycena"
+  "Valuation": "Wycena",
+  "attribute difference": "Różnica atrybutów",
+  "correction": "Poprawka",
+  "attribute": "Atrybut",
+  "weight factor": "Współczynnik wagowy"
 }
