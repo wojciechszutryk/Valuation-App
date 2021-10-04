@@ -1,4 +1,4 @@
-import { TableBody, Typography } from '@material-ui/core'
+import { TableBody } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
 import TableCell from '@material-ui/core/TableCell'
@@ -9,7 +9,6 @@ import clsx from 'clsx'
 import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useStyles } from './tableStyles'
 
 interface Props {
@@ -118,12 +117,10 @@ const ValuationComparisonTables = ({
             })
         }, [
             createData,
-            valuationObjects,
             valuationObjectsParameters,
             valuationParametersObjects,
             valuationObjectParameters,
             shareFactors,
-            valuationObject,
             valuationObjectsForValidationIndexes,
         ])
 
@@ -155,6 +152,7 @@ const ValuationComparisonTables = ({
         <>
             {rowsBodyArray.map((rows, index) => (
                 <TableContainer
+                    key={index}
                     component={Paper}
                     elevation={0}
                     className={classes.tableContainer}
@@ -193,7 +191,6 @@ const ValuationComparisonTables = ({
                             ))}
                             <TableRow className={classes.tableBodyRow}>
                                 <TableCell
-                                    key={index}
                                     colSpan={3}
                                     className={clsx(
                                         classes.tableBodyCell,
@@ -213,7 +210,6 @@ const ValuationComparisonTables = ({
                             </TableRow>
                             <TableRow className={classes.tableBodyRow}>
                                 <TableCell
-                                    key={index}
                                     colSpan={3}
                                     className={clsx(
                                         classes.tableBodyCell,
@@ -224,18 +220,14 @@ const ValuationComparisonTables = ({
                                     {t('price') + ' :'}
                                 </TableCell>
                                 <TableCell
-                                    key={index}
                                     colSpan={100}
                                     className={classes.tableBodyCell}
                                 >
-                                    {valuationObjectsForValidationPrices[
-                                        index
-                                    ].toFixed(2)}
+                                    {valuationObjectsForValidationPrices[index]}
                                 </TableCell>
                             </TableRow>
                             <TableRow className={classes.tableBodyRow}>
                                 <TableCell
-                                    key={index}
                                     colSpan={3}
                                     className={clsx(
                                         classes.tableBodyCell,
@@ -246,7 +238,6 @@ const ValuationComparisonTables = ({
                                     {t('suggested price') + ' :'}
                                 </TableCell>
                                 <TableCell
-                                    key={index}
                                     colSpan={100}
                                     className={clsx(
                                         classes.tableBodyCell,
@@ -254,16 +245,9 @@ const ValuationComparisonTables = ({
                                         classes.alignRight
                                     )}
                                 >
-                                    {Number.parseFloat(
-                                        valuationObjectsForValidationPrices[
-                                            index
-                                        ].toFixed(2)
-                                    ) +
-                                        Number.parseFloat(
-                                            correctionsSumArray[index].toFixed(
-                                                2
-                                            )
-                                        )}
+                                    {valuationObjectsForValidationPrices[
+                                        index
+                                    ] + correctionsSumArray[index]}
                                 </TableCell>
                             </TableRow>
                         </TableBody>

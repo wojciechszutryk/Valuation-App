@@ -192,10 +192,9 @@ const ValuationWeightsTables = () => {
                         </TableHead>
                         <TableBody>
                             {pairs.map((pair, pairIndex) => (
-                                <>
+                                <React.Fragment key={pairIndex}>
                                     <TableRow
                                         hover={true}
-                                        key={pair[0]}
                                         className={classes.tableBodyRowWeights}
                                     >
                                         {Object.values(rows[pair[0]]).map(
@@ -219,7 +218,6 @@ const ValuationWeightsTables = () => {
                                     </TableRow>
                                     <TableRow
                                         hover={true}
-                                        key={pair[1]}
                                         className={classes.tableBodyRowWeights}
                                     >
                                         {Object.values(rows[pair[1]]).map(
@@ -245,7 +243,7 @@ const ValuationWeightsTables = () => {
                                             {weightsArrays[index][pairIndex]}
                                         </TableCell>
                                     </TableRow>
-                                </>
+                                </React.Fragment>
                             ))}
                             <TableRow
                                 className={classes.tableBodyRowWeightsValues}
