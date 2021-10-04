@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import clsx from 'clsx'
 import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
@@ -17,6 +18,7 @@ interface Props {
     shareFactors: number[]
     valuationObject: string
     valuationParametersObjects: string[]
+    valuationObjectsPrices: number[]
 }
 
 const ValuationComparisonTables = ({
@@ -25,6 +27,7 @@ const ValuationComparisonTables = ({
     shareFactors,
     valuationObject,
     valuationParametersObjects,
+    valuationObjectsPrices,
 }: Props) => {
     const classes = useStyles()
     const { t } = useTranslation()
@@ -41,6 +44,14 @@ const ValuationComparisonTables = ({
                 valuationObjectsForValidationIndexes.includes(index)
             ),
         [valuationObjectsForValidationIndexes, valuationObjects]
+    )
+
+    const valuationObjectsForValidationPrices = useMemo(
+        () =>
+            valuationObjectsPrices.filter((object, index) =>
+                valuationObjectsForValidationIndexes.includes(index)
+            ),
+        [valuationObjectsForValidationIndexes, valuationObjectsPrices]
     )
 
     const createData = useCallback(
@@ -72,8 +83,8 @@ const ValuationComparisonTables = ({
             const rowsHeader: string[] = []
             rowsHeader.push(t('attribute'))
             rowsHeader.push(t('weight factor'))
-            rowsHeader.push(objectName)
             rowsHeader.push(valuationObject)
+            rowsHeader.push(objectName)
             rowsHeader.push(t('attribute difference'))
             rowsHeader.push(t('correction'))
             return rowsHeader
@@ -85,18 +96,19 @@ const ValuationComparisonTables = ({
             return valuationObjectsForValidationIndexes.map((objectIndex) => {
                 const rows: { [key: string]: number | string }[] = []
                 for (let i = 0; i < valuationParametersObjects.length; i++) {
-                    const attrDiff = Math.abs(
+                    const attrDiff =
+                        Object.values(valuationObjectParameters)[i] -
                         Object.values(valuationObjectsParameters[objectIndex])[
                             i
-                        ] - Object.values(valuationObjectParameters)[i]
-                    )
+                        ]
+
                     const row: { [key: string]: number | string } = createData(
                         valuationParametersObjects[i],
                         shareFactors[i],
+                        Object.values(valuationObjectParameters)[i],
                         Object.values(valuationObjectsParameters[objectIndex])[
                             i
                         ],
-                        Object.values(valuationObjectParameters)[i],
                         attrDiff,
                         attrDiff * Number.parseFloat(shareFactors[i].toFixed(2))
                     )
@@ -114,6 +126,30 @@ const ValuationComparisonTables = ({
             valuationObject,
             valuationObjectsForValidationIndexes,
         ])
+
+    const correctionsSumArray: number[] = useMemo(
+        () =>
+            valuationObjectsForValidationIndexes.map((objectIndex) => {
+                let sum = 0
+                for (let i = 0; i < valuationParametersObjects.length; i++) {
+                    const attrDiff =
+                        Object.values(valuationObjectParameters)[i] -
+                        Object.values(valuationObjectsParameters[objectIndex])[
+                            i
+                        ]
+
+                    sum += shareFactors[i] * attrDiff
+                }
+                return sum
+            }),
+        [
+            shareFactors,
+            valuationObjectsForValidationIndexes,
+            valuationObjectParameters,
+            valuationParametersObjects,
+            valuationObjectsParameters,
+        ]
+    )
 
     return (
         <>
@@ -155,6 +191,81 @@ const ValuationComparisonTables = ({
                                     ))}
                                 </TableRow>
                             ))}
+                            <TableRow className={classes.tableBodyRow}>
+                                <TableCell
+                                    key={index}
+                                    colSpan={3}
+                                    className={clsx(
+                                        classes.tableBodyCell,
+                                        classes.upperCase,
+                                        classes.alignRight
+                                    )}
+                                >
+                                    {t('Corrections sum') + ' :'}
+                                </TableCell>
+                                <TableCell
+                                    colSpan={100}
+                                    key={index}
+                                    className={classes.tableBodyCell}
+                                >
+                                    {correctionsSumArray[index].toFixed(2)}
+                                </TableCell>
+                            </TableRow>
+                            <TableRow className={classes.tableBodyRow}>
+                                <TableCell
+                                    key={index}
+                                    colSpan={3}
+                                    className={clsx(
+                                        classes.tableBodyCell,
+                                        classes.upperCase,
+                                        classes.alignRight
+                                    )}
+                                >
+                                    {t('price') + ' :'}
+                                </TableCell>
+                                <TableCell
+                                    key={index}
+                                    colSpan={100}
+                                    className={classes.tableBodyCell}
+                                >
+                                    {valuationObjectsForValidationPrices[
+                                        index
+                                    ].toFixed(2)}
+                                </TableCell>
+                            </TableRow>
+                            <TableRow className={classes.tableBodyRow}>
+                                <TableCell
+                                    key={index}
+                                    colSpan={3}
+                                    className={clsx(
+                                        classes.tableBodyCell,
+                                        classes.upperCase,
+                                        classes.alignRight
+                                    )}
+                                >
+                                    {t('suggested price') + ' :'}
+                                </TableCell>
+                                <TableCell
+                                    key={index}
+                                    colSpan={100}
+                                    className={clsx(
+                                        classes.tableBodyCell,
+                                        classes.upperCase,
+                                        classes.alignRight
+                                    )}
+                                >
+                                    {Number.parseFloat(
+                                        valuationObjectsForValidationPrices[
+                                            index
+                                        ].toFixed(2)
+                                    ) +
+                                        Number.parseFloat(
+                                            correctionsSumArray[index].toFixed(
+                                                2
+                                            )
+                                        )}
+                                </TableCell>
+                            </TableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>

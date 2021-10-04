@@ -72,5 +72,11 @@ export const useStyles = makeStyles((theme: Theme) =>
                 marginLeft: 'auto',
             },
         },
+        upperCase: {
+            'text-transform': 'capitalize',
+        },
+        alignRight: {
+            textAlign: 'right',
+        },
     })
 )

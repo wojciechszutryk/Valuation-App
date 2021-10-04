@@ -215,6 +215,7 @@ const ValuationCountTable = () => {
                 shareFactors={shareFactors}
                 valuationObject={valuationObject}
                 valuationParametersObjects={valuationParametersObjects}
+                valuationObjectsPrices={valuationObjectsPrices}
             />
         </>
     )
