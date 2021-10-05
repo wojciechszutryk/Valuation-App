@@ -24,6 +24,7 @@ import {
     setValuationObjectsPrices,
 } from '../../data/state/actions/valuationActions'
 import { useAppDispatch } from '../../utils/hooks/useAppDispach'
+import ExportResults from './components/ExportResults'
 import ValuationWeightsTables from './components/ValuationWeightsTables'
 /////////////////////////////////////////////
 
@@ -83,6 +84,7 @@ const ValuationFinish = () => {
             <ValuationWeightsTables />
             <ValuationCountTable />
             <button onClick={handleFetch}>fetch</button>
+            <ExportResults />
         </Container>
     )
 }

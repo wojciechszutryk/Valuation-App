@@ -93,6 +93,9 @@ export const useStyles = makeStyles((theme: Theme) =>
             '& h2:nth-child(2)': {
                 color: theme.palette.secondary.dark,
             },
+            '@media (max-width: 900px)': {
+                flexDirection: 'column',
+            },
         },
     })
 )
