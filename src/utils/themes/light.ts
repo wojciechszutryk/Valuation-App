@@ -63,5 +63,10 @@ export const lightTheme = createTheme({
                 color: '#41006b',
             },
         },
+        MuiSlider: {
+            colorPrimary: {
+                color: '#bebebe',
+            },
+        },
     },
 })

@@ -175,23 +175,26 @@ const ValuationObjectsCard = ({
                     }
                     onChange={(e) => handlePriceChange(e)}
                 />
-                {valuationCriteria.map((criteria, index) => (
+                {valuationCriteria.map((criteria, criteriaIndex) => (
                     <Box key={criteria}>
                         <Typography gutterBottom>{criteria}</Typography>
                         <Slider
                             color={
-                                criteriaValues[index] ? 'secondary' : 'primary'
+                                valuationObjectsParameters[index] &&
+                                valuationObjectsParameters[index][criteria]
+                                    ? 'secondary'
+                                    : 'primary'
                             }
                             aria-label="Valuation Criteria"
                             defaultValue={30}
                             valueLabelDisplay="auto"
                             step={1}
                             marks
-                            value={criteriaValues[index]}
+                            value={criteriaValues[criteriaIndex]}
                             min={valuationParametersScale[0]}
                             max={valuationParametersScale[1]}
                             onChange={(event, value) =>
-                                handleCriteriaChange(index, value)
+                                handleCriteriaChange(criteriaIndex, value)
                             }
                         />
                     </Box>
