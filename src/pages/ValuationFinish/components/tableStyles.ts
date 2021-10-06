@@ -97,5 +97,24 @@ export const useStyles = makeStyles((theme: Theme) =>
                 flexDirection: 'column',
             },
         },
+        exportChild: {
+            padding: 20,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100%',
+            '& h5': {
+                color:
+                    theme.palette.type === 'light'
+                        ? theme.palette.secondary.dark
+                        : '#fff',
+            },
+            '&>*': {
+                marginBottom: 10,
+            },
+            '& button': {
+                marginBottom: 0,
+            },
+        },
     })
 )

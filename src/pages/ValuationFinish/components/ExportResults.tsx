@@ -662,11 +662,11 @@ const ExportResults = () => {
     return (
         <Grid container spacing={3}>
             <Grid item xs={6} md={3}>
-                <Paper className={classes.summaryHeader}>
-                    <Typography variant={'h5'} gutterBottom>
+                <Paper className={classes.exportChild}>
+                    <Typography variant={'h5'}>
                         {t('Export to excel')}
                     </Typography>
-                    <Typography variant={'subtitle1'} gutterBottom>
+                    <Typography variant={'subtitle1'}>
                         {t(
                             'save the report as a spreadsheet file on your device'
                         )}
@@ -681,11 +681,9 @@ const ExportResults = () => {
                 </Paper>
             </Grid>
             <Grid item xs={6} md={3}>
-                <Paper className={classes.summaryHeader}>
-                    <Typography variant={'h5'} gutterBottom>
-                        {t('Export to PDF')}
-                    </Typography>
-                    <Typography variant={'subtitle1'} gutterBottom>
+                <Paper className={classes.exportChild}>
+                    <Typography variant={'h5'}>{t('Export to PDF')}</Typography>
+                    <Typography variant={'subtitle1'}>
                         {t('print report to pdf file')}
                     </Typography>
                     <Button variant="outlined" fullWidth onClick={downloadPdf}>
@@ -694,11 +692,11 @@ const ExportResults = () => {
                 </Paper>
             </Grid>
             <Grid item xs={6} md={3}>
-                <Paper className={classes.summaryHeader}>
+                <Paper className={classes.exportChild}>
                     <Typography variant={'h5'}>
                         {t('Export to JSON')}
                     </Typography>
-                    <Typography variant={'subtitle1'} gutterBottom>
+                    <Typography variant={'subtitle1'}>
                         {t(
                             'save the valuation to a JSON file on your device, it can be imported to the application later'
                         )}
@@ -709,11 +707,11 @@ const ExportResults = () => {
                 </Paper>
             </Grid>
             <Grid item xs={6} md={3}>
-                <Paper className={classes.summaryHeader}>
+                <Paper className={classes.exportChild}>
                     <Typography variant={'h5'}>
                         {t('Save work to history')}
                     </Typography>
-                    <Typography variant={'subtitle1'} gutterBottom>
+                    <Typography variant={'subtitle1'}>
                         {t(
                             'save the valuation in the history on your application account, you will be able to return to the report after logging in'
                         )}
