@@ -48,5 +48,7 @@
   "attribute": "Attribut",
   "weight factor": "Gewichtsfaktor",
   "suggested unit price": "empfohlener Stückpreis",
-  "suggested price": "Preisvorschlag"
+  "suggested price": "Preisvorschlag",
+  "succeeded in exporting report to .xlsx file": "erfolgreicher Export des Berichts in eine .xlsx-Datei",
+  "succeeded in exporting report to .pdf file": "erfolgreicher Export des Berichts in eine .pdf-Datei"
 }

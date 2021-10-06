@@ -58,5 +58,10 @@ export const lightTheme = createTheme({
                 },
             },
         },
+        MuiSvgIcon: {
+            colorSecondary: {
+                color: '#41006b',
+            },
+        },
     },
 })

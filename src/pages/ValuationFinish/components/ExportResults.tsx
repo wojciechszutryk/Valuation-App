@@ -1,11 +1,21 @@
+import { Button, Grid, Paper, Typography } from '@material-ui/core'
+import { jsPDF } from 'jspdf'
+import autoTable from 'jspdf-autotable'
 import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { findObjectsWithOneNotEqualValue } from 'utils/functions'
+import { findObjectsWithOneNotEqualValue, showToast } from 'utils/functions'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import XLSX from 'xlsx'
+import { font } from 'utils/fonts/RobotoRegular'
+import { useStyles } from './tableStyles'
+import TocIcon from '@material-ui/icons/Toc'
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf'
+import CodeIcon from '@material-ui/icons/Code'
+import HistoryIcon from '@material-ui/icons/History'
 
 const ExportResults = () => {
     const { t } = useTranslation()
+    const classes = useStyles()
     const valuationObjectsParameters = useAppSelector(
         (state) => state.valuation.valuationObjectsParameters
     )
@@ -485,10 +495,10 @@ const ExportResults = () => {
                     rows.push(
                         comparisonCreateData(
                             t('suggested unit price'),
+                            valuationObjects[objectIndex],
+                            valuationObject,
                             valuationObjectsForValidationUnitPrices[index] +
                                 correctionsSumArray[index],
-                            '',
-                            '',
                             '',
                             ''
                         )
@@ -528,11 +538,57 @@ const ExportResults = () => {
             ]
         }, [comparisonCreateData])
 
-    /////////////////////////////////////////////////////////////////export function
+    /////////////////////////////////////////////////////////////////export functions
+    const downloadPdf = () => {
+        const doc = new jsPDF('l', 'pt', 'A4')
+        doc.addFileToVFS('Roboto-Regular-normal.ttf', font)
+        doc.addFont('Roboto-Regular-normal.ttf', 'Roboto-Regular', 'normal')
+        doc.setFont('Roboto-Regular')
+
+        doc.text(
+            `${valuationObject}-${new Date().toLocaleDateString()}`,
+            20,
+            10
+        )
+
+        autoTable(doc, {
+            theme: 'grid',
+            head: [Object.keys(detailsRows[0])],
+            body: detailsRows.map((row) => Object.values(row)).slice(0, -2),
+            styles: { font: 'Roboto-Regular' },
+        })
+
+        autoTable(doc, {
+            theme: 'grid',
+            head: [Object.keys(detailsRowArray[1])],
+            body: detailsRowArray.map((row) => Object.values(row)),
+            styles: { font: 'Roboto-Regular' },
+        })
+
+        autoTable(doc, {
+            theme: 'grid',
+            head: [Object.keys(countRows[0])],
+            body: countRows.map((row) => Object.values(row)).slice(0, -1),
+            styles: { font: 'Roboto-Regular' },
+        })
+
+        autoTable(doc, {
+            theme: 'grid',
+            head: [Object.keys(comparisonRows[0])],
+            body: comparisonRows.map((row) => Object.values(row)),
+            styles: { font: 'Roboto-Regular' },
+        })
+
+        autoTable(doc, {
+            theme: 'grid',
+            body: valuationSummary.map((row) => Object.values(row)),
+            styles: { font: 'Roboto-Regular' },
+        })
+        doc.save('table.pdf')
+        showToast(t('succeeded in exporting report to .pdf file'))
+    }
 
     const downloadExcel = () => {
-        //create details table
-        //create sheet and add details table
         const sheet = XLSX.utils.json_to_sheet(detailsRows)
         XLSX.utils.sheet_add_json(sheet, detailsRowArray, {
             origin: -1,
@@ -556,9 +612,119 @@ const ExportResults = () => {
             workBook,
             `${valuationObject}-${new Date().toLocaleDateString()}.xlsx`
         )
+        showToast(t('succeeded in exporting report to .xlsx file'))
     }
 
-    return <button onClick={downloadExcel}>click</button>
+    const downloadJSON = () => {
+        const valuationObj: {
+            [key: string]: string | number | { [key: string]: number }
+        } = {}
+        const valuationObjs: {
+            [key: string]: string[] | number[] | { [key: string]: number }[]
+        } = {}
+        const downloadObj: {
+            [key: string]:
+                | {
+                      [key: string]: string | number | { [key: string]: number }
+                  }
+                | {
+                      [key: string]:
+                          | string[]
+                          | number[]
+                          | { [key: string]: number }[]
+                  }
+        } = {}
+        valuationObj['name'] = valuationObject
+        valuationObj['area'] = valuationObjectArea
+        valuationObj['area'] = valuationObjectArea
+        valuationObj['objectParameters'] = valuationObjectParameters
+        valuationObjs['names'] = valuationObjects
+        valuationObjs['areas'] = valuationObjectsAreas
+        valuationObjs['objectsParameters'] = valuationObjectsParameters
+        downloadObj['valuationObject'] = valuationObj
+        downloadObj['valuationObjects'] = valuationObjs
+        const url = window.URL.createObjectURL(
+            new Blob([JSON.stringify(downloadObj)])
+        )
+        console.log(downloadObj)
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute(
+            'download',
+            `${valuationObject}-${new Date().toLocaleDateString()}.json`
+        )
+        document.body.appendChild(link)
+        link.click()
+        link.parentNode && link.parentNode.removeChild(link)
+        showToast(t('succeeded in exporting report to .json file'))
+    }
+
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={6} md={3}>
+                <Paper className={classes.summaryHeader}>
+                    <Typography variant={'h5'} gutterBottom>
+                        {t('Export to excel')}
+                    </Typography>
+                    <Typography variant={'subtitle1'} gutterBottom>
+                        {t(
+                            'save the report as a spreadsheet file on your device'
+                        )}
+                    </Typography>
+                    <Button
+                        variant="outlined"
+                        fullWidth
+                        onClick={downloadExcel}
+                    >
+                        <TocIcon color="secondary" />
+                    </Button>
+                </Paper>
+            </Grid>
+            <Grid item xs={6} md={3}>
+                <Paper className={classes.summaryHeader}>
+                    <Typography variant={'h5'} gutterBottom>
+                        {t('Export to PDF')}
+                    </Typography>
+                    <Typography variant={'subtitle1'} gutterBottom>
+                        {t('print report to pdf file')}
+                    </Typography>
+                    <Button variant="outlined" fullWidth onClick={downloadPdf}>
+                        <PictureAsPdfIcon color="secondary" />
+                    </Button>
+                </Paper>
+            </Grid>
+            <Grid item xs={6} md={3}>
+                <Paper className={classes.summaryHeader}>
+                    <Typography variant={'h5'}>
+                        {t('Export to JSON')}
+                    </Typography>
+                    <Typography variant={'subtitle1'} gutterBottom>
+                        {t(
+                            'save the valuation to a JSON file on your device, it can be imported to the application later'
+                        )}
+                    </Typography>
+                    <Button variant="outlined" fullWidth onClick={downloadJSON}>
+                        <CodeIcon color="secondary" />
+                    </Button>
+                </Paper>
+            </Grid>
+            <Grid item xs={6} md={3}>
+                <Paper className={classes.summaryHeader}>
+                    <Typography variant={'h5'}>
+                        {t('Save work to history')}
+                    </Typography>
+                    <Typography variant={'subtitle1'} gutterBottom>
+                        {t(
+                            'save the valuation in the history on your application account, you will be able to return to the report after logging in'
+                        )}
+                    </Typography>
+                    <Button variant="outlined" fullWidth onClick={downloadJSON}>
+                        <HistoryIcon color="secondary" />
+                    </Button>
+                </Paper>
+            </Grid>
+        </Grid>
+    )
 }
 
 export default ExportResults

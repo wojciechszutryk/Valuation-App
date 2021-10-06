@@ -179,6 +179,9 @@ const ValuationObjectsCard = ({
                     <Box key={criteria}>
                         <Typography gutterBottom>{criteria}</Typography>
                         <Slider
+                            color={
+                                criteriaValues[index] ? 'secondary' : 'primary'
+                            }
                             aria-label="Valuation Criteria"
                             defaultValue={30}
                             valueLabelDisplay="auto"

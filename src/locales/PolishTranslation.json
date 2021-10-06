@@ -48,5 +48,7 @@
   "attribute": "Atrybut",
   "weight factor": "Współczynnik wagowy",
   "suggested unit price": "sugerowana cena jednostkowa",
-  "suggested price": "sugerowana cena"
+  "suggested price": "sugerowana cena",
+  "succeeded in exporting report to .xlsx file": "Eksport raport do pliku .xlsx zakończony sukcesem",
+  "succeeded in exporting report to .pdf file": "Eksport raport do pliku .pdf zakończony sukcesem"
 }

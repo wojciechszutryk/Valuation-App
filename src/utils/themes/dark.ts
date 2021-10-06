@@ -59,5 +59,15 @@ export const darkTheme = createTheme({
                 },
             },
         },
+        MuiSvgIcon: {
+            colorSecondary: {
+                color: '#e74141',
+            },
+        },
+        MuiSlider: {
+            colorSecondary: {
+                color: '#e74141',
+            },
+        },
     },
 })

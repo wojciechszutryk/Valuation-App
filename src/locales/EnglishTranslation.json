@@ -48,5 +48,7 @@
   "attribute": "Attribute",
   "weight factor": "Weight Factor",
   "suggested unit price": "suggested unit price",
-  "suggested price": "suggested price"
+  "suggested price": "suggested price",
+  "succeeded in exporting report to .xlsx file": "succeeded in exporting report to .xlsx file",
+  "succeeded in exporting report to .pdf file": "succeeded in exporting report to .pdf file"
 }
