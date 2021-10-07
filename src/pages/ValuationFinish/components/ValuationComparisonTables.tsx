@@ -57,7 +57,11 @@ const ValuationComparisonTables = ({
                 .filter((object, index) =>
                     valuationObjectsForValidationIndexes.includes(index)
                 ),
-        [valuationObjectsForValidationIndexes, valuationObjectsPrices]
+        [
+            valuationObjectsAreas,
+            valuationObjectsForValidationIndexes,
+            valuationObjectsPrices,
+        ]
     )
 
     const createData = useCallback(

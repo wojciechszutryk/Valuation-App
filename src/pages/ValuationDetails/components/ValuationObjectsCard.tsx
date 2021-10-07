@@ -99,7 +99,13 @@ const ValuationObjectsCard = ({
         const valuationObjectsParametersCopy = [...valuationObjectsParameters]
         valuationObjectsParametersCopy[index] = objectParameters
         dispatch(setValuationObjectsParameters(valuationObjectsParametersCopy))
-    }, [criteriaValues, valuationCriteria, dispatch, index])
+    }, [
+        criteriaValues,
+        valuationCriteria,
+        dispatch,
+        index,
+        valuationObjectsParameters,
+    ])
 
     const handleCriteriaChange = (
         criteria: number,

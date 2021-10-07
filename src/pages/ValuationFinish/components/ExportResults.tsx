@@ -106,6 +106,7 @@ const ExportResults = () => {
         rows.push(createDetailsData('', t('criteria weights'), '', {}))
         return rows
     }, [
+        detailsValuationObjectRow,
         t,
         createDetailsData,
         valuationObjects,
@@ -384,14 +385,6 @@ const ExportResults = () => {
 
     /////////////////////////////////////////////////////////////////comparison
 
-    const valuationObjectsForValidationNames = useMemo(
-        () =>
-            valuationObjects.filter((object, index) =>
-                valuationObjectsForValidationIndexes.includes(index)
-            ),
-        [valuationObjectsForValidationIndexes, valuationObjects]
-    )
-
     const valuationObjectsForValidationUnitPrices = useMemo(
         () =>
             valuationObjectsPrices
@@ -399,7 +392,11 @@ const ExportResults = () => {
                 .filter((object, index) =>
                     valuationObjectsForValidationIndexes.includes(index)
                 ),
-        [valuationObjectsForValidationIndexes, valuationObjectsPrices]
+        [
+            valuationObjectsAreas,
+            valuationObjectsForValidationIndexes,
+            valuationObjectsPrices,
+        ]
     )
 
     const comparisonCreateData = useCallback(
@@ -507,6 +504,11 @@ const ExportResults = () => {
                 }
             )
         }, [
+            correctionsSumArray,
+            t,
+            valuationObject,
+            valuationObjects,
+            valuationObjectsForValidationUnitPrices,
             comparisonCreateData,
             valuationObjectsParameters,
             valuationParametersObjects,
@@ -536,10 +538,16 @@ const ExportResults = () => {
                     ''
                 ),
             ]
-        }, [comparisonCreateData])
+        }, [
+            t,
+            comparisonCreateData,
+            valuationObject,
+            valuationObjectArea,
+            suggestedUnitPrice,
+        ])
 
     /////////////////////////////////////////////////////////////////export functions
-    const downloadPdf = () => {
+    const downloadPdf = useCallback(() => {
         const doc = new jsPDF('l', 'pt', 'A4')
         doc.addFileToVFS('Roboto-Regular-normal.ttf', font)
         doc.addFont('Roboto-Regular-normal.ttf', 'Roboto-Regular', 'normal')
@@ -584,11 +592,19 @@ const ExportResults = () => {
             body: valuationSummary.map((row) => Object.values(row)),
             styles: { font: 'Roboto-Regular' },
         })
-        doc.save('table.pdf')
+        doc.save(`${valuationObject}-${new Date().toLocaleDateString()}.pdf`)
         showToast(t('succeeded in exporting report to .pdf file'))
-    }
+    }, [
+        t,
+        valuationObject,
+        valuationSummary,
+        comparisonRows,
+        countRows,
+        detailsRowArray,
+        detailsRows,
+    ])
 
-    const downloadExcel = () => {
+    const downloadExcel = useCallback(() => {
         const sheet = XLSX.utils.json_to_sheet(detailsRows)
         XLSX.utils.sheet_add_json(sheet, detailsRowArray, {
             origin: -1,
@@ -613,9 +629,17 @@ const ExportResults = () => {
             `${valuationObject}-${new Date().toLocaleDateString()}.xlsx`
         )
         showToast(t('succeeded in exporting report to .xlsx file'))
-    }
+    }, [
+        t,
+        valuationObject,
+        valuationSummary,
+        comparisonRows,
+        countRows,
+        detailsRowArray,
+        detailsRows,
+    ])
 
-    const downloadJSON = () => {
+    const downloadJSON = useCallback(() => {
         const valuationObj: {
             [key: string]: string | number | { [key: string]: number }
         } = {}
@@ -646,7 +670,6 @@ const ExportResults = () => {
         const url = window.URL.createObjectURL(
             new Blob([JSON.stringify(downloadObj)])
         )
-        console.log(downloadObj)
         const link = document.createElement('a')
         link.href = url
         link.setAttribute(
@@ -657,7 +680,15 @@ const ExportResults = () => {
         link.click()
         link.parentNode && link.parentNode.removeChild(link)
         showToast(t('succeeded in exporting report to .json file'))
-    }
+    }, [
+        valuationObjectArea,
+        valuationObjectParameters,
+        valuationObjects,
+        valuationObjectsAreas,
+        valuationObjectsParameters,
+        t,
+        valuationObject,
+    ])
 
     return (
         <Grid container spacing={3}>
