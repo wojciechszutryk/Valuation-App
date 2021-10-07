@@ -63,7 +63,7 @@ const ValuationNavigation: React.FC = () => {
     return (
         <Paper className={classes.paper} elevation={0}>
             <Typography className={classes.header} variant="h5">
-                {t('Make sure the details are correct and continue.')}
+                {t('Make sure the details are correct and continue')}
             </Typography>
             <Button onClick={() => history.push('/valuation/new')}>
                 {t('BACK')}

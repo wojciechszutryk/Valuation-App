@@ -107,11 +107,14 @@ const ValuationComparisonTables = ({
         })
     }, [valuationObjectsForValidationNames, valuationObject, t])
 
+    console.log(valuationObjectsForValidationIndexes)
+
     const rowsBodyArray: { [key: string]: number | string }[][] =
         useMemo(() => {
             return valuationObjectsForValidationIndexes.map((objectIndex) => {
                 const rows: { [key: string]: number | string }[] = []
                 for (let i = 0; i < valuationParametersObjects.length; i++) {
+                    console.log(valuationObjectsParameters[i])
                     const attrDiff =
                         Object.values(valuationObjectParameters)[i] -
                         Object.values(valuationObjectsParameters[objectIndex])[

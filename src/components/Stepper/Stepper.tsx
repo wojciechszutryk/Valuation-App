@@ -154,6 +154,7 @@ export default function CustomStepper({
     const { t } = useTranslation()
 
     const handleGoToStep = (step: Steps) => {
+        console.log(step)
         if (step === 0) {
             history.push('/valuation/new')
         } else if (step === 1) {
@@ -167,7 +168,7 @@ export default function CustomStepper({
             }
             history.push('/valuation/details')
         } else if (step === 2) {
-            if (activeStepFromProps === 0 && finishedSteps < 2) {
+            if (activeStepFromProps === 1 && finishedSteps < 2) {
                 showToast(
                     t(
                         "You can't access that field before completing previous ones."

@@ -50,5 +50,15 @@
   "suggested unit price": "sugerowana cena jednostkowa",
   "suggested price": "sugerowana cena",
   "succeeded in exporting report to .xlsx file": "Eksport raport do pliku .xlsx zakończony sukcesem",
-  "succeeded in exporting report to .pdf file": "Eksport raport do pliku .pdf zakończony sukcesem"
+  "succeeded in exporting report to .pdf file": "Eksport raport do pliku .pdf zakończony sukcesem",
+  "save the report as a spreadsheet file on your device": "Zapisz raport jako plik arkusza kalkulacyjnego na swoim urządzeniu",
+  "Export to excel": "Eksportuj do Excela",
+  "Export to PDF": "Eksportuj do PDF",
+  "print report to pdf file": "Wydrukuj raport do pliku pdf",
+  "Export to JSON": "Eksportuj do JSON",
+  "save the valuation to a JSON file on your device, it can be imported to the application later": "zapisz wycenę do pliku JSON na swoim urządzeniu, możesz ją później zaimportować do aplikacji",
+  "Save work to history": "Zapisz parcę do historii",
+  "save the valuation in the history on your application account, you will be able to return to the report after logging in": "Zapisz wycenę w historii na swoim koncie aplikacji, będziesz mógł wrócić do raportu po zalogowaniu ",
+  "Make sure the details are correct and continue": "Upewnij się, że dane są poprawne i kontynuuj."
+
 }

@@ -23,7 +23,6 @@
   "longitude": "longitude",
   "city, address": "city, address",
   "Confirm and continue": "Confirm and continue",
-  "Make sure the details are correct and continue": "Make sure the details are correct and continue",
   "Valuation object area can not be unset": "Valuation object area can not be unset",
   "Valuation object price can not be unset": "Valuation object price can not be unset",
   "Valuation object deleted successfully": "Valuation object deleted successfully",
@@ -50,5 +49,15 @@
   "suggested unit price": "suggested unit price",
   "suggested price": "suggested price",
   "succeeded in exporting report to .xlsx file": "succeeded in exporting report to .xlsx file",
-  "succeeded in exporting report to .pdf file": "succeeded in exporting report to .pdf file"
+  "succeeded in exporting report to .pdf file": "succeeded in exporting report to .pdf file",
+"save the report as a spreadsheet file on your device": "save the report as a spreadsheet file on your device",
+  "Export to excel": "Export to excel",
+  "Export to PDF": "Export to PDF",
+  "print report to pdf file": "Print report to pdf file",
+  "Export to JSON": "Export to JSON",
+  "save the valuation to a JSON file on your device, it can be imported to the application later": "save the valuation to a JSON file on your device, it can be imported to the application later",
+  "Save work to history": "Zapisz pracę w historii",
+  "save the valuation in the history on your application account, you will be able to return to the report after logging in": "Zapisz wycenę w historii na swoim koncie aplikacji, będziesz mógł wrócić do raportu po zalogowaniu",
+  "Make sure the details are correct and continue": "Upewnij się, że dane są poprawne i kontynuuj"
+
 }

@@ -45,7 +45,7 @@ const ValuationDetailsTable = () => {
         (state) => state.valuation.valuationObjectsForValidation
     )
 
-    useEffect(() => {
+    useMemo(() => {
         const mostSimilarObjectsToValuationObjectIndexes =
             listMostSimilarObjects(
                 valuationObjectsParameters,

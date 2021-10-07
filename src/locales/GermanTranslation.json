@@ -23,7 +23,6 @@
   "longitude": "Längengrad",
   "city, address": "Stadt, Adresse",
   "Confirm and continue": "Bestätigen und fortfahren",
-  "Make sure the details are correct and continue": "Überprüfen Sie, ob die Angaben korrekt sind und fahren Sie fort",
   "Valuation object area can not be unset": "Bewertungsobjektbereich kann nicht deaktiviert werden",
   "Valuation object price can not be unset": "Bewertungsobjektpreis kann nicht rückgängig gemacht werden",
   "Valuation object deleted successfully": "Bewertungsobjekt erfolgreich gelöscht",
@@ -50,5 +49,15 @@
   "suggested unit price": "empfohlener Stückpreis",
   "suggested price": "Preisvorschlag",
   "succeeded in exporting report to .xlsx file": "erfolgreicher Export des Berichts in eine .xlsx-Datei",
-  "succeeded in exporting report to .pdf file": "erfolgreicher Export des Berichts in eine .pdf-Datei"
+  "succeeded in exporting report to .pdf file": "erfolgreicher Export des Berichts in eine .pdf-Datei",
+  "save the report as a spreadsheet file on your device": "Speichern Sie den Bericht als Tabellenkalkulationsdatei auf Ihrem Gerät",
+  "Export to excel": "Nach Excel exportieren",
+  "Export to PDF": "In PDF exportieren",
+  "print report to pdf file": "Bericht in PDF-Datei drucken",
+  "Export to JSON": "Nach JSON exportieren",
+  "save the valuation to a JSON file on your device, it can be imported to the application later": "Speichern Sie die Bewertung in einer JSON-Datei auf Ihrem Gerät, sie kann später in die Anwendung importiert werden",
+  "Save work to history": "Arbeit im Verlauf speichern",
+  "save the valuation in the history on your application account, you will be able to return to the report after logging in": "speichern Sie die Bewertung in der Historie Ihres Bewerbungskontos, Sie können nach dem Einloggen zum Bericht zurückkehren",
+  "Make sure the details are correct and continue": "Überprüfen Sie, ob die Angaben korrekt sind und fahren Sie fort"
+
 }
