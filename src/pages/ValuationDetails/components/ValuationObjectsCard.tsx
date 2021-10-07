@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ValuationParametersObjects } from 'typings'
 import {
@@ -91,7 +91,7 @@ const ValuationObjectsCard = ({
     const dispatch = useAppDispatch()
     const { t } = useTranslation()
 
-    useEffect(() => {
+    useMemo(() => {
         const objectParameters: { [key: string]: number } = {}
         valuationCriteria.forEach((criteria, index) => {
             objectParameters[criteria] = criteriaValues[index]
@@ -99,13 +99,7 @@ const ValuationObjectsCard = ({
         const valuationObjectsParametersCopy = [...valuationObjectsParameters]
         valuationObjectsParametersCopy[index] = objectParameters
         dispatch(setValuationObjectsParameters(valuationObjectsParametersCopy))
-    }, [
-        criteriaValues,
-        valuationCriteria,
-        dispatch,
-        index,
-        valuationObjectsParameters,
-    ])
+    }, [criteriaValues, valuationCriteria, dispatch, index])
 
     const handleCriteriaChange = (
         criteria: number,
@@ -185,12 +179,7 @@ const ValuationObjectsCard = ({
                     <Box key={criteria}>
                         <Typography gutterBottom>{criteria}</Typography>
                         <Slider
-                            color={
-                                valuationObjectsParameters[index] &&
-                                valuationObjectsParameters[index][criteria]
-                                    ? 'secondary'
-                                    : 'primary'
-                            }
+                            color="secondary"
                             aria-label="Valuation Criteria"
                             defaultValue={30}
                             valueLabelDisplay="auto"

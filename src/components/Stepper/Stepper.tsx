@@ -154,10 +154,17 @@ export default function CustomStepper({
     const { t } = useTranslation()
 
     const handleGoToStep = (step: Steps) => {
-        if (step > 2 || step < 0 || activeStepFromProps <= step) return
         if (step === 0) {
             history.push('/valuation/new')
         } else if (step === 1) {
+            if (activeStepFromProps === 0 && finishedSteps < 1) {
+                showToast(
+                    t(
+                        "You can't access that field before completing previous ones."
+                    )
+                )
+                return
+            }
             history.push('/valuation/details')
         } else if (step === 2) {
             if (activeStepFromProps === 0 && finishedSteps < 2) {
@@ -168,7 +175,7 @@ export default function CustomStepper({
                 )
                 return
             }
-            history.push('/valuation/details')
+            history.push('/valuation/finish')
         }
     }
 
@@ -177,7 +184,7 @@ export default function CustomStepper({
             <Stepper
                 className={classes.stepper}
                 alternativeLabel
-                activeStep={activeStepFromProps}
+                activeStep={finishedSteps}
                 connector={<Connector />}
             >
                 {steps.map((label, index) => (

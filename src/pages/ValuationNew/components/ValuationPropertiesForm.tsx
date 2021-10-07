@@ -104,6 +104,7 @@ const ValuationPropertiesForm = ({
                     </span>
                 </Typography>
                 <Slider
+                    color="secondary"
                     value={valueCriteriaScale}
                     onChange={handleSliderChange}
                     valueLabelDisplay="auto"
@@ -152,7 +153,7 @@ const ValuationPropertiesForm = ({
                     variant="outlined"
                     fullWidth
                 >
-                    <AddCircleIcon fontSize="small" />
+                    <AddCircleIcon fontSize="small" color="secondary" />
                 </Button>
             </form>
         </Paper>

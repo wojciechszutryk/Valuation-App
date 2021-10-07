@@ -32,8 +32,14 @@ const ValuationComparisonTables = ({
 }: Props) => {
     const classes = useStyles()
     const { t } = useTranslation()
-    const valuationObjectsForValidationIndexes = useAppSelector(
-        (state) => state.valuation.valuationObjectsForValidation
+    const valuationObjectsForValidationIndexes = useAppSelector((state) =>
+        state.valuation.valuationObjectsForValidation.filter(function (
+            value,
+            index,
+            array
+        ) {
+            return array.indexOf(value) === index
+        })
     )
     const valuationObjects = useAppSelector(
         (state) => state.valuation.valuationObjects

@@ -134,7 +134,7 @@ const ValuationObjectsForm = ({
                     variant="outlined"
                     fullWidth
                 >
-                    <AddCircleIcon fontSize="small" />
+                    <AddCircleIcon fontSize="small" color="secondary" />
                 </Button>
             </form>
         </Paper>
