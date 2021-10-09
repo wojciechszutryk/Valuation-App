@@ -13,6 +13,7 @@ import { findObjectsWithOneNotEqualValue } from 'utils/functions'
 import { setValuationParametersStandardizedWeights } from 'data/state/actions/valuationActions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useStyles } from './tableStyles'
+import { setValuationErrorInWeights } from 'data/state/actions/valuationActions'
 
 const ValuationWeightsTables = () => {
     const classes = useStyles()
@@ -157,8 +158,20 @@ const ValuationWeightsTables = () => {
         return standardizedWeights
     }, [weightsSum, weights, dispatch])
 
+    const weightsErrorsIndexes: number[] = useMemo(() => {
+        const weightsErrorsIndexes: number[] = []
+        standardizedWeights.forEach((weight, index) => {
+            if (!weight) {
+                weightsErrorsIndexes.push(index)
+            }
+        })
+        dispatch(setValuationErrorInWeights(weightsErrorsIndexes))
+        return weightsErrorsIndexes;
+    }, [standardizedWeights, dispatch])
+
     return (
-        <div>
+
+        weightsErrorsIndexes.length === 0 ? <div>
             <Typography variant="h2" className={classes.header}>
                 {t('Criteria Weights')}
             </Typography>
@@ -266,7 +279,7 @@ const ValuationWeightsTables = () => {
                     </Table>
                 </TableContainer>
             ))}
-        </div>
+        </div> : null
     )
 }
 

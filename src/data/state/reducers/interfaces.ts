@@ -32,4 +32,5 @@ export interface ValuationReducer {
     valuationObjectsParameters: { [key: string]: number }[]
     valuationObjectsForValidation: number[]
     valuationParametersStandardizedWeights: number[]
+    valuationErrorInWeights: number[]
 }

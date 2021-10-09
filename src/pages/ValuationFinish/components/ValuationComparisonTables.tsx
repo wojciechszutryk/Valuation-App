@@ -107,18 +107,15 @@ const ValuationComparisonTables = ({
         })
     }, [valuationObjectsForValidationNames, valuationObject, t])
 
-    console.log(valuationObjectsForValidationIndexes)
-
     const rowsBodyArray: { [key: string]: number | string }[][] =
         useMemo(() => {
             return valuationObjectsForValidationIndexes.map((objectIndex) => {
                 const rows: { [key: string]: number | string }[] = []
                 for (let i = 0; i < valuationParametersObjects.length; i++) {
-                    console.log(valuationObjectsParameters[i])
                     const attrDiff =
                         Object.values(valuationObjectParameters)[i] -
                         Object.values(valuationObjectsParameters[objectIndex])[
-                            i
+                        i
                         ]
 
                     const row: { [key: string]: number | string } = createData(
@@ -126,7 +123,7 @@ const ValuationComparisonTables = ({
                         shareFactors[i].toFixed(2),
                         Object.values(valuationObjectParameters)[i],
                         Object.values(valuationObjectsParameters[objectIndex])[
-                            i
+                        i
                         ],
                         attrDiff,
                         attrDiff * Number.parseFloat(shareFactors[i].toFixed(2))
@@ -152,7 +149,7 @@ const ValuationComparisonTables = ({
                     const attrDiff =
                         Object.values(valuationObjectParameters)[i] -
                         Object.values(valuationObjectsParameters[objectIndex])[
-                            i
+                        i
                         ]
 
                     sum += shareFactors[i] * attrDiff
@@ -255,7 +252,7 @@ const ValuationComparisonTables = ({
                                 >
                                     {
                                         valuationObjectsForValidationUnitPrices[
-                                            index
+                                        index
                                         ]
                                     }
                                 </TableCell>
@@ -281,7 +278,7 @@ const ValuationComparisonTables = ({
                                 >
                                     {(
                                         valuationObjectsForValidationUnitPrices[
-                                            index
+                                        index
                                         ] + correctionsSumArray[index]
                                     ).toFixed(2)}
                                 </TableCell>

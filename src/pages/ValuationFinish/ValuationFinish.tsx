@@ -1,8 +1,9 @@
 import { Container } from '@material-ui/core'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Stepper } from 'components'
 import { Steps } from 'typings'
-import { ValuationCountTable, ValuationDetailsTable } from './components'
+import { ValuationCountTable, ValuationDetailsTable, ErrorInValuationMessage } from './components'
+import { useAppSelector } from 'utils/hooks/useAppSelector'
 
 ///////////////////////////////////
 import { FetchDataFromApiToState } from 'utils/functions/fetchDataFromAPIToState'
@@ -77,14 +78,34 @@ const ValuationFinish = () => {
         )
     }
     //////////////////////////////////koniec kopii FetchDataFromApiToState
+    const valuationParametersStandardizedWeights = useAppSelector(
+        (state) => state.valuation.valuationParametersStandardizedWeights
+    )
+
+    const weightsErrorsIndexes: number[] = useMemo(() => {
+        const weightsErrorsIndexes: number[] = []
+        valuationParametersStandardizedWeights.forEach((weight, index) => {
+            if (!weight) {
+                weightsErrorsIndexes.push(index)
+            }
+        })
+        return weightsErrorsIndexes;
+    }, [valuationParametersStandardizedWeights])
+
+    console.log(valuationParametersStandardizedWeights)
+
     return (
         <Container>
             <Stepper activeStepFromProps={2 as Steps} />
             <ValuationDetailsTable />
-            <ValuationWeightsTables />
-            <ValuationCountTable />
             <button onClick={handleFetch}>fetch</button>
-            <ExportResults />
+            <ValuationWeightsTables />
+            {weightsErrorsIndexes.length === 0 ?
+                <>
+                    <ValuationCountTable />
+                    <ExportResults /></>
+                : <ErrorInValuationMessage valuationErrorInWeights={weightsErrorsIndexes} />}
+
         </Container>
     )
 }

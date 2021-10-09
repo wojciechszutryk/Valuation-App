@@ -107,3 +107,10 @@ export const setValuationParametersStandardizedWeights = (
     type: types.SET_VALUATION_PARAMETERS_STANDARDIZED_WEIGHTS,
     payload: standardizedParameters,
 })
+
+export const setValuationErrorInWeights = (
+    ErrorsIndexes: number[]
+): AnyAction => ({
+    type: types.SET_VALUATION_ERROR_IN_WEIGHTS,
+    payload: ErrorsIndexes,
+})
