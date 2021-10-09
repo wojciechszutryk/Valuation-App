@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/Valuation-App/static/css/main.a3dde582.chunk.css",
+    "main.js": "/Valuation-App/static/js/main.4c233f2e.chunk.js",
+    "main.js.map": "/Valuation-App/static/js/main.4c233f2e.chunk.js.map",
+    "runtime-main.js": "/Valuation-App/static/js/runtime-main.fa71cc6a.js",
+    "runtime-main.js.map": "/Valuation-App/static/js/runtime-main.fa71cc6a.js.map",
+    "static/css/2.0975cee1.chunk.css": "/Valuation-App/static/css/2.0975cee1.chunk.css",
+    "static/js/2.d018b6d6.chunk.js": "/Valuation-App/static/js/2.d018b6d6.chunk.js",
+    "static/js/2.d018b6d6.chunk.js.map": "/Valuation-App/static/js/2.d018b6d6.chunk.js.map",
+    "static/js/3.9164aeed.chunk.js": "/Valuation-App/static/js/3.9164aeed.chunk.js",
+    "static/js/3.9164aeed.chunk.js.map": "/Valuation-App/static/js/3.9164aeed.chunk.js.map",
+    "static/js/4.7b98224c.chunk.js": "/Valuation-App/static/js/4.7b98224c.chunk.js",
+    "static/js/4.7b98224c.chunk.js.map": "/Valuation-App/static/js/4.7b98224c.chunk.js.map",
+    "static/js/5.ff224b92.chunk.js": "/Valuation-App/static/js/5.ff224b92.chunk.js",
+    "static/js/5.ff224b92.chunk.js.map": "/Valuation-App/static/js/5.ff224b92.chunk.js.map",
+    "index.html": "/Valuation-App/index.html",
+    "static/css/2.0975cee1.chunk.css.map": "/Valuation-App/static/css/2.0975cee1.chunk.css.map",
+    "static/css/main.a3dde582.chunk.css.map": "/Valuation-App/static/css/main.a3dde582.chunk.css.map",
+    "static/js/2.d018b6d6.chunk.js.LICENSE.txt": "/Valuation-App/static/js/2.d018b6d6.chunk.js.LICENSE.txt",
+    "static/js/3.9164aeed.chunk.js.LICENSE.txt": "/Valuation-App/static/js/3.9164aeed.chunk.js.LICENSE.txt",
+    "static/js/4.7b98224c.chunk.js.LICENSE.txt": "/Valuation-App/static/js/4.7b98224c.chunk.js.LICENSE.txt",
+    "static/js/5.ff224b92.chunk.js.LICENSE.txt": "/Valuation-App/static/js/5.ff224b92.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fa71cc6a.js",
+    "static/css/2.0975cee1.chunk.css",
+    "static/js/2.d018b6d6.chunk.js",
+    "static/css/main.a3dde582.chunk.css",
+    "static/js/main.4c233f2e.chunk.js"
+  ]
+}
