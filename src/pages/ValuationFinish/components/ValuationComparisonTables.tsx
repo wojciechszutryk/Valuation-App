@@ -9,7 +9,7 @@ import clsx from 'clsx'
 import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import { useStyles } from './tableStyles'
+import { useStyles } from './componentsStyles'
 
 interface Props {
     valuationObjectParameters: { [key: string]: number }
@@ -294,7 +294,7 @@ const ValuationComparisonTables = ({
                     ': ' +
                     suggestedUnitPrice.toFixed(2)}
             </Typography>
-            <Box className={clsx(classes.summaryBox, classes.summaryHeader)}>
+            <Box className={clsx(classes.summaryBox, classes.tableContainer, classes.summaryHeader)}>
                 <Typography variant={'h2'}>
                     {t('suggested price') + ': '}
                 </Typography>

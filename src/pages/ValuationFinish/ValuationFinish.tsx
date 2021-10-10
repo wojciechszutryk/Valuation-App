@@ -92,8 +92,6 @@ const ValuationFinish = () => {
         return weightsErrorsIndexes;
     }, [valuationParametersStandardizedWeights])
 
-    console.log(valuationParametersStandardizedWeights)
-
     return (
         <Container>
             <Stepper activeStepFromProps={2 as Steps} />

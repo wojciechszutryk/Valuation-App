@@ -12,7 +12,7 @@ import { useAppSelector } from 'utils/hooks/useAppSelector'
 import { findObjectsWithOneNotEqualValue } from 'utils/functions'
 import { setValuationParametersStandardizedWeights } from 'data/state/actions/valuationActions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
-import { useStyles } from './tableStyles'
+import { useStyles } from './componentsStyles'
 import { setValuationErrorInWeights } from 'data/state/actions/valuationActions'
 
 const ValuationWeightsTables = () => {

@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import { useStyles } from './tableStyles'
+import { useStyles } from './componentsStyles'
 import ValuationComparisonTables from './ValuationComparisonTables'
 
 const ValuationCountTable = () => {
