@@ -70,5 +70,6 @@
   "...or change existing s objects parameters": "...lub zmień parametry istniejących s obiektów",
   "Change parameters": "Zmień parametry",
   "...or save work and come back to it later": "...albo zapisz pracę i wróć do niej później",
-  "Save to JSON": "Zapisz w JSON"
+  "Save to JSON": "Zapisz w JSON",
+  "You cant access that page before completing previous valuation steps": "Nie możesz uzyskać dostępu do tej strony przed wykonaniem poprzednich kroków wyceny"
 }

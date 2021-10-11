@@ -3,7 +3,7 @@ import './i18n'
 import { toast, ToastContainer } from 'react-toastify'
 import { Layout } from './components'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
-import { ValuationNew, ValuationFinish, ValuationDetails } from './pages'
+import { ValuationNew, ValuationFinish, ValuationDetails, Home } from './pages'
 import 'react-toastify/dist/ReactToastify.css'
 import InfoIcon from '@material-ui/icons/Info'
 
@@ -27,6 +27,15 @@ function App() {
                         exact
                         path="/valuation/details"
                         component={ValuationDetails}
+                    />
+                    <Route
+                        exact
+                        path="/valuation/new"
+                        component={ValuationNew}
+                    />
+                    <Route
+                        path="/"
+                        component={Home}
                     />
                 </Switch>
             </Router>

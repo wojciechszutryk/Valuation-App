@@ -69,6 +69,6 @@
   "...or change existing s objects parameters": "...oder vorhandene s-Objektparameter ändern",
   "Change parameters": "Parameter ändern",
   "...or save work and come back to it later": "...oder Arbeit speichern und später darauf zurückkommen",
-  "Save to JSON": "In JSON speichern"
-
+  "Save to JSON": "In JSON speichern",
+  "You cant access that page before completing previous valuation steps": "Sie können nicht auf diese Seite zugreifen, bevor Sie die vorherigen Bewertungsschritte abgeschlossen haben"
 }

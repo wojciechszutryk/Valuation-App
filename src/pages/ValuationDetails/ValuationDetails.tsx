@@ -5,14 +5,34 @@ import { Steps, ValuationObjectsCoordinates } from 'typings'
 import { addressToCoordinates } from 'utils/functions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
+import { showToast } from 'utils'
+import { toast } from "react-toastify";
+import { useTranslation } from 'react-i18next'
 import {
     setValuationObjectsCoordinates,
     setValuationObjectCoordinates,
 } from 'data/state/actions/valuationActions'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { ValuationObjectsCardsWrapper, ValuationNavigation } from './components'
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
+    let history = useHistory();
+    const { t } = useTranslation()
+    const finishedSteps = useAppSelector(
+        (state) => state.valuation.finishedSteps
+    )
+    useEffect(() => {
+        toast.dismiss()
+        if (finishedSteps < 1) {
+            history.goBack()
+            showToast(
+                t(
+                    'You cant access that page before completing previous valuation steps'
+                )
+            )
+        }
+    }, [finishedSteps, history, t])
     return createStyles({
         sticky: {
             '& > div:nth-child(2)': {

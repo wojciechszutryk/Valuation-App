@@ -69,6 +69,7 @@
   "...or change existing s objects parameters": "...or change existing s objects parameters",
   "Change parameters": "Change parameters",
   "...or save work and come back to it later": "...or save work and come back to it later",
-  "Save to JSON": "Save to JSON"
+  "Save to JSON": "Save to JSON",
+  "You cant access that page before completing previous valuation steps": "You cant access that page before completing previous valuation steps"
 
 }
