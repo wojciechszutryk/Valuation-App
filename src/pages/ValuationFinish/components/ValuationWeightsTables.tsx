@@ -157,6 +157,8 @@ const ValuationWeightsTables = () => {
         return standardizedWeights
     }, [weightsSum, weights, dispatch])
 
+    console.log(weights)
+
     return (
         <div>
             <Typography variant="h2" className={classes.header}>

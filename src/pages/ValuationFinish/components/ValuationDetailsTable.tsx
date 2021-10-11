@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import Table from '@material-ui/core/Table'
 import { Checkbox, TableBody, Typography } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
