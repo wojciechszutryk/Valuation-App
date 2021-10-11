@@ -30,7 +30,7 @@ function App() {
                     />
                 </Switch>
             </Router>
-            <ToastContainer icon={<InfoIcon />} />
+            <ToastContainer icon={<InfoIcon color="primary" />} />
         </Layout>
     )
 }

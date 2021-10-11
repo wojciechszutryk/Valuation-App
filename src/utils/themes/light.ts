@@ -62,6 +62,9 @@ export const lightTheme = createTheme({
             colorSecondary: {
                 color: '#41006b',
             },
+            colorPrimary: {
+                color: '#ffffff',
+            },
         },
         MuiSlider: {
             colorPrimary: {

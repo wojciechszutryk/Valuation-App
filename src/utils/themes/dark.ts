@@ -63,6 +63,9 @@ export const darkTheme = createTheme({
             colorSecondary: {
                 color: '#e74141',
             },
+            colorPrimary: {
+                color: '#e74141',
+            },
         },
         MuiSlider: {
             colorPrimary: {
