@@ -115,7 +115,7 @@ const ValuationComparisonTables = ({
                     const attrDiff =
                         Object.values(valuationObjectParameters)[i] -
                         Object.values(valuationObjectsParameters[objectIndex])[
-                        i
+                            i
                         ]
 
                     const row: { [key: string]: number | string } = createData(
@@ -123,7 +123,7 @@ const ValuationComparisonTables = ({
                         shareFactors[i].toFixed(2),
                         Object.values(valuationObjectParameters)[i],
                         Object.values(valuationObjectsParameters[objectIndex])[
-                        i
+                            i
                         ],
                         attrDiff,
                         attrDiff * Number.parseFloat(shareFactors[i].toFixed(2))
@@ -149,7 +149,7 @@ const ValuationComparisonTables = ({
                     const attrDiff =
                         Object.values(valuationObjectParameters)[i] -
                         Object.values(valuationObjectsParameters[objectIndex])[
-                        i
+                            i
                         ]
 
                     sum += shareFactors[i] * attrDiff
@@ -252,7 +252,7 @@ const ValuationComparisonTables = ({
                                 >
                                     {
                                         valuationObjectsForValidationUnitPrices[
-                                        index
+                                            index
                                         ]
                                     }
                                 </TableCell>
@@ -278,7 +278,7 @@ const ValuationComparisonTables = ({
                                 >
                                     {(
                                         valuationObjectsForValidationUnitPrices[
-                                        index
+                                            index
                                         ] + correctionsSumArray[index]
                                     ).toFixed(2)}
                                 </TableCell>
@@ -287,23 +287,45 @@ const ValuationComparisonTables = ({
                     </Table>
                 </TableContainer>
             ))}
-            <Typography variant={'h6'} className={classes.summaryHeader}>
-                {valuationObject +
-                    ' - ' +
-                    t('suggested unit price') +
-                    ': ' +
-                    suggestedUnitPrice.toFixed(2)}
-            </Typography>
-            <Box className={clsx(classes.summaryBox, classes.tableContainer, classes.summaryHeader)}>
-                <Typography variant={'h2'}>
-                    {t('suggested price') + ': '}
-                </Typography>
+            {valuationObjectsForValidationIndexes.length > 0 ? (
+                <>
+                    <Typography
+                        variant={'h6'}
+                        className={classes.summaryHeader}
+                    >
+                        {valuationObject +
+                            ' - ' +
+                            t('suggested unit price') +
+                            ': ' +
+                            suggestedUnitPrice.toFixed(2)}
+                    </Typography>
+                    <Box
+                        className={clsx(
+                            classes.summaryBox,
+                            classes.tableContainer,
+                            classes.summaryHeader
+                        )}
+                    >
+                        <Typography variant={'h2'}>
+                            {t('suggested price') + ': '}
+                        </Typography>
 
-                <Typography variant={'h2'}>
-                    {Number.parseFloat(suggestedUnitPrice.toFixed(2)) *
-                        valuationObjectArea}
+                        <Typography variant={'h2'}>
+                            {Number.parseFloat(suggestedUnitPrice.toFixed(2)) *
+                                valuationObjectArea}
+                        </Typography>
+                    </Box>
+                </>
+            ) : (
+                <Typography
+                    variant={'h2'}
+                    className={classes.addObjectsToValuationError}
+                >
+                    {t(
+                        'Too see results add some objects to valuation in details table'
+                    )}
                 </Typography>
-            </Box>
+            )}
         </>
     )
 }

@@ -5,6 +5,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { useTranslation } from 'react-i18next'
 import { showToast, findDuplicatesInArray } from 'utils'
 import {
+    setFinishedSteps,
     setValuationObjectsAreas,
     setValuationObjectsCoordinates,
     setValuationObjectsParameters,
@@ -89,6 +90,7 @@ const ValuationObjectsForm = ({
         valuationObjectsParametersCopy.splice(index, 1)
         dispatch(setValuationObjectsParameters(valuationObjectsParametersCopy))
         // }
+        dispatch(setFinishedSteps(0))
         showToast(t('Valuation object deleted successfully'))
     }
 

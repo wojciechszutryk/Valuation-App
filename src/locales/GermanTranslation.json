@@ -59,6 +59,16 @@
   "Save work to history": "Arbeit im Verlauf speichern",
   "save the valuation in the history on your application account, you will be able to return to the report after logging in": "speichern Sie die Bewertung in der Historie Ihres Bewerbungskontos, Sie können nach dem Einloggen zum Bericht zurückkehren",
   "Make sure the details are correct and continue": "Überprüfen Sie, ob die Angaben korrekt sind und fahren Sie fort",
-  "Corrections Sum": "Korrektursumme"
+  "Corrections Sum": "Korrektursumme",
+  "Too see results add some objects to valuation in details table": "Auch Ergebnisse sehen, einige Objekte zur Bewertung in der Bewertungszusammenfassung tabelle",
+  "Unfortunately valuation with currentyl set objects and criteria can not be done": "Eine Bewertung mit aktuell eingestellten Objekten und Kriterien ist leider nicht möglich",
+  "Algoritm is not able to find pairs of objects to the following criteria": "Der Algorithmus kann keine Objektpaare nach den folgenden Kriterien finden",
+  "What s next?": "Was kommt als nächstes?",
+  "Try to add new objects to valuation" : "Versuchen Sie, der Bewertung neue Objekte hinzuzufügen",
+  "New objects": "Neue Objekte",
+  "...or change existing s objects parameters": "...oder vorhandene s-Objektparameter ändern",
+  "Change parameters": "Parameter ändern",
+  "...or save work and come back to it later": "...oder Arbeit speichern und später darauf zurückkommen",
+  "Save to JSON": "In JSON speichern"
 
 }

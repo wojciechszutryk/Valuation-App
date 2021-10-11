@@ -116,5 +116,8 @@ export const useStyles = makeStyles((theme: Theme) =>
                 marginBottom: 0,
             },
         },
+        addObjectsToValuationError: {
+            marginBottom: 20,
+        },
     })
 )

@@ -59,5 +59,16 @@
   "Save work to history": "Save work to history",
   "save the valuation in the history on your application account, you will be able to return to the report after logging in": "Save the valuation in the history on your application account, you will be able to return to the report after logging in",
   "Make sure the details are correct and continue": "Make sure the details are correct and continue",
-  "Corrections Sum": "Corrections Sum"
+  "Corrections Sum": "Corrections Sum",
+  "Too see results add some objects to valuation in details table": "Too see results add some objects to valuation in details table",
+  "Unfortunately valuation with currentyl set objects and criteria can not be done": "Unfortunately valuation with currently set objects and criteria can not be done",
+  "Algoritm is not able to find pairs of objects to the following criteria": "Algoritm is not able to find pairs of objects to the following criteria",
+  "What s next?": "What's next?",
+  "Try to add new objects to valuation" : "Try to add new objects to valuation",
+  "New objects": "New objects",
+  "...or change existing s objects parameters": "...or change existing s objects parameters",
+  "Change parameters": "Change parameters",
+  "...or save work and come back to it later": "...or save work and come back to it later",
+  "Save to JSON": "Save to JSON"
+
 }

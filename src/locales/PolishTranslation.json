@@ -60,5 +60,15 @@
   "Save work to history": "Zapisz parcę do historii",
   "save the valuation in the history on your application account, you will be able to return to the report after logging in": "Zapisz wycenę w historii na swoim koncie aplikacji, będziesz mógł wrócić do raportu po zalogowaniu ",
   "Make sure the details are correct and continue": "Upewnij się, że dane są poprawne i kontynuuj.",
-  "Corrections Sum": "Suma poprawek"
+  "Corrections Sum": "Suma poprawek",
+  "Too see results add some objects to valuation in details table": "Aby zobaczyć wyniki dodaj obiekty do wyceny w tabeli Podsumowanie parametrów",
+  "Unfortunately valuation with currentyl set objects and criteria can not be done": "Niestety wycena z aktualnie ustawionymi obiektami i kryteriami nie może być wykonana",
+  "Algoritm is not able to find pairs of objects to the following criteria": "Algorytm nie jest w stanie znaleźć par obiektów spełniających następujące kryteria",
+  "What s next?": "Co dalej?",
+  "Try to add new objects to valuation" : "Spróbuj dodać nowe obiekty do wyceny",
+  "New objects": "Dodaj obiekty",
+  "...or change existing s objects parameters": "...lub zmień parametry istniejących s obiektów",
+  "Change parameters": "Zmień parametry",
+  "...or save work and come back to it later": "...albo zapisz pracę i wróć do niej później",
+  "Save to JSON": "Zapisz w JSON"
 }

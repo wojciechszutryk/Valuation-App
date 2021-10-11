@@ -1,7 +1,7 @@
 import { Box, Typography, Button, Card, Grid } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import React, { useEffect, useCallback } from 'react'
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import { showToast } from 'utils'
@@ -39,24 +39,23 @@ export const useStyles = makeStyles((theme: Theme) =>
             },
             '&:last-child': {
                 marginBottom: 10,
-            }
+            },
         },
         item: {
             height: '100%',
             padding: 20,
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
         },
         button: {
             color:
                 theme.palette.type === 'dark'
                     ? 'white'
                     : theme.palette.secondary.main,
-        }
+        },
     })
 )
-
 
 interface Props {
     valuationErrorInWeights: number[]
@@ -64,7 +63,7 @@ interface Props {
 
 const ErrorInValuationMessage = ({ valuationErrorInWeights }: Props) => {
     const { t } = useTranslation()
-    let history = useHistory();
+    let history = useHistory()
     const classes = useStyles()
     const valuationObjectsParameters = useAppSelector(
         (state) => state.valuation.valuationObjectsParameters
@@ -89,7 +88,11 @@ const ErrorInValuationMessage = ({ valuationErrorInWeights }: Props) => {
     )
 
     useEffect(() => {
-        showToast(t('Unfortunately valuation with currentyl set objects and criteria can not be done.'))
+        showToast(
+            t(
+                'Unfortunately valuation with currentyl set objects and criteria can not be done'
+            )
+        )
     }, [t])
 
     const downloadJSON = useCallback(() => {
@@ -101,15 +104,15 @@ const ErrorInValuationMessage = ({ valuationErrorInWeights }: Props) => {
         } = {}
         const downloadObj: {
             [key: string]:
-            | {
-                [key: string]: string | number | { [key: string]: number }
-            }
-            | {
-                [key: string]:
-                | string[]
-                | number[]
-                | { [key: string]: number }[]
-            }
+                | {
+                      [key: string]: string | number | { [key: string]: number }
+                  }
+                | {
+                      [key: string]:
+                          | string[]
+                          | number[]
+                          | { [key: string]: number }[]
+                  }
         } = {}
         valuationObj['name'] = valuationObject
         valuationObj['area'] = valuationObjectArea
@@ -127,7 +130,9 @@ const ErrorInValuationMessage = ({ valuationErrorInWeights }: Props) => {
         link.href = url
         link.setAttribute(
             'download',
-            `[${t('UNFINISHED')}]-${valuationObject}-${new Date().toLocaleDateString()}.json`
+            `[${t(
+                'UNFINISHED'
+            )}]-${valuationObject}-${new Date().toLocaleDateString()}.json`
         )
         document.body.appendChild(link)
         link.click()
@@ -145,49 +150,83 @@ const ErrorInValuationMessage = ({ valuationErrorInWeights }: Props) => {
 
     return (
         <Box className={classes.box}>
-            <Typography className={classes.text} variant='h1'>{t('Unfortunately valuation with currentyl set objects and criteria can not be done.')}</Typography>
-            <Typography className={classes.subText} variant='subtitle1'>{t('Algoritm is not able to find pairs of objects to the following criteria') + ':'}</
-            Typography>
+            <Typography className={classes.text} variant="h1">
+                {t(
+                    'Unfortunately valuation with currentyl set objects and criteria can not be done'
+                )}
+            </Typography>
+            <Typography className={classes.subText} variant="subtitle1">
+                {t(
+                    'Algoritm is not able to find pairs of objects to the following criteria'
+                ) + ':'}
+            </Typography>
             <ul>
-                {valuationErrorInWeights.map(index => (
+                {valuationErrorInWeights.map((index) => (
                     <li key={index} className={classes.errorParameter}>
-                        <Typography variant='subtitle1'>
+                        <Typography variant="subtitle1">
                             - {valuationParametersObjects[index]}
                         </Typography>
                     </li>
                 ))}
             </ul>
-            <Typography className={classes.text} variant='h2'>{t('What s next?')}</
-            Typography>
+            <Typography className={classes.text} variant="h2">
+                {t('What s next?')}
+            </Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6} md={4}>
                     <Card className={classes.item}>
-                        <Typography className={classes.subText} variant='subtitle1'>{t('Try to add new objects to valuation') + ':'}</
-                        Typography>
-                        <Button variant="outlined"
+                        <Typography
+                            className={classes.subText}
+                            variant="subtitle1"
+                        >
+                            {t('Try to add new objects to valuation') + ':'}
+                        </Typography>
+                        <Button
+                            variant="outlined"
                             fullWidth
                             className={classes.button}
-                            onClick={() => history.push('/valuation/new')}>{t('New objects')}</Button>
+                            onClick={() => history.push('/valuation/new')}
+                        >
+                            {t('New objects')}
+                        </Button>
                     </Card>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
                     <Card className={classes.item}>
-                        <Typography className={classes.subText} variant='subtitle1'>{t('...or change existing s objects parameters') + ':'}</
-                        Typography>
-                        <Button variant="outlined"
+                        <Typography
+                            className={classes.subText}
+                            variant="subtitle1"
+                        >
+                            {t('...or change existing s objects parameters') +
+                                ':'}
+                        </Typography>
+                        <Button
+                            variant="outlined"
                             fullWidth
                             className={classes.button}
-                            onClick={() => history.push('/valuation/details')}>{t('Change parameters')}</Button>
+                            onClick={() => history.push('/valuation/details')}
+                        >
+                            {t('Change parameters')}
+                        </Button>
                     </Card>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
                     <Card className={classes.item}>
-                        <Typography className={classes.subText} variant='subtitle1'>{t('...or save work and come back to it later') + ':'}</
-                        Typography>
-                        <Button variant="outlined"
+                        <Typography
+                            className={classes.subText}
+                            variant="subtitle1"
+                        >
+                            {t('...or save work and come back to it later') +
+                                ':'}
+                        </Typography>
+                        <Button
+                            variant="outlined"
                             fullWidth
                             className={classes.button}
-                            onClick={downloadJSON}>{t('Save to JSON')}</Button>
+                            onClick={downloadJSON}
+                        >
+                            {t('Save to JSON')}
+                        </Button>
                     </Card>
                 </Grid>
             </Grid>
