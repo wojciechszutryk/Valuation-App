@@ -56,8 +56,8 @@
   "print report to pdf file": "Print report to pdf file",
   "Export to JSON": "Export to JSON",
   "save the valuation to a JSON file on your device, it can be imported to the application later": "save the valuation to a JSON file on your device, it can be imported to the application later",
-  "Save work to history": "Zapisz pracę w historii",
-  "save the valuation in the history on your application account, you will be able to return to the report after logging in": "Zapisz wycenę w historii na swoim koncie aplikacji, będziesz mógł wrócić do raportu po zalogowaniu",
-  "Make sure the details are correct and continue": "Upewnij się, że dane są poprawne i kontynuuj"
-
+  "Save work to history": "Save work to history",
+  "save the valuation in the history on your application account, you will be able to return to the report after logging in": "Save the valuation in the history on your application account, you will be able to return to the report after logging in",
+  "Make sure the details are correct and continue": "Make sure the details are correct and continue",
+  "Corrections Sum": "Corrections Sum"
 }

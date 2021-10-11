@@ -11,7 +11,7 @@ import { useAppSelector } from 'utils/hooks/useAppSelector'
 import { setValuationObjectsForValuation } from 'data/state/actions/valuationActions'
 import { listMostSimilarObjects } from 'utils/functions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
-import { useStyles } from './tableStyles'
+import { useStyles } from './componentsStyles'
 
 const ValuationDetailsTable = () => {
     const classes = useStyles()

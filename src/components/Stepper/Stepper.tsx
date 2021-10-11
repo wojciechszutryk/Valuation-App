@@ -154,7 +154,6 @@ export default function CustomStepper({
     const { t } = useTranslation()
 
     const handleGoToStep = (step: Steps) => {
-        console.log(step)
         if (step === 0) {
             history.push('/valuation/new')
         } else if (step === 1) {
