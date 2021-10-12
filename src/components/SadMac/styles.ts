@@ -193,6 +193,12 @@ export const useStyles = makeStyles((theme: Theme) =>
             left: '50%',
             transform: 'translate(-50%, -50%)',
             borderRadius: '50%',
+            [theme.breakpoints.down('md')]: {
+                fontSize: '5px',
+            },
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '3px',
+            },
         },
     })
 )
