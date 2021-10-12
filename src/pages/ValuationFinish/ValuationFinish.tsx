@@ -90,17 +90,17 @@ const ValuationFinish = () => {
     const finishedSteps = useAppSelector(
         (state) => state.valuation.finishedSteps
     )
-    // useEffect(() => {
-    //     toast.dismiss()
-    //     if (finishedSteps < 2) {
-    //         history.goBack()
-    //         showToast(
-    //             t(
-    //                 'You cant access that page before completing previous valuation steps'
-    //             )
-    //         )
-    //     }
-    // }, [finishedSteps, history, t])
+    useEffect(() => {
+        toast.dismiss()
+        if (finishedSteps < 2) {
+            history.goBack()
+            showToast(
+                t(
+                    'You cant access that page before completing previous valuation steps'
+                )
+            )
+        }
+    }, [finishedSteps, history, t])
 
 
     const weightsErrorsIndexes: number[] = useMemo(() => {
