@@ -1,7 +1,12 @@
 import React from 'react'
+import { SadMac } from 'components'
 
 const Home: React.FC = () => {
-    return <div>home</div>
+    return (
+        <div>
+            <SadMac />
+        </div>
+    )
 }
 
 export default Home
