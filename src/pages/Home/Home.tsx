@@ -67,16 +67,22 @@ const Home = ({ token = false, message = '' }: Props) => {
                 {
                     !token ?
                         <Box className={classes.userButtons}>
-                            <Link to='/login'>
+                            <Link to='/valuation/new' className={classes.newValuation}>
+                                <Button
+                                    variant='outlined'
+                                >{t('Start Valuation')}</Button>
+                            </Link>
+                            <Link to='/login' className={classes.pageLink}>
                                 <Button
                                     variant='outlined'
                                 >{t('Login')}</Button>
                             </Link>
-                            <Link to='/register'>
+                            <Link to='/register' className={classes.pageLink}>
                                 <Button
                                     variant='outlined'
                                 >{t('Register')}</Button>
                             </Link>
+
                         </Box>
                         :
                         <Box className={classes.userInformation}>
@@ -86,8 +92,8 @@ const Home = ({ token = false, message = '' }: Props) => {
                 <SadMac />
             </Grid>
             <Grid item md={6}>
-                <Typography className={classes.styledHeader} data-aos="flip-down" data-aos-once={true}>{t("Budget App")}</Typography>
-                <Typography className={classes.styledHeader} data-aos="flip-down" data-aos-once={true}>{t("Features")}:</Typography>
+                <Typography className={classes.styledHeader} variant='h3' data-aos="flip-down" data-aos-once={true}>{t("Valuation App")}</Typography>
+                <Typography className={clsx(classes.styledHeader, classes.subHeader)} variant='h4' data-aos="flip-down" data-aos-once={true}>{t("Features")}:</Typography>
                 <ul>
                     {featuresList}
                 </ul>
