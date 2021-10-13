@@ -2,7 +2,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        styledErrorMessage: {
+        error: {
             fontSize: '12px',
             color: 'red',
             width: '400px',
@@ -11,6 +11,30 @@ export const useStyles = makeStyles((theme: Theme) =>
                 content: '"❌"',
                 fontSize: '10px',
             }
+        },
+        container: {
+            width: '80%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+        },
+        input: {
+            borderWidth: '3px',
+            marginBottom: 10,
+        },
+        submitButton: {
+            border: `2px solid ${theme.palette.primary.main}`,
+            backgroundColor: theme.palette.type === 'light'
+                ? theme.palette.primary.main
+                : theme.palette.secondary.dark,
+            color: 'white',
+            fontWeight: 700,
+            '&:hover': {
+                backgroundColor: theme.palette.type === 'light'
+                    ? theme.palette.primary.light
+                    : theme.palette.divider,
+            }
         }
+
     })
 )

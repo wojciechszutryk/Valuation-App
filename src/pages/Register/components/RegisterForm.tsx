@@ -1,27 +1,23 @@
-import React, { useEffect } from "react";
-import { Formik, Form, useField, useFormikContext, FieldHookConfig } from "formik";
+import React from "react";
+import { Formik, Form, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
+import { TextField, Box, Button, Typography } from "@material-ui/core";
+import { useStyles } from "./style";
 
-interface OtherProps {
+const MyTextInput = (props: {
     label: string
-}
-const MyTextInput = (props: OtherProps & FieldHookConfig<string>) => {
+} & FieldHookConfig<string>) => {
+    const classes = useStyles()
     const [field, meta] = useField(props);
     return (
-        <>
-            <label htmlFor={props.id || props.name}>{props.label}</label>
-            <input className="text-input" {...field} placeholder={props.placeholder} type={props.type} />
-            {meta.touched && meta.error ? (
-                <div className="error">{meta.error}</div>
-            ) : null}
-        </>
+        <TextField error={!!meta.touched && !!meta.error} className={classes.input} label={props.label} variant="outlined" type={props.type} helperText={!!meta.touched && !!meta.error ? meta.error : ' '} {...field} />
     );
 };
 
 const RegisterForm = () => {
+    const classes = useStyles()
     return (
         <>
-            <h1>Subscribe!</h1>
             <Formik
                 initialValues={{
                     login: "",
@@ -48,7 +44,7 @@ const RegisterForm = () => {
                     setSubmitting(false);
                 }}
             >
-                <Form>
+                <Form className={classes.container}>
                     <MyTextInput
                         label="Login"
                         name="login"
@@ -70,11 +66,10 @@ const RegisterForm = () => {
                     <MyTextInput
                         label="Password Confirmation"
                         name="passwordConfirmation"
-                        type="password "
+                        type="password"
                         placeholder="Password Confirmation"
                     />
-
-                    <button type="submit">Submit</button>
+                    <Button type="submit" className={classes.submitButton} variant='outlined'>Submit</Button>
                 </Form>
             </Formik>
         </>

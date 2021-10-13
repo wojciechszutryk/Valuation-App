@@ -34,6 +34,11 @@ export const useStyles = makeStyles((theme: Theme) =>
             padding: 10,
             border: `3px solid ${theme.palette.divider}`,
         },
+        header: {
+            color: theme.palette.type === 'light'
+                ? theme.palette.primary.dark
+                : theme.palette.secondary.dark,
+        }
     })
 )
 
@@ -54,6 +59,7 @@ const Register = ({ }: Props) => {
     return (
         <Grid className={classes.container} container spacing={3}>
             <Grid item data-aos="fade-right" md={6}>
+                <Typography variant='h3' align='center' className={classes.header}>{t('Register')}</Typography>
                 <SadMac />
             </Grid>
             <Grid item md={6}>
