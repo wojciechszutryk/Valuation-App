@@ -14,10 +14,19 @@ export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             display: 'flex',
-            justifyContent: 'center',
-            width: '100%',
+            justifyContent: 'space-around',
+            width: '100vw !important',
             overflow: 'hidden',
             paddingTop: 20,
+            '&>div': {
+                width: '50%',
+            },
+            '@media (max-width: 600px)': {
+                flexDirection: 'column',
+                '&>div': {
+                    width: '100vw',
+                },
+            },
         },
         userInformation: {
             width: '80%',
@@ -60,7 +69,7 @@ const Register = ({ }: Props) => {
                 <Typography variant='h3' align='center' className={classes.header}>{t('Register')}</Typography>
                 <SadMac />
             </Grid>
-            <Grid item md={6}>
+            <Grid item data-aos="fade-left" md={6}>
                 <RegisterForm />
             </Grid>
         </Grid>

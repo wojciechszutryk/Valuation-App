@@ -14,10 +14,19 @@ export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             display: 'flex',
-            justifyContent: 'center',
-            width: '100%',
+            justifyContent: 'space-around',
+            width: '100vw !important',
             overflow: 'hidden',
             paddingTop: 20,
+            '&>div': {
+                width: '50%',
+            },
+            '@media (max-width: 600px)': {
+                flexDirection: 'column',
+                '&>div': {
+                    width: '100%',
+                },
+            },
         },
         userInformation: {
             width: '80%',
