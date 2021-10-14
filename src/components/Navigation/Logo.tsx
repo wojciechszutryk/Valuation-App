@@ -1,5 +1,6 @@
 import { Button, makeStyles } from '@material-ui/core'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -32,13 +33,17 @@ const useStyles = makeStyles((theme) => {
             fontWeight: 'bold',
             fontFamily: 'Cinzel',
         },
+        link: {
+            texDecoration: 'none'
+        }
     }
 })
 
 const Logo: React.FC<{ inDrawer: boolean }> = ({ inDrawer = false }) => {
     const classes = useStyles(inDrawer)
+    let history = useHistory()
     return (
-        <Button>
+        <Button onClick={() => history.push('/')}>
             <span className={inDrawer ? classes.wsInDrawer : classes.ws}>
                 WS
             </span>

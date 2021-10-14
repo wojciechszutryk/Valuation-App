@@ -10,8 +10,8 @@ import InfoIcon from '@material-ui/icons/Info'
 function App() {
     toast.configure()
     return (
-        <Layout>
-            <Router>
+        <Router>
+            <Layout>
                 <Switch>
                     <Route
                         exact
@@ -34,13 +34,18 @@ function App() {
                         component={Register}
                     />
                     <Route
+                        exact
+                        path="/login"
+                        component={Login}
+                    />
+                    <Route
                         path="/"
                         component={Home}
                     />
                 </Switch>
-            </Router>
-            <ToastContainer icon={<InfoIcon color="primary" />} />
-        </Layout>
+                <ToastContainer icon={<InfoIcon color="primary" />} />
+            </Layout>
+        </Router>
     )
 }
 

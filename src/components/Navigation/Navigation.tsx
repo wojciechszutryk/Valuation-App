@@ -97,7 +97,7 @@ const Navigation: React.FC = () => {
                         <Logo inDrawer={true} />
                         <ThemeSwitcher />
                         <LanguageSwitcher />
-                        <Button color="inherit">Login</Button>
+                        <Button color="inherit" >Login</Button>
                     </div>
                 </Drawer>
             </Hidden>

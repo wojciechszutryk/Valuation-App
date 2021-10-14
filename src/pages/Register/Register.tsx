@@ -3,9 +3,7 @@ import { SadMac } from 'components'
 import { useTranslation } from 'react-i18next';
 import Aos from 'aos';
 import "aos/dist/aos.css"
-import { Box, Button, Grid, Typography } from '@material-ui/core';
-import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+import { Grid, Typography } from '@material-ui/core';
 import { useAppSelector } from 'utils/hooks/useAppSelector';
 import { getThemeByName } from 'utils/themes/getTheme';
 import RegisterForm from './components';

@@ -3,11 +3,10 @@ import { SadMac } from 'components'
 import { useTranslation } from 'react-i18next';
 import Aos from 'aos';
 import "aos/dist/aos.css"
-import { Box, Button, Grid, Typography } from '@material-ui/core';
-import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+import { Grid, Typography } from '@material-ui/core';
 import { useAppSelector } from 'utils/hooks/useAppSelector';
 import { getThemeByName } from 'utils/themes/getTheme';
+import RegisterForm from './components';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 
@@ -33,6 +32,11 @@ export const useStyles = makeStyles((theme: Theme) =>
             padding: 10,
             border: `3px solid ${theme.palette.divider}`,
         },
+        header: {
+            color: theme.palette.type === 'light'
+                ? theme.palette.primary.dark
+                : theme.palette.secondary.dark,
+        }
     })
 )
 
@@ -50,11 +54,14 @@ const Login = ({ }: Props) => {
     const classes = useStyles()
     const { t } = useTranslation();
 
-
     return (
         <Grid className={classes.container} container spacing={3}>
             <Grid item data-aos="fade-right" md={6}>
+                <Typography variant='h3' align='center' className={classes.header}>{t('Login')}</Typography>
                 <SadMac />
+            </Grid>
+            <Grid item md={6}>
+                <RegisterForm />
             </Grid>
         </Grid>
     )
