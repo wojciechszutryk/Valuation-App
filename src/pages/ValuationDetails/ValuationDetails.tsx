@@ -6,7 +6,7 @@ import { addressToCoordinates } from 'utils/functions'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import { showToast } from 'utils'
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import {
     setValuationObjectsCoordinates,
@@ -14,37 +14,37 @@ import {
 } from 'data/state/actions/valuationActions'
 import { StickyContainer, Sticky } from 'react-sticky'
 import { ValuationObjectsCardsWrapper, ValuationNavigation } from './components'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 
-const useStyles = makeStyles((theme) => {
-    let history = useHistory();
-    const { t } = useTranslation()
-    const finishedSteps = useAppSelector(
-        (state) => state.valuation.finishedSteps
-    )
-    useEffect(() => {
-        toast.dismiss()
-        if (finishedSteps < 1) {
-            history.goBack()
-            showToast(
-                t(
-                    'You cant access that page before completing previous valuation steps'
-                )
-            )
-        }
-    }, [finishedSteps, history, t])
-    return createStyles({
-        sticky: {
-            '& > div:nth-child(2)': {
-                zIndex: 1000,
-                position: 'relative',
-            },
-        },
-    })
-})
+// const useStyles = makeStyles((theme) => {
+//     let history = useHistory()
+//     const { t } = useTranslation()
+//     const finishedSteps = useAppSelector(
+//         (state) => state.valuation.finishedSteps
+//     )
+//     useEffect(() => {
+//         toast.dismiss()
+//         if (finishedSteps < 1) {
+//             history.goBack()
+//             showToast(
+//                 t(
+//                     'You cant access that page before completing previous valuation steps'
+//                 )
+//             )
+//         }
+//     }, [finishedSteps, history, t])
+//     return createStyles({
+//         sticky: {
+//             '& > div:nth-child(2)': {
+//                 zIndex: 1000,
+//                 position: 'relative',
+//             },
+//         },
+//     })
+// })
 
 const ValuationDetails: React.FC = () => {
-    const classes = useStyles()
+    // const classes = useStyles()
     const dispatch = useAppDispatch()
     const storeValuationObjects = useAppSelector(
         (state) => state.valuation.valuationObjects
@@ -79,33 +79,29 @@ const ValuationDetails: React.FC = () => {
 
     return (
         <Container>
-            <StickyContainer className={classes.sticky}>
-                <Stepper activeStepFromProps={1 as Steps} />
-                <Sticky topOffset={140}>
-                    {({ style }) => (
-                        <div style={style}>
-                            <GoogleMaps
-                                valuationObjectsCoordinates={
-                                    storeObjectsCoordinates
-                                }
-                                valuationObjectCoordinates={
-                                    storeObjectCoordinates
-                                }
-                                valuationObjects={storeValuationObjects}
-                                valuationObject={storeValuationObject}
-                            />
-                        </div>
-                    )}
-                </Sticky>
-                <ValuationObjectsCardsWrapper
-                    valuationObjects={storeValuationObjects}
-                    valuationObject={storeValuationObject}
-                    valuationCriteria={storeValuationCriteria}
-                    valuationObjectsCoordinates={storeObjectsCoordinates}
-                    valuationObjectCoordinates={storeObjectCoordinates}
-                />
-                <ValuationNavigation />
-            </StickyContainer>
+            {/*<StickyContainer className={classes.sticky}>*/}
+            <Stepper activeStepFromProps={1 as Steps} />
+            {/*<Sticky topOffset={140}>*/}
+            {/*{({ style }) => (*/}
+            {/*    <div style={style}>*/}
+            <GoogleMaps
+                valuationObjectsCoordinates={storeObjectsCoordinates}
+                valuationObjectCoordinates={storeObjectCoordinates}
+                valuationObjects={storeValuationObjects}
+                valuationObject={storeValuationObject}
+            />
+            {/*</div>*/}
+            {/*)}*/}
+            {/*</Sticky>*/}
+            <ValuationObjectsCardsWrapper
+                valuationObjects={storeValuationObjects}
+                valuationObject={storeValuationObject}
+                valuationCriteria={storeValuationCriteria}
+                valuationObjectsCoordinates={storeObjectsCoordinates}
+                valuationObjectCoordinates={storeObjectCoordinates}
+            />
+            <ValuationNavigation />
+            {/*</StickyContainer>*/}
         </Container>
     )
 }
