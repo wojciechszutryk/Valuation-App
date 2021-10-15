@@ -3,6 +3,7 @@ import { Formik, Form, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
 import { TextField, Box, Button, Typography } from "@material-ui/core";
 import { useStyles } from "./style";
+import { useTranslation } from "react-i18next";
 
 const MyTextInput = (props: {
     label: string
@@ -16,6 +17,7 @@ const MyTextInput = (props: {
 
 const LoginForm = () => {
     const classes = useStyles()
+    const { t } = useTranslation();
     return (
         <Box className={classes.wrapper}>
             <Formik
@@ -25,10 +27,10 @@ const LoginForm = () => {
                 }}
                 validationSchema={Yup.object({
                     email: Yup.string()
-                        .email("Invalid email addresss`")
-                        .required("Required"),
+                        .email(t("Invalid email addresss`"))
+                        .required(t("Required")),
                     password: Yup.string()
-                        .required("Required")
+                        .required(t("Required"))
                 })}
                 onSubmit={async (values, { setSubmitting }) => {
                     await new Promise(r => setTimeout(r, 500));
@@ -37,18 +39,18 @@ const LoginForm = () => {
             >
                 <Form className={classes.container}>
                     <MyTextInput
-                        label="Email Address"
+                        label={t("Email Address")}
                         name="email"
                         type="email"
                         placeholder="email"
                     />
                     <MyTextInput
-                        label="Password"
+                        label={t("Password")}
                         name="password"
                         type="password"
                         placeholder="password"
                     />
-                    <Button type="submit" className={classes.submitButton} variant='outlined'>Submit</Button>
+                    <Button type="submit" className={classes.submitButton} variant='outlined'>{t("Submit")}</Button>
                 </Form>
             </Formik>
         </Box>

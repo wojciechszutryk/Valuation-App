@@ -25,21 +25,26 @@ const Home = ({ token = false, message = '' }: Props) => {
     const { t } = useTranslation();
     const delay = 200;
     const features = [
-        t('creating account with own avatar'),
-        t('changing user avatar'),
-        t('adding and removing custom budget with categories'),
+        t('signing up and logging in'),
+        t('adding and removing valuation objects'),
+        t('adding and removing valuation criterias'),
+        t('setting criteria range on slider'),
         t('switching languages at any time'),
-        t('switching between budget at any time'),
-        t('data visualization on interactive graphs'),
-        t('adding and removing transactions'),
-        t('sorting transaction with four available criteria'),
-        t('searching in all transactions'),
-        t('grouping transactions in categories'),
-        t('exporting transactions to file'),
-        t('importing transactions from file'),
-        t('switching themes between light and dark'),
+        t('switching theme between dark and white at any time'),
+        t('setting objects parameters'),
+        t('showing objects on customized map'),
+        t('adding objects coordinates by clicking on map'),
+        t('panning to object location on map when selecting'),
+        t('automatic sellecting suggested objects for valuation'),
+        t('moving valuation form forward and backward and not loosing data'),
+        t('showing valuation report'),
+        t('exporting raport to pdf, excel or JSON file'),
+        t('saving work on account after logging in'),
+        t('loading work from acconts work history'),
         t('website will look well at any device'),
+        t('importing JSON file to the application'),
         t('showing notification'),
+
     ];
 
     const featuresList = features.map((feature, index) => (

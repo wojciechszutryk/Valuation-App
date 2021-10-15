@@ -3,6 +3,7 @@ import { Formik, Form, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
 import { TextField, Box, Button, Typography } from "@material-ui/core";
 import { useStyles } from "./style";
+import { useTranslation } from "react-i18next";
 
 const MyTextInput = (props: {
     label: string
@@ -16,6 +17,7 @@ const MyTextInput = (props: {
 
 const RegisterForm = () => {
     const classes = useStyles()
+    const { t } = useTranslation();
     return (
         <Box className={classes.wrapper}>
             <Formik
@@ -27,19 +29,19 @@ const RegisterForm = () => {
                 }}
                 validationSchema={Yup.object({
                     login: Yup.string()
-                        .max(15, "Must be 15 characters or less")
-                        .min(5, "Must be 5 characters or more")
+                        .max(15, t("Must be 15 characters or less"))
+                        .min(5, t("Must be 5 characters or more"))
                         .required("Required")
-                        .matches(/[a-zA-Z]/, 'Login can only contain Latin letters.'),
+                        .matches(/[a-zA-Z]/, t('Login can only contain Latin letters')),
                     email: Yup.string()
-                        .email("Invalid email addresss`")
-                        .required("Required"),
+                        .email(t("Invalid email addresss"))
+                        .required(t("Required")),
                     password: Yup.string()
-                        .required("Required")
-                        .min(8, 'Password is too short - should be 8 characters minimum.')
-                        .max(15, 'Password is too long - should be 15 characters maximum.'),
+                        .required(t("Required"))
+                        .min(8, t('Password is too short - should be 8 characters minimum'))
+                        .max(15, t('Password is too long - should be 15 characters maximum')),
                     passwordConfirmation: Yup.string()
-                        .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                        .oneOf([Yup.ref('password'), null], t('Passwords must match'))
                 })}
                 onSubmit={async (values, { setSubmitting }) => {
                     await new Promise(r => setTimeout(r, 500));
@@ -48,30 +50,30 @@ const RegisterForm = () => {
             >
                 <Form className={classes.container}>
                     <MyTextInput
-                        label="Login"
+                        label={t("Login")}
                         name="login"
                         type="text"
                         placeholder="login"
                     />
                     <MyTextInput
-                        label="Email Address"
+                        label={t("Email Address")}
                         name="email"
                         type="email"
                         placeholder="email"
                     />
                     <MyTextInput
-                        label="Password"
+                        label={t("Password")}
                         name="password"
                         type="password"
                         placeholder="password"
                     />
                     <MyTextInput
-                        label="Password Confirmation"
+                        label={t("Password Confirmation")}
                         name="passwordConfirmation"
                         type="password"
                         placeholder="Password Confirmation"
                     />
-                    <Button type="submit" className={classes.submitButton} variant='outlined'>Submit</Button>
+                    <Button type="submit" className={classes.submitButton} variant='outlined'>{t('Submit')}</Button>
                 </Form>
             </Formik>
         </Box>
