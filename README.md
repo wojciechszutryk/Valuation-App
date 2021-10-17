@@ -1,6 +1,6 @@
 ### ValuationApp
 
-DEMO: *available soon
+DEMO: https://wojciechszutryk.github.io/Valuation-App/#/
 
 ## Project Status
 
