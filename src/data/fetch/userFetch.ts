@@ -1,15 +1,22 @@
 import store from "data/state/store";
 
-export const userSignUp = async (data) => {
+export const userSignUp = async (data: {
+    email: string;
+    userName: string;
+    password: string;
+}) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/users/signup`, {
         method: 'POST',
-        body: data,
+        body: new URLSearchParams({ data } as any),
         // headers: {"Content-Type": "multipart/form-data"}
     })
     return await response.json()
 };
 
-export const userLogin = async (data) => {
+export const userLogin = async (data: {
+    email: string;
+    password: string;
+}) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -20,25 +27,7 @@ export const userLogin = async (data) => {
     return await response.json()
 };
 
-export const userPhotoChange = async ({ id, data }) => {
-    const token = store.getState().common.token;
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${id}/changePhoto`, {
-        method: 'PUT',
-        body: data,
-        headers: { 'Authorization': 'Bearer ' + token }
-    })
-    return await response.json()
-};
-
-export const userPhotoGet = async ({ id }) => {
-    // const response = await fetch(`${process.env.REACT_APP_API_URL}/users/image/${id}`,{
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${id}/getPhoto`, {
-        method: 'GET',
-    })
-    return await response.json();
-};
-
-export const userAccountDelete = async ({ id }) => {
+export const userAccountDelete = async ({ id }: { id: string }) => {
     const token = store.getState().user.token;
     const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${id}`, {
         method: 'DELETE',

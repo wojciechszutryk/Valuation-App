@@ -14,6 +14,7 @@ import React from 'react'
 import { LanguageSwitcher } from '../index'
 import { ThemeSwitcher } from '../Theme'
 import Logo from './Logo'
+import LoginOrRegister from './LoginOrRegister'
 
 const useStyles = makeStyles((theme) => {
     return createStyles({
@@ -70,7 +71,7 @@ const Navigation: React.FC = () => {
                             <div className={classes.flexGrow} />
                             <ThemeSwitcher />
                             <LanguageSwitcher />
-                            <Button color="inherit">Login</Button>
+                            <LoginOrRegister />
                         </Toolbar>
                     </Container>
                 </AppBar>
@@ -97,7 +98,7 @@ const Navigation: React.FC = () => {
                         <Logo inDrawer={true} />
                         <ThemeSwitcher />
                         <LanguageSwitcher />
-                        <Button color="inherit" >Login</Button>
+                        <LoginOrRegister />
                     </div>
                 </Drawer>
             </Hidden>
