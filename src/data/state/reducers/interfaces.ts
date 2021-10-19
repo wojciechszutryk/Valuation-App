@@ -15,6 +15,13 @@ export interface AppReducer {
     language: Language
 }
 
+export interface UserReducer {
+    userId: string
+    token: string
+    userImage: string
+    userName: string
+}
+
 export interface ValuationReducer {
     finishedSteps: FinishedSteps
     valuationObject: ValuationObject
