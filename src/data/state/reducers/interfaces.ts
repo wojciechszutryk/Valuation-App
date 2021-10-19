@@ -18,7 +18,6 @@ export interface AppReducer {
 export interface UserReducer {
     userId: string
     token: string
-    userImage: string
     userName: string
 }
 

@@ -1,11 +1,10 @@
 import { AnyAction } from 'redux'
 import { UserReducer } from './interfaces'
-import { SET_USERNAME, SET_USER_IMAGE, SET_USERID, SET_TOKEN } from '../constans'
+import { SET_USERNAME, SET_USERID, SET_TOKEN } from '../constans'
 
 const initialState = {
     userId: '',
     token: '',
-    userImage: '',
     userName: '',
 }
 
@@ -24,12 +23,6 @@ const reducer = (
             return {
                 ...state,
                 userId: action.payload,
-            }
-
-        case SET_USER_IMAGE:
-            return {
-                ...state,
-                userImage: action.payload,
             }
 
         case SET_USERNAME:

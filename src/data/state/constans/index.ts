@@ -3,7 +3,6 @@ export const SET_LANGUAGE = 'SET_LANGUAGE'
 
 export const SET_TOKEN = 'TOKEN_SET'
 export const SET_USERID = 'USERID_SET'
-export const SET_USER_IMAGE = 'USER_IMAGE_SET'
 export const SET_USERNAME = 'USERNAME_SET'
 
 export const SET_FINISHED_STEPS = 'SET_FINISHED_STEPS'

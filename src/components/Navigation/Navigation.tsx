@@ -15,6 +15,8 @@ import { LanguageSwitcher } from '../index'
 import { ThemeSwitcher } from '../Theme'
 import Logo from './Logo'
 import LoginOrRegister from './LoginOrRegister'
+import AccountMenu from './AccountMenu'
+import { useAppSelector } from 'utils/hooks/useAppSelector'
 
 const useStyles = makeStyles((theme) => {
     return createStyles({
@@ -48,6 +50,8 @@ const useStyles = makeStyles((theme) => {
 const Navigation: React.FC = () => {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
+    // const userName = useAppSelector((state) => state.user.userName)
+    const userName = 'aaa'
 
     const toggleDrawer =
         (o: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -71,7 +75,7 @@ const Navigation: React.FC = () => {
                             <div className={classes.flexGrow} />
                             <ThemeSwitcher />
                             <LanguageSwitcher />
-                            <LoginOrRegister />
+                            {!userName ? <LoginOrRegister /> : <AccountMenu />}
                         </Toolbar>
                     </Container>
                 </AppBar>
@@ -98,7 +102,7 @@ const Navigation: React.FC = () => {
                         <Logo inDrawer={true} />
                         <ThemeSwitcher />
                         <LanguageSwitcher />
-                        <LoginOrRegister />
+                        {!userName ? <LoginOrRegister /> : <AccountMenu />}
                     </div>
                 </Drawer>
             </Hidden>

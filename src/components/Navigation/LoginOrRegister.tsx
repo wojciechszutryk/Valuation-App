@@ -1,4 +1,3 @@
-import EditIcon from '@material-ui/icons/Edit'
 import ArchiveIcon from '@material-ui/icons/Archive'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
@@ -6,7 +5,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import { alpha, Button, Divider, Menu, MenuItem, MenuProps, styled } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next'
-
+import { useHistory } from 'react-router-dom'
 
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -51,6 +50,7 @@ const StyledMenu = styled((props: MenuProps) => (
 
 export default function LoginOrRegister() {
     const { t } = useTranslation()
+    let history = useHistory()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -83,16 +83,16 @@ export default function LoginOrRegister() {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose} disableRipple>
+                <MenuItem onClick={() => { history.push('/valuation/new'); handleClose() }} disableRipple>
                     <FileCopyIcon />
                     {t('New Valuation')}
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleClose} disableRipple>
+                <MenuItem onClick={() => { history.push('/login'); handleClose() }} disableRipple>
                     <MoreHorizIcon />
                     {t('Sign in')}
                 </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
+                <MenuItem onClick={() => { history.push('/register'); handleClose() }} disableRipple>
                     <ArchiveIcon />
                     {t('Sign up')}
                 </MenuItem>
