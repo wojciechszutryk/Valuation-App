@@ -1,13 +1,13 @@
 import store from "data/state/store";
 
-export const userSignUp = async (data: {
+export const userSignUp = async ({ email, userName, password }: {
     email: string;
     userName: string;
     password: string;
 }) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/users/signup`, {
         method: 'POST',
-        body: new URLSearchParams({ data } as any),
+        body: new URLSearchParams({ email, password, userName }),
         // headers: {"Content-Type": "multipart/form-data"}
     })
     return await response.json()
@@ -20,10 +20,6 @@ export const userLogin = async ({
     email: string,
     password: string
 }) => {
-    console.log({
-        email,
-        password
-    })
     const response = await fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
         method: 'POST',
         body: JSON.stringify({ email, password }),

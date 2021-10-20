@@ -7,6 +7,9 @@ import { useTranslation } from "react-i18next";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import { userLogin } from "data/fetch/userFetch";
+import { showToast } from "utils";
+import { setToken, setUserId, setUserName } from "data/state/actions/userActions";
+import { useAppDispatch } from "utils/hooks/useAppDispach";
 
 const MyTextInput = (props: {
     label: string
@@ -21,9 +24,9 @@ const MyTextInput = (props: {
 const LoginForm = () => {
     const classes = useStyles()
     let history = useHistory()
-    const [response, setResponse] = React.useState('');
     const loginUserMutation = useMutation(userLogin);
     const { t } = useTranslation();
+    const dispatch = useAppDispatch()
 
     const handleSubmit = async (values: {
         password: string,
@@ -31,11 +34,14 @@ const LoginForm = () => {
     }) => {
         const res = await loginUserMutation.mutateAsync({ email: values.email, password: values.password });
         if (res.id) {
-            setResponse('success');
+            dispatch(setUserName(res.userName));
+            dispatch(setUserId(res.id));
+            dispatch(setToken(res.token));
+            showToast(t('Logged in succesfully') + ". " + t('Hi,') + values.email + '!')
             history.push('/');
         }
         else {
-            setResponse(res.message);
+            showToast(t('Login failed, try again'))
         }
     }
     return (
