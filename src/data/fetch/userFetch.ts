@@ -38,3 +38,14 @@ export const userAccountDelete = async ({ id }: { id: string }) => {
     })
     return await response.json()
 };
+
+export const fetchUserWorksFromAPI = async ({ id }: { id: string }) => {
+    const token = store.getState().user.token;
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${id}/works`, {
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        }
+    })
+    return await response.json()
+};

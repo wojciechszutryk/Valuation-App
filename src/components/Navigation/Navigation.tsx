@@ -50,8 +50,7 @@ const useStyles = makeStyles((theme) => {
 const Navigation: React.FC = () => {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
-    // const userName = useAppSelector((state) => state.user.userName)
-    const userName = 'aaa'
+    const userName = useAppSelector((state) => state.user.userName)
 
     const toggleDrawer =
         (o: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {

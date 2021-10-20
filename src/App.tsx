@@ -3,7 +3,7 @@ import './i18n'
 import { toast, ToastContainer } from 'react-toastify'
 import { Layout } from './components'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
-import { ValuationNew, ValuationFinish, ValuationDetails, Home, Register, Login } from './pages'
+import { ValuationNew, ValuationFinish, ValuationDetails, Home, Register, Login, History } from './pages'
 import 'react-toastify/dist/ReactToastify.css'
 import InfoIcon from '@material-ui/icons/Info';
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -41,6 +41,11 @@ function App() {
                             exact
                             path="/login"
                             component={Login}
+                        />
+                        <Route
+                            exact
+                            path="/history"
+                            component={History}
                         />
                         <Route
                             path="/"
