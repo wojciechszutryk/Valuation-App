@@ -6,7 +6,7 @@ import "aos/dist/aos.css"
 import { Grid, Typography } from '@material-ui/core';
 import { useAppSelector } from 'utils/hooks/useAppSelector';
 import { getThemeByName } from 'utils/themes/getTheme';
-import RegisterForm from './components';
+import LoginForm from './components';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 
@@ -49,10 +49,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-interface Props { }
 
-const Login = ({ }: Props) => {
-
+const Login = () => {
     const themeString = useAppSelector((state) => state.app.theme)
     const curThemeName = themeString || 'lightTheme'
     const theme = getThemeByName(curThemeName)
@@ -70,7 +68,7 @@ const Login = ({ }: Props) => {
                 <SadMac />
             </Grid>
             <Grid item md={6}>
-                <RegisterForm />
+                <LoginForm />
             </Grid>
         </Grid>
     )

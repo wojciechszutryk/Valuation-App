@@ -1,9 +1,12 @@
 import React from "react";
 import { Formik, Form, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
-import { TextField, Box, Button, Typography } from "@material-ui/core";
+import { TextField, Box, Button } from "@material-ui/core";
 import { useStyles } from "./style";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "react-query";
+import { useHistory } from "react-router-dom";
+import { userLogin } from "data/fetch/userFetch";
 
 const MyTextInput = (props: {
     label: string
@@ -17,7 +20,24 @@ const MyTextInput = (props: {
 
 const LoginForm = () => {
     const classes = useStyles()
+    let history = useHistory()
+    const [response, setResponse] = React.useState('');
+    const loginUserMutation = useMutation(userLogin);
     const { t } = useTranslation();
+
+    const handleSubmit = async (values: {
+        password: string,
+        email: string
+    }) => {
+        const res = await loginUserMutation.mutateAsync({ email: values.email, password: values.password });
+        if (res.id) {
+            setResponse('success');
+            history.push('/');
+        }
+        else {
+            setResponse(res.message);
+        }
+    }
     return (
         <Box className={classes.wrapper}>
             <Formik
@@ -33,7 +53,7 @@ const LoginForm = () => {
                         .required(t("Required"))
                 })}
                 onSubmit={async (values, { setSubmitting }) => {
-                    await new Promise(r => setTimeout(r, 500));
+                    await handleSubmit(values)
                     setSubmitting(false);
                 }}
             >

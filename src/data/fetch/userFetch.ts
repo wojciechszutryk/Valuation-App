@@ -13,13 +13,20 @@ export const userSignUp = async (data: {
     return await response.json()
 };
 
-export const userLogin = async (data: {
-    email: string;
-    password: string;
+export const userLogin = async ({
+    email,
+    password
+}: {
+    email: string,
+    password: string
 }) => {
+    console.log({
+        email,
+        password
+    })
     const response = await fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify({ email, password }),
         headers: {
             "Content-Type": "application/json",
         }
