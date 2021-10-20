@@ -1,9 +1,14 @@
 import React from "react";
 import { Formik, Form, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
-import { TextField, Box, Button, Typography } from "@material-ui/core";
+import { TextField, Box, Button } from "@material-ui/core";
 import { useStyles } from "./style";
 import { useTranslation } from "react-i18next";
+import { showToast } from "utils";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useMutation } from "react-query";
+import { userSignUp } from "data/fetch/userFetch";
+import { useHistory } from "react-router-dom";
 
 const MyTextInput = (props: {
     label: string
@@ -18,6 +23,23 @@ const MyTextInput = (props: {
 const RegisterForm = () => {
     const classes = useStyles()
     const { t } = useTranslation();
+    let history = useHistory()
+    const registerUserMutation = useMutation(userSignUp);
+
+    const handleSubmit = async (
+        userName: string,
+        password: string,
+        email: string
+    ) => {
+        const res = await registerUserMutation.mutateAsync({ email, password, userName });
+        if (res.id) {
+            showToast(t('Registered succesfully, you can log in'))
+            history.push('/login');
+        }
+        else {
+            showToast(t('Register failed, try again') + '. ' + res.message)
+        }
+    }
     return (
         <Box className={classes.wrapper}>
             <Formik
@@ -44,11 +66,11 @@ const RegisterForm = () => {
                         .oneOf([Yup.ref('password'), null], t('Passwords must match'))
                 })}
                 onSubmit={async (values, { setSubmitting }) => {
-                    await new Promise(r => setTimeout(r, 500));
+                    await handleSubmit(values.login, values.password, values.email)
                     setSubmitting(false);
                 }}
             >
-                <Form className={classes.container}>
+                {props => (<Form className={classes.container}>
                     <MyTextInput
                         label={t("Login")}
                         name="login"
@@ -73,8 +95,9 @@ const RegisterForm = () => {
                         type="password"
                         placeholder="Password Confirmation"
                     />
-                    <Button type="submit" className={classes.submitButton} variant='outlined'>{t('Submit')}</Button>
+                    {!props.isSubmitting ? <Button type="submit" className={classes.submitButton} variant='outlined'>{t("Submit")}</Button> : <Button disabled type="submit" className={classes.submitButton} variant='outlined'><ClipLoader /></Button>}
                 </Form>
+                )}
             </Formik>
         </Box>
     );

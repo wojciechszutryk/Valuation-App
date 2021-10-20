@@ -7,8 +7,10 @@ export const userSignUp = async ({ email, userName, password }: {
 }) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/users/signup`, {
         method: 'POST',
-        body: new URLSearchParams({ email, password, userName }),
-        // headers: {"Content-Type": "multipart/form-data"}
+        body: JSON.stringify({ email, password, userName }),
+        headers: {
+            "Content-Type": "application/json",
+        }
     })
     return await response.json()
 };

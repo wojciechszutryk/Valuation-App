@@ -10,6 +10,7 @@ import { userLogin } from "data/fetch/userFetch";
 import { showToast } from "utils";
 import { setToken, setUserId, setUserName } from "data/state/actions/userActions";
 import { useAppDispatch } from "utils/hooks/useAppDispach";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const MyTextInput = (props: {
     label: string
@@ -63,7 +64,7 @@ const LoginForm = () => {
                     setSubmitting(false);
                 }}
             >
-                <Form className={classes.container}>
+                {props => (<Form className={classes.container}>
                     <MyTextInput
                         label={t("Email Address")}
                         name="email"
@@ -76,8 +77,8 @@ const LoginForm = () => {
                         type="password"
                         placeholder="password"
                     />
-                    <Button type="submit" className={classes.submitButton} variant='outlined'>{t("Submit")}</Button>
-                </Form>
+                    {!props.isSubmitting ? <Button type="submit" className={classes.submitButton} variant='outlined'>{t("Submit")}</Button> : <Button disabled type="submit" className={classes.submitButton} variant='outlined'><ClipLoader /></Button>}
+                </Form>)}
             </Formik>
         </Box>
     );
