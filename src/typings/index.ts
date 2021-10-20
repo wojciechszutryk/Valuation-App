@@ -11,3 +11,13 @@ export type ValuationObjects = string[]
 export type ValuationObjectsCoordinates = Coordinates[]
 
 export type Coordinates = [number, number] | [null, null]
+
+export interface ValuationObjectInteface {
+    id: string,
+    workId: string,
+    name: string,
+    parametersValues: number[],
+    area: number,
+    price: number,
+    isForValuation: boolean
+}

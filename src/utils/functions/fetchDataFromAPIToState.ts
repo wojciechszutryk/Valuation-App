@@ -1,6 +1,5 @@
 import {
-    fetchValuationObjectFromAPI,
-    fetchValuationObjectsFromAPI,
+    fetchWorksValuationObjectFromAPI,
     fetchWorksFromAPI,
 } from 'data/fetch/valuationsFetch'
 import {
@@ -15,36 +14,43 @@ import {
     setValuationObjectsParameters,
     setValuationObjectsPrices,
 } from 'data/state/actions/valuationActions'
+import { ValuationObjectInteface } from 'typings'
 import { useAppDispatch } from '../hooks/useAppDispach'
 
 export const FetchDataFromApiToState = async (workId: string) => {
     const dispatch = useAppDispatch()
-    const { valuationObjectId, valuationObjectsId } = await fetchWorksFromAPI(
+    const { parameters } = await fetchWorksFromAPI(
         workId
     )
-    const {
-        name: valuationObject,
-        objectParameters: valuationObjectParameters,
-        area: valuationObjectArea,
-    } = await fetchValuationObjectFromAPI(valuationObjectId)
-    const {
-        names: valuationObjects,
-        areas: valuationObjectsAreas,
-        prices: valuationObjectsPrices,
-        objectsParameters: valuationObjectsParameters,
-    } = await fetchValuationObjectsFromAPI(valuationObjectsId)
+    const allValuationObjects = await fetchWorksValuationObjectFromAPI(workId)
+    const valuationObject = allValuationObjects.find((obj: ValuationObjectInteface) => (
+        obj.isForValuation === true
+    ))
+    const valuationObjects = allValuationObjects.filter((obj: ValuationObjectInteface) => (
+        obj.isForValuation === false
+    ))
+    const valuationObjectName = valuationObject.name;
+    const valuationObjectArea = valuationObject.area;
+    const valuationObjectParameters = valuationObject.parametersValues;
+    const valuationObjectsNames = valuationObjects.map((obj: ValuationObjectInteface) => (
+        obj.name
+    ));
+    const valuationObjectsAreas = valuationObjects.map((obj: ValuationObjectInteface) => (
+        obj.area
+    ));
+    const valuationObjectsPrices = valuationObjects.map((obj: ValuationObjectInteface) => (
+        obj.price
+    ));
 
-    const valuationObjectsParametersValues = await valuationObjectsParameters
-        .map((obj: { [key: string]: number }) => {
-            return Object.values(obj)
+    const valuationObjectsParameters = await valuationObjects
+        .map((obj: ValuationObjectInteface) => {
+            return obj.parametersValues
         })
-        .flat()
-        .concat(Object.values(valuationObjectParameters))
 
-    const valuationParametersObjects = Object.keys(valuationObjectParameters)
+    const valuationParametersObjects = parameters;
 
-    await dispatch(setValuationObject(valuationObject))
-    await dispatch(setValuationObjects(valuationObjects))
+    await dispatch(setValuationObject(valuationObjectName))
+    await dispatch(setValuationObjects(valuationObjectsNames))
     await dispatch(setFinishedSteps(2))
     await dispatch(setParametersObjects(valuationParametersObjects))
     await dispatch(setValuationObjectParameters(valuationObjectParameters))
@@ -54,8 +60,8 @@ export const FetchDataFromApiToState = async (workId: string) => {
     await dispatch(setValuationObjectArea(valuationObjectArea))
     await dispatch(
         setParametersScale([
-            Math.min(...valuationObjectsParametersValues),
-            Math.max(...valuationObjectsParametersValues),
+            Math.min(...valuationObjectsParameters.concat(valuationObjectParameters)),
+            Math.max(...valuationObjectsParameters.concat(valuationObjectParameters)),
         ])
     )
 }

@@ -1,187 +1,243 @@
 {
   "works": [
     {
-      "id": "1",
-      "valuationObjectId": "1",
-      "valuationObjectsId": "1",
-      "date": "23.09.2021"
-    }
-  ],
-  "valuationObject": [
-    {
-      "id": "1",
-      "name": "ul. Zielona",
-      "objectParameters": {
-        "Lokalizacja": 3,
-        "Sąsiedztwo i otoczenie": 2,
-        "Kształt i wielokość działki": 4,
-        "Uzbrojenie": 2,
-        "Dojazd": 3
-      },
-      "area": 1725
+      "id": "616de2b8a41bbbf238d4d4fa",
+      "userId": "60d216f50d005f176c0ae1eb",
+      "date": "23.09.2021",
+	    "parameters": [
+        "Lokalizacja",
+        "Sąsiedztwo i otoczenie",
+        "Kształt i wielokość działki",
+        "Uzbrojenie",
+        "Dojazd"
+      ]
     }
   ],
   "valuationObjects": [
     {
-      "id": "1",
-      "names": [
-        "ul.Szybowcowa",
-        "ul.Podskarpie",
-        "Mąkołowiec",
-        "uk. Korfantego",
-        "ul. Kłodnicka",
-        "Zendek",
-        "ul. Piaskowa",
-        "ul. Oksywska",
-        "Żory",
-        "ul. Gombrowicza",
-        "ul. Starowapienna",
-        "Opatowice",
-        "ul. Zawodze Dolne",
-        "ul. Międzyświec",
-        "ul. Wiślica"
+      "id": "616dea669bceb59846411476",
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Zielona",
+      "parametersValues": [
+        3,
+        2,
+        4,
+        2,
+        3
       ],
-      "areas": [
-        833,
-        1324,
-        1467,
-        1706,
-        1706,
-        1207,
-        1162,
-        1492,
-        1865,
-        1705,
-        1070,
-        1470,
-        1963,
-        1577,
-        1645
+      "area": 1725,
+	  "price": 0,
+	  "isForValuation": true
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul.Szybowcowa",
+      "parametersValues": [
+        2,
+        1,
+        2,
+        3,
+        2
       ],
-      "prices": [
-        99960,
-        399000,
-        320000,
-        209838,
-        1180000,
-        86904,
-        268000,
-        179000,
-        140000,
-        203000,
-        93000,
-        150000,
-        228000,
-        110000,
-        99000
+      "area": 833,
+	  "price": 99960,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul.Podskarpie",
+      "parametersValues": [
+        3,
+        3,
+        4,
+        4,
+        3
       ],
-      "objectsParameters": [
-        {
-          "Lokalizacja": 2,
-          "Sąsiedztwo i otoczenie": 1,
-          "Kształt i wielokość działki": 2,
-          "Uzbrojenie": 3,
-          "Dojazd": 2
-        },
-        {
-          "Lokalizacja": 3,
-          "Sąsiedztwo i otoczenie": 3,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 4,
-          "Dojazd": 3
-        },
-        {
-          "Lokalizacja": 3,
-          "Sąsiedztwo i otoczenie": 3,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 3,
-          "Dojazd": 3
-        },
-        {
-          "Lokalizacja": 3,
-          "Sąsiedztwo i otoczenie": 3,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 1,
-          "Dojazd": 3
-        },
-        {
-          "Lokalizacja": 4,
-          "Sąsiedztwo i otoczenie": 4,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 4,
-          "Dojazd": 4
-        },
-        {
-          "Lokalizacja": 2,
-          "Sąsiedztwo i otoczenie": 1,
-          "Kształt i wielokość działki": 3,
-          "Uzbrojenie": 2,
-          "Dojazd": 1
-        },
-        {
-          "Lokalizacja": 2,
-          "Sąsiedztwo i otoczenie": 3,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 2,
-          "Dojazd": 3
-        },
-        {
-          "Lokalizacja": 2,
-          "Sąsiedztwo i otoczenie": 2,
-          "Kształt i wielokość działki": 3,
-          "Uzbrojenie": 2,
-          "Dojazd": 2
-        },
-        {
-          "Lokalizacja": 2,
-          "Sąsiedztwo i otoczenie": 2,
-          "Kształt i wielokość działki": 3,
-          "Uzbrojenie": 2,
-          "Dojazd": 3
-        },
-        {
-          "Lokalizacja": 2,
-          "Sąsiedztwo i otoczenie": 2,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 3,
-          "Dojazd": 3
-        },
-        {
-          "Lokalizacja": 2,
-          "Sąsiedztwo i otoczenie": 2,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 2,
-          "Dojazd": 3
-        },
-        {
-          "Lokalizacja": 3,
-          "Sąsiedztwo i otoczenie": 3,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 3,
-          "Dojazd": 3
-        },
-        {
-          "Lokalizacja": 3,
-          "Sąsiedztwo i otoczenie": 2,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 2,
-          "Dojazd": 3
-        },
-        {
-          "Lokalizacja": 3,
-          "Sąsiedztwo i otoczenie": 2,
-          "Kształt i wielokość działki": 4,
-          "Uzbrojenie": 2,
-          "Dojazd": 1
-        },
-        {
-          "Lokalizacja": 2,
-          "Sąsiedztwo i otoczenie": 1,
-          "Kształt i wielokość działki": 2,
-          "Uzbrojenie": 2,
-          "Dojazd": 2
-        }
-      ]
+      "area": 1324,
+	  "price": 399000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "Mąkołowiec",
+      "parametersValues": [
+        3,
+        3,
+        4,
+        3,
+        3
+      ],
+      "area": 1467,
+	  "price": 320000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Korfantego",
+      "parametersValues": [
+        3,
+        3,
+        4,
+        1,
+        3
+      ],
+      "area": 1706,
+	  "price": 209838,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Kłodnicka",
+      "parametersValues": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "area": 1706,
+	  "price": 1180000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "Zendek",
+      "parametersValues": [
+        2,
+        1,
+        3,
+        2,
+        1
+      ],
+      "area": 1207,
+	  "price": 86904,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Piaskowa",
+      "parametersValues": [
+        2,
+        3,
+        4,
+        2,
+        3
+      ],
+      "area": 1162,
+	  "price": 268000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Oksywska",
+      "parametersValues": [
+        2,
+        2,
+        3,
+        2,
+        2
+      ],
+      "area": 1492,
+	  "price": 179000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "Żory",
+      "parametersValues": [
+        2,
+        2,
+        3,
+        2,
+        3
+      ],
+      "area": 1865,
+	  "price": 140000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Gombrowicza",
+      "parametersValues": [
+        2,
+        2,
+        4,
+        3,
+        3
+      ],
+      "area": 1705,
+	  "price": 203000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Starowapienna",
+      "parametersValues": [
+        2,
+        2,
+        4,
+        2,
+        3
+      ],
+      "area": 1070,
+	  "price": 93000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "Opatowice",
+      "parametersValues": [
+        3,
+        3,
+        4,
+        3,
+        3
+      ],
+      "area": 1470,
+	  "price": 150000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Zawodze Dolne",
+      "parametersValues": [
+        3,
+        2,
+        4,
+        2,
+        3
+      ],
+      "area": 1963,
+	  "price": 228000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Międzyświec",
+      "parametersValues": [
+        3,
+        2,
+        4,
+        2,
+        1
+      ],
+      "area": 1577,
+	  "price": 110000,
+	  "isForValuation": false
+    },
+	{
+      "workId": "616de2b8a41bbbf238d4d4fa",
+      "name": "ul. Wiślica",
+      "parametersValues": [
+        2,
+        1,
+        2,
+        2,
+        2
+      ],
+      "area": 1645,
+	  "price": 99000,
+	  "isForValuation": false
     }
   ]
 }
