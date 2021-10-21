@@ -33,17 +33,24 @@ const LoginForm = () => {
         password: string,
         email: string
     }) => {
-        const res = await loginUserMutation.mutateAsync({ email: values.email, password: values.password });
-        if (res.id) {
-            dispatch(setUserName(res.userName));
-            dispatch(setUserId(res.id));
-            dispatch(setToken(res.token));
-            showToast(t('Logged in succesfully') + ". " + t('Hi,') + values.email + '!')
-            history.push('/');
+        try {
+            const res = await loginUserMutation.mutateAsync({ email: values.email, password: values.password });
+            console.log(res)
+            if (res.id) {
+                dispatch(setUserName(res.userName));
+                dispatch(setUserId(res.id));
+                dispatch(setToken(res.token));
+                showToast(t('Logged in succesfully') + ". " + t('Hi,') + values.email + '!')
+                history.push('/');
+            }
+            else {
+                showToast(t('Login failed, try again'))
+            }
         }
-        else {
-            showToast(t('Login failed, try again'))
+        catch (error) {
+            showToast(t('Error occured') + ': ' + error)
         }
+
     }
     return (
         <Box className={classes.wrapper}>

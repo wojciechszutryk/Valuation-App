@@ -46,6 +46,7 @@ const History = () => {
         (state) => state.user.userName
     )
     const { data: works } = useQuery(['works', { id: userId }], () => fetchUserWorksFromAPI({ id: userId }));
+    console.log(works)
     const removeWorkMutation = useMutation(workDelete, {
         onSuccess: () => {
             queryClient.invalidateQueries('works');

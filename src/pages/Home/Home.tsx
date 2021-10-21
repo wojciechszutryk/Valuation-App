@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from 'utils/hooks/useAppSelector';
 import { getThemeByName } from 'utils/themes/getTheme';
+import { FileUpload } from 'components'
 
 interface Props { token: boolean, message: string }
 
@@ -77,6 +78,7 @@ const Home = ({ token = false, message = '' }: Props) => {
                                     variant='outlined'
                                 >{t('Start Valuation')}</Button>
                             </Link>
+                            <FileUpload />
                             <Link to='/login' className={classes.pageLink}>
                                 <Button
                                     variant='outlined'
