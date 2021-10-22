@@ -105,5 +105,21 @@
   "signing up and logging in":"rejestracja i logowanie",
   "saving work on account after logging in":"zapisywanie pracy na koncie po zalogowaniu",
   "loading work from acconts work history":"wczytywanie pracy z historii pracy konta",
-  "Submit":"Zatwierdź"
+  "Submit":"Zatwierdź",
+  
+  "Import work": "Import pracy",
+  "You cant access that page before logging in":"Nie możesz wejść na tę stronę przed zalogowaniem",
+  "history":"historia",
+  "Valuation loaded successfuly":"Wycena wczytana pomyślnie",
+  "Work removed successfuly":"Praca usunięta pomyślnie",
+  "date":"data",
+  "parameters":"parametry",
+  "delete":"usuń",
+  "open":"otwórz",
+  "Error occured":"Wystąpił błąd",
+  "Logged in succesfully":"Zalogowano się pomyślnie",
+  "Hi":"Cześć",
+  "Register failed, try again":"Rejestracja nie powiodła się, spróbuj ponownie",
+  "Registered succesfully, you can log in":"Zarejestrowano się udało, możesz się zalogować",
+  "Start Valuation":"Rozpocznij wycenę"
 }

@@ -104,5 +104,22 @@
   "signing up and logging in":"Anmelden und einloggen",
   "saving work on account after logging in":"Speichern der Arbeit auf Rechnung nach dem Login",
   "loading work from acconts work history":"Arbeiten aus dem Arbeitsverlauf des Kontos laden",
-  "Submit":"einreichen"
+  "Submit":"einreichen",
+
+  
+  "Import work": "Arbeit importieren",
+  "You cant access that page before logging in":"Sie können nicht auf diese Seite zugreifen, bevor Sie sich anmelden",
+  "history":"Geschichte",
+  "Valuation loaded successfuly":"Bewertung erfolgreich geladen",
+  "Work removed successfuly":"Arbeit erfolgreich entfernt",
+  "date":"Datum ",
+  "parameters":"Parameter",
+  "delete":"löschen",
+  "open":"offen",
+  "Error occured":"Fehler ist aufgetreten",
+  "Logged in succesfully":"Erfolgreich eingeloggt",
+  "Hi":"Hallo",
+  "Register failed, try again":"Registrierung fehlgeschlagen, erneut versuchen",
+  "Registered succesfully, you can log in":"Erfolgreich registriert, Sie können sich einloggen",
+  "Start Valuation":"Bewertung starten"
 }

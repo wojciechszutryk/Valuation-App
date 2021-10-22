@@ -40,7 +40,7 @@ const LoginForm = () => {
                 dispatch(setUserName(res.userName));
                 dispatch(setUserId(res.id));
                 dispatch(setToken(res.token));
-                showToast(t('Logged in succesfully') + ". " + t('Hi,') + values.email + '!')
+                showToast(t('Logged in succesfully') + ". " + t('Hi') + ", " + values.email + '!')
                 history.push('/');
             }
             else {

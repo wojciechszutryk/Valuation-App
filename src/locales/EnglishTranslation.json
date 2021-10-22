@@ -104,6 +104,24 @@
   "signing up and logging in":"signing up and logging in",
   "saving work on account after logging in":"saving work on account after logging in",
   "loading work from acconts work history":"loading work from acconts work history",
-  "Submit":"Submit"
+  "Submit":"Submit",
 
+
+
+
+  "Import work": "Import work",
+  "You cant access that page before logging in":"You cant access that page before logging in",
+  "history":"history",
+  "Valuation loaded successfuly":"Valuation loaded successfuly",
+  "Work removed successfuly":"Work removed successfuly",
+  "date":"date",
+  "parameters":"parameters",
+  "delete":"delete",
+  "open":"open",
+  "Error occured":"Error occured",
+  "Logged in succesfully":"Logged in succesfully",
+  "Hi":"Hi",
+  "Register failed, try again":"Register failed, try again",
+  "Registered succesfully, you can log in":"Registered succesfully, you can log in",
+  "Start Valuation":"Start Valuation"
 }
