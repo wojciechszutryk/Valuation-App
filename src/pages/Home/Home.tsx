@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import { getThemeByName } from 'utils/themes/getTheme'
 import { FileUpload } from 'components'
+import LoadExampleData from 'components/LoadExampleValuation'
 
 interface Props {
     token: boolean
@@ -74,25 +75,28 @@ const Home = ({ token = false, message = '' }: Props) => {
                     <Box className={classes.userInformation}>{t(message)}</Box>
                 )}
                 {!token ? (
-                    <Box className={classes.userButtons}>
-                        <Link
-                            to="/valuation/new"
-                            className={classes.newValuation}
-                        >
-                            <Button variant="outlined">
-                                {t('Start Valuation')}
-                            </Button>
-                        </Link>
-                        <Box className={classes.newValuation}>
-                            <FileUpload />
+                    <>
+                        <Box className={classes.userButtons}>
+                            <Link
+                                to="/valuation/new"
+                                className={classes.newValuation}
+                            >
+                                <Button variant="outlined">
+                                    {t('Start Valuation')}
+                                </Button>
+                            </Link>
+                            <Box className={classes.newValuation}>
+                                <FileUpload />
+                            </Box>
+                            <Link to="/login" className={classes.pageLink}>
+                                <Button variant="outlined">{t('Login')}</Button>
+                            </Link>
+                            <Link to="/register" className={classes.pageLink}>
+                                <Button variant="outlined">{t('Register')}</Button>
+                            </Link>
                         </Box>
-                        <Link to="/login" className={classes.pageLink}>
-                            <Button variant="outlined">{t('Login')}</Button>
-                        </Link>
-                        <Link to="/register" className={classes.pageLink}>
-                            <Button variant="outlined">{t('Register')}</Button>
-                        </Link>
-                    </Box>
+                        <LoadExampleData />
+                    </>
                 ) : (
                     <Box className={classes.userInformation}>
                         {t(
