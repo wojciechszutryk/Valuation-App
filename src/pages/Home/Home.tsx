@@ -92,10 +92,12 @@ const Home = ({ token = false, message = '' }: Props) => {
                                 <Button variant="outlined">{t('Login')}</Button>
                             </Link>
                             <Link to="/register" className={classes.pageLink}>
-                                <Button variant="outlined">{t('Register')}</Button>
+                                <Button variant="outlined">
+                                    {t('Register')}
+                                </Button>
                             </Link>
+                            <LoadExampleData />
                         </Box>
-                        <LoadExampleData />
                     </>
                 ) : (
                     <Box className={classes.userInformation}>

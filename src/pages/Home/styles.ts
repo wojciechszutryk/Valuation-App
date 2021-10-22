@@ -3,6 +3,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
+            maxWidth: '1000px',
+            margin: '0 auto',
             display: 'flex',
             justifyContent: 'center',
             width: '100%',
@@ -42,23 +44,22 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
 
         userButtons: {
-            width: '100%',
+            width: '80%',
+            margin: '0 auto',
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            '& a:last-child': {
-                marginLeft: '3px',
+            '& a, & div': {
+                width: 'calc(50% - 6px)',
+                margin: '3px',
+                '& button': {
+                    width: '100%',
+                    height: '100%',
+                },
             },
-            '& a:first-child': {
+            '& div:last-child': {
                 marginBottom: '3px',
-                marginRight: '3px',
-                width: 'calc(50% - 3px)',
-                display: 'flex',
-                justifyContent: 'end',
-            },
-            '& div:nth-child(2)': {
-                marginBottom: '3px',
-                width: '50%',
+                width: '100%',
                 display: 'flex',
                 justifyContent: 'start',
             },
@@ -95,16 +96,12 @@ export const useStyles = makeStyles((theme: Theme) =>
             '& button': {
                 border: `2px solid ${theme.palette.primary.main}`,
                 backgroundColor:
-                    theme.palette.type === 'light'
-                        ? theme.palette.primary.main
-                        : theme.palette.secondary.dark,
+                    theme.palette.type === 'light' ? '#937fd0' : '#774242',
                 color: 'white',
                 fontWeight: 700,
                 '&:hover': {
                     backgroundColor:
-                        theme.palette.type === 'light'
-                            ? theme.palette.primary.light
-                            : theme.palette.divider,
+                        theme.palette.type === 'light' ? '#8669be' : '#965454',
                 },
             },
         },

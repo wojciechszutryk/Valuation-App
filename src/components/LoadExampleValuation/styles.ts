@@ -8,19 +8,14 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         loadButton: {
             border: `2px solid ${theme.palette.primary.main}`,
-            marginTop: 5,
             backgroundColor:
-                theme.palette.type === 'light'
-                    ? theme.palette.primary.main
-                    : theme.palette.secondary.dark,
+                theme.palette.type === 'light' ? '#937fd0' : '#774242',
             color: 'white',
             fontWeight: 700,
             '&:hover': {
                 backgroundColor:
-                    theme.palette.type === 'light'
-                        ? theme.palette.primary.light
-                        : theme.palette.divider,
+                    theme.palette.type === 'light' ? '#8669be' : '#965454',
             },
-        }
+        },
     })
 )
