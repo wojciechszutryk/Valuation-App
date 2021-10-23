@@ -7,6 +7,8 @@ import { findObjectsWithOneNotEqualValue, showToast } from 'utils/functions'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import XLSX from 'xlsx'
 import { font } from 'utils/fonts/RobotoRegular'
+import { fetchWorksFromAPI } from '../../../data/fetch/valuationsFetch'
+import { workCrateNew } from '../../../data/fetch/worksFetch'
 import { useStyles } from './componentsStyles'
 import TocIcon from '@material-ui/icons/Toc'
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf'
@@ -16,6 +18,7 @@ import HistoryIcon from '@material-ui/icons/History'
 const ExportResults = () => {
     const { t } = useTranslation()
     const classes = useStyles()
+    const userId = useAppSelector((state) => state.user.userId)
     const valuationObjectsParameters = useAppSelector(
         (state) => state.valuation.valuationObjectsParameters
     )
@@ -691,6 +694,16 @@ const ExportResults = () => {
         valuationObject,
     ])
 
+    const saveToAccount = useCallback(async () => {
+        const response = await workCrateNew({
+            parameters: valuationParametersObjects,
+            userId,
+        })
+        if (response.createdWork) {
+            const workId = response.createdWork.id
+        }
+    }, [])
+
     return (
         <Grid container spacing={3}>
             <Grid item xs={6} md={3}>
@@ -748,7 +761,11 @@ const ExportResults = () => {
                             'save the valuation in the history on your application account, you will be able to return to the report after logging in'
                         )}
                     </Typography>
-                    <Button variant="outlined" fullWidth onClick={downloadJSON}>
+                    <Button
+                        variant="outlined"
+                        fullWidth
+                        onClick={saveToAccount}
+                    >
                         <HistoryIcon color="secondary" />
                     </Button>
                 </Paper>

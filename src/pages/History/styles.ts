@@ -2,6 +2,10 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        container: {
+            marginTop: 20,
+        },
+        textCenter: {},
         tableContainer: {
             marginBottom: 20,
         },
@@ -10,6 +14,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         tableHeadCell: {
             padding: '8px',
+            textAlign: 'center',
             textTransform: 'capitalize',
             backgroundColor:
                 theme.palette.type === 'dark'
@@ -25,6 +30,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         tableBodyCell: {
             padding: '5px 8px',
+            textAlign: 'center',
         },
         header: {
             color:

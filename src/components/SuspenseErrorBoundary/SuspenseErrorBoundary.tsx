@@ -12,20 +12,6 @@ interface State {
     hasError: boolean
 }
 
-// const SuspenseErrorBoundary = ({ children }: { children: React.ReactNode }) => {
-//     const [hasError, setHasError] = React.useState(false)
-//
-//     const getDerivedStateFromError = () => {
-//         return { hasError: true }
-//     }
-//
-//     return (
-//         <React.Suspense fallback={<ClipLoader />}>
-//             {hasError ? <ErrorPage /> : <>{children}</>}
-//         </React.Suspense>
-//     )
-// }
-
 class SuspenseErrorBoundary extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)

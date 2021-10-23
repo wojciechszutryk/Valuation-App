@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import Table from '@material-ui/core/Table'
-import { TableBody, Typography, Button } from '@material-ui/core'
+import { TableBody, Typography, Button, Container } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
@@ -8,7 +8,8 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
-import { SuspenseErrorBoundary } from '../../components'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 import { useStyles } from './styles'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { fetchUserWorksFromAPI } from 'data/fetch/userFetch'
@@ -45,7 +46,6 @@ const History = () => {
     const { data: works } = useQuery(['works', { id: userId }], () =>
         fetchUserWorksFromAPI({ id: userId })
     )
-    console.log(works)
     const removeWorkMutation = useMutation(workDelete, {
         onSuccess: () => {
             queryClient.invalidateQueries('works')
@@ -82,7 +82,11 @@ const History = () => {
             const rows: { [key: string]: string[] | string | number }[] = []
             for (let i = 0; i < works.length; i++) {
                 const row: { [key: string]: string[] | string | number } =
-                    createData(i + 1, works[i].date, works[i].parameters)
+                    createData(
+                        i + 1,
+                        works[i].date,
+                        works[i].parameters.join(', ')
+                    )
                 rows.push(row)
             }
             return rows
@@ -103,22 +107,24 @@ const History = () => {
             const allValuationObjects = await fetchWorksValuationObjectFromAPI(
                 workId
             )
-            const valuationObject = allValuationObjects.find(
-                (obj: ValuationObjectInteface) => obj.isForValuation === true
+            const valuationObject = await allValuationObjects.find(
+                (obj: ValuationObjectInteface) => obj.isForValuation
             )
-            const valuationObjects = allValuationObjects.filter(
-                (obj: ValuationObjectInteface) => obj.isForValuation === false
+            const valuationObjects = await allValuationObjects.filter(
+                (obj: ValuationObjectInteface) => !obj.isForValuation
             )
-            const valuationObjectName = valuationObject.name
-            const valuationObjectArea = valuationObject.area
-            const valuationObjectParameters = valuationObject.parametersValues
-            const valuationObjectsNames = valuationObjects.map(
+
+            const valuationObjectName = await valuationObject.name
+            const valuationObjectArea = await valuationObject.area
+            const valuationObjectParameters =
+                await valuationObject.parametersValues
+            const valuationObjectsNames = await valuationObjects.map(
                 (obj: ValuationObjectInteface) => obj.name
             )
-            const valuationObjectsAreas = valuationObjects.map(
+            const valuationObjectsAreas = await valuationObjects.map(
                 (obj: ValuationObjectInteface) => obj.area
             )
-            const valuationObjectsPrices = valuationObjects.map(
+            const valuationObjectsPrices = await valuationObjects.map(
                 (obj: ValuationObjectInteface) => obj.price
             )
 
@@ -127,12 +133,11 @@ const History = () => {
                     return obj.parametersValues
                 }
             )
-
-            const valuationParametersObjects = parameters
-
+            console.log(valuationObjectParameters)
+            const valuationParametersObjects = await parameters
             dispatch(setValuationObject(valuationObjectName))
             dispatch(setValuationObjects(valuationObjectsNames))
-            dispatch(setFinishedSteps(2))
+            dispatch(setFinishedSteps(0))
             dispatch(setParametersObjects(valuationParametersObjects))
             dispatch(setValuationObjectParameters(valuationObjectParameters))
             dispatch(setValuationObjectsParameters(valuationObjectsParameters))
@@ -142,14 +147,14 @@ const History = () => {
             dispatch(
                 setParametersScale([
                     Math.min(
-                        ...valuationObjectsParameters.concat(
-                            valuationObjectParameters
-                        )
+                        ...valuationObjectsParameters
+                            .concat(valuationObjectParameters)
+                            .flat()
                     ),
                     Math.max(
-                        ...valuationObjectsParameters.concat(
-                            valuationObjectParameters
-                        )
+                        ...valuationObjectsParameters
+                            .concat(valuationObjectParameters)
+                            .flat()
                     ),
                 ])
             )
@@ -160,9 +165,9 @@ const History = () => {
     )
 
     return (
-        <SuspenseErrorBoundary>
+        <Container className={classes.container}>
             <Typography className={classes.header} variant="h2">
-                {userName + ' ' + t('history') + ':'}
+                {t('history of user') + ' ' + userName + ':'}
             </Typography>
             <TableContainer
                 component={Paper}
@@ -202,19 +207,23 @@ const History = () => {
                                 <TableCell className={classes.tableBodyCell}>
                                     <Button
                                         onClick={() => handleWorkDelete(index)}
-                                    />
+                                    >
+                                        <DeleteForeverIcon />
+                                    </Button>
                                 </TableCell>
                                 <TableCell className={classes.tableBodyCell}>
                                     <Button
                                         onClick={() => handleWorkOpen(index)}
-                                    />
+                                    >
+                                        <CloudDownloadIcon />
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-        </SuspenseErrorBoundary>
+        </Container>
     )
 }
 
