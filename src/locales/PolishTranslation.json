@@ -123,5 +123,8 @@
   "Registered succesfully, you can log in":"Zarejestrowano się udało, możesz się zalogować",
   "Start Valuation":"Rozpocznij wycenę",
   "Load example work":"Załaduj demonstracyjną pracę",
-  "Loaded example valuation successfully": "Wczytano przykładową wycenę pomyślnie"
+  "Loaded example valuation successfully": "Wczytano przykładową wycenę pomyślnie",
+  "Loaded JSON file successfully": "Pomyślnie wczytano plik JSON",
+  "Error in loading JSON file": "Błąd ładowania pliku JSON",
+  "message": "wiadomość"
 }

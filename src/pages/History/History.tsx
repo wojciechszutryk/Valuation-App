@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
+import { SuspenseErrorBoundary } from '../../components'
 import { useStyles } from './styles'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { fetchUserWorksFromAPI } from 'data/fetch/userFetch'
@@ -38,42 +39,29 @@ const History = () => {
     const { t } = useTranslation()
     const dispatch = useAppDispatch()
     let history = useHistory()
-    const queryClient = useQueryClient();
-    const userId = useAppSelector(
-        (state) => state.user.userId
+    const queryClient = useQueryClient()
+    const userId = useAppSelector((state) => state.user.userId)
+    const userName = useAppSelector((state) => state.user.userName)
+    const { data: works } = useQuery(['works', { id: userId }], () =>
+        fetchUserWorksFromAPI({ id: userId })
     )
-    const userName = useAppSelector(
-        (state) => state.user.userName
-    )
-    const { data: works } = useQuery(['works', { id: userId }], () => fetchUserWorksFromAPI({ id: userId }));
     console.log(works)
     const removeWorkMutation = useMutation(workDelete, {
         onSuccess: () => {
-            queryClient.invalidateQueries('works');
+            queryClient.invalidateQueries('works')
         },
-    });
+    })
 
     React.useEffect(() => {
         if (!userId) {
             history.goBack()
-            showToast(
-                t(
-                    'You cant access that page before logging in'
-                )
-            )
+            showToast(t('You cant access that page before logging in'))
         }
     }, [history, t, userId])
 
     const createData = useCallback(
-        (
-            index: number,
-            date: string,
-            parameters: string[]
-        ) => {
-            return Object.assign(
-                {},
-                { index, date, parameters },
-            )
+        (index: number, date: string, parameters: string[]) => {
+            return Object.assign({}, { index, date, parameters })
         },
         []
     )
@@ -88,85 +76,91 @@ const History = () => {
         return rowsHeader
     }, [t])
 
-    const rows: { [key: string]: string[] | number | string }[] = useMemo(() => {
-        const rows: { [key: string]: string[] | string | number }[] = []
-        for (let i = 0; i < works.length; i++) {
-            const row: { [key: string]: string[] | string | number } = createData(
-                i + 1,
-                works[i].date,
-                works[i].parameters
+    const rows: { [key: string]: string[] | number | string }[] =
+        useMemo(() => {
+            if (!works) return []
+            const rows: { [key: string]: string[] | string | number }[] = []
+            for (let i = 0; i < works.length; i++) {
+                const row: { [key: string]: string[] | string | number } =
+                    createData(i + 1, works[i].date, works[i].parameters)
+                rows.push(row)
+            }
+            return rows
+        }, [createData, works])
+
+    const handleWorkDelete = React.useCallback(
+        (index: number) => {
+            removeWorkMutation.mutate(works[index].id)
+            showToast(t('Work removed successfuly'))
+        },
+        [removeWorkMutation, t, works]
+    )
+
+    const handleWorkOpen = React.useCallback(
+        async (index: number) => {
+            const workId = works[index].id
+            const { parameters } = await fetchWorksFromAPI(workId)
+            const allValuationObjects = await fetchWorksValuationObjectFromAPI(
+                workId
             )
-            rows.push(row)
-        }
-        return rows
-    }, [createData, works])
-
-    const handleWorkDelete = React.useCallback((index: number) => {
-        removeWorkMutation.mutate(works[index].id)
-        showToast(
-            t(
-                'Work removed successfuly'
+            const valuationObject = allValuationObjects.find(
+                (obj: ValuationObjectInteface) => obj.isForValuation === true
             )
-        )
-    }, [removeWorkMutation, t, works])
-
-    const handleWorkOpen = React.useCallback(async (index: number) => {
-        const workId = works[index].id
-        const { parameters } = await fetchWorksFromAPI(
-            workId
-        )
-        const allValuationObjects = await fetchWorksValuationObjectFromAPI(workId)
-        const valuationObject = allValuationObjects.find((obj: ValuationObjectInteface) => (
-            obj.isForValuation === true
-        ))
-        const valuationObjects = allValuationObjects.filter((obj: ValuationObjectInteface) => (
-            obj.isForValuation === false
-        ))
-        const valuationObjectName = valuationObject.name;
-        const valuationObjectArea = valuationObject.area;
-        const valuationObjectParameters = valuationObject.parametersValues;
-        const valuationObjectsNames = valuationObjects.map((obj: ValuationObjectInteface) => (
-            obj.name
-        ));
-        const valuationObjectsAreas = valuationObjects.map((obj: ValuationObjectInteface) => (
-            obj.area
-        ));
-        const valuationObjectsPrices = valuationObjects.map((obj: ValuationObjectInteface) => (
-            obj.price
-        ));
-
-        const valuationObjectsParameters = await valuationObjects
-            .map((obj: ValuationObjectInteface) => {
-                return obj.parametersValues
-            })
-
-        const valuationParametersObjects = parameters;
-
-        dispatch(setValuationObject(valuationObjectName))
-        dispatch(setValuationObjects(valuationObjectsNames))
-        dispatch(setFinishedSteps(2))
-        dispatch(setParametersObjects(valuationParametersObjects))
-        dispatch(setValuationObjectParameters(valuationObjectParameters))
-        dispatch(setValuationObjectsParameters(valuationObjectsParameters))
-        dispatch(setValuationObjectsAreas(valuationObjectsAreas))
-        dispatch(setValuationObjectsPrices(valuationObjectsPrices))
-        dispatch(setValuationObjectArea(valuationObjectArea))
-        dispatch(
-            setParametersScale([
-                Math.min(...valuationObjectsParameters.concat(valuationObjectParameters)),
-                Math.max(...valuationObjectsParameters.concat(valuationObjectParameters)),
-            ])
-        )
-        showToast(
-            t(
-                'Valuation loaded successfuly'
+            const valuationObjects = allValuationObjects.filter(
+                (obj: ValuationObjectInteface) => obj.isForValuation === false
             )
-        )
-        history.push('/valuation/new')
-    }, [dispatch, history, t, works])
+            const valuationObjectName = valuationObject.name
+            const valuationObjectArea = valuationObject.area
+            const valuationObjectParameters = valuationObject.parametersValues
+            const valuationObjectsNames = valuationObjects.map(
+                (obj: ValuationObjectInteface) => obj.name
+            )
+            const valuationObjectsAreas = valuationObjects.map(
+                (obj: ValuationObjectInteface) => obj.area
+            )
+            const valuationObjectsPrices = valuationObjects.map(
+                (obj: ValuationObjectInteface) => obj.price
+            )
+
+            const valuationObjectsParameters = await valuationObjects.map(
+                (obj: ValuationObjectInteface) => {
+                    return obj.parametersValues
+                }
+            )
+
+            const valuationParametersObjects = parameters
+
+            dispatch(setValuationObject(valuationObjectName))
+            dispatch(setValuationObjects(valuationObjectsNames))
+            dispatch(setFinishedSteps(2))
+            dispatch(setParametersObjects(valuationParametersObjects))
+            dispatch(setValuationObjectParameters(valuationObjectParameters))
+            dispatch(setValuationObjectsParameters(valuationObjectsParameters))
+            dispatch(setValuationObjectsAreas(valuationObjectsAreas))
+            dispatch(setValuationObjectsPrices(valuationObjectsPrices))
+            dispatch(setValuationObjectArea(valuationObjectArea))
+            dispatch(
+                setParametersScale([
+                    Math.min(
+                        ...valuationObjectsParameters.concat(
+                            valuationObjectParameters
+                        )
+                    ),
+                    Math.max(
+                        ...valuationObjectsParameters.concat(
+                            valuationObjectParameters
+                        )
+                    ),
+                ])
+            )
+            showToast(t('Valuation loaded successfuly'))
+            history.push('/valuation/new')
+        },
+        [dispatch, history, t, works]
+    )
 
     return (
-        <>
+        <SuspenseErrorBoundary>
             <Typography className={classes.header} variant="h2">
                 {userName + ' ' + t('history') + ':'}
             </Typography>
@@ -205,16 +199,12 @@ const History = () => {
                                         {value}
                                     </TableCell>
                                 ))}
-                                <TableCell
-                                    className={classes.tableBodyCell}
-                                >
+                                <TableCell className={classes.tableBodyCell}>
                                     <Button
                                         onClick={() => handleWorkDelete(index)}
                                     />
                                 </TableCell>
-                                <TableCell
-                                    className={classes.tableBodyCell}
-                                >
+                                <TableCell className={classes.tableBodyCell}>
                                     <Button
                                         onClick={() => handleWorkOpen(index)}
                                     />
@@ -224,7 +214,7 @@ const History = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </>
+        </SuspenseErrorBoundary>
     )
 }
 

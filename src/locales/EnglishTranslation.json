@@ -125,5 +125,8 @@
   "Registered succesfully, you can log in":"Registered succesfully, you can log in",
   "Start Valuation":"Start Valuation",
   "Load example work":"Load example work",
-"Loaded example valuation successfully": "Loaded example valuation successfully"
+"Loaded example valuation successfully": "Loaded example valuation successfully",
+  "Loaded JSON file successfully": "Loaded JSON file successfully",
+  "Error in loading JSON file": "Error in loading JSON file",
+  "message": "message"
 }

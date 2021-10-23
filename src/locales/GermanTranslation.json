@@ -123,5 +123,8 @@
   "Registered succesfully, you can log in":"Erfolgreich registriert, Sie können sich einloggen",
   "Start Valuation":"Bewertung starten",
   "Load example work":"Beispielarbeit laden",
-  "Loaded example valuation successfully": "Beispielbewertung erfolgreich geladen"
+  "Loaded example valuation successfully": "Beispielbewertung erfolgreich geladen",
+  "Loaded JSON file successfully": "JSON-Datei erfolgreich geladen",
+  "Error in loading JSON file": "Fehler beim Laden der JSON-Datei",
+  "message": "Nachricht"
 }
