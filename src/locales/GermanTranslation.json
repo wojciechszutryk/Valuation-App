@@ -122,5 +122,6 @@
   "Register failed, try again":"Registrierung fehlgeschlagen, erneut versuchen",
   "Registered succesfully, you can log in":"Erfolgreich registriert, Sie können sich einloggen",
   "Start Valuation":"Bewertung starten",
-  "Load example work":"Beispielarbeit laden"
+  "Load example work":"Beispielarbeit laden",
+  "Loaded example valuation successfully": "Beispielbewertung erfolgreich geladen"
 }

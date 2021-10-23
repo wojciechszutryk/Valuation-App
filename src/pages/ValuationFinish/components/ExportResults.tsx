@@ -664,6 +664,7 @@ const ExportResults = () => {
         valuationObj['objectParameters'] = valuationObjectParameters
         valuationObjs['names'] = valuationObjects
         valuationObjs['areas'] = valuationObjectsAreas
+        valuationObjs['prices'] = valuationObjectsPrices
         valuationObjs['objectsParameters'] = valuationObjectsParameters
         downloadObj['valuationObject'] = valuationObj
         downloadObj['valuationObjects'] = valuationObjs

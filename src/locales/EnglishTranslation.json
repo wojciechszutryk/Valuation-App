@@ -124,5 +124,6 @@
   "Register failed, try again":"Register failed, try again",
   "Registered succesfully, you can log in":"Registered succesfully, you can log in",
   "Start Valuation":"Start Valuation",
-  "Load example work":"Load example work"
+  "Load example work":"Load example work",
+"Loaded example valuation successfully": "Loaded example valuation successfully"
 }
