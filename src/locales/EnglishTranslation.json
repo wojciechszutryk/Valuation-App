@@ -128,5 +128,7 @@
 "Loaded example valuation successfully": "Loaded example valuation successfully",
   "Loaded JSON file successfully": "Loaded JSON file successfully",
   "Error in loading JSON file": "Error in loading JSON file",
-  "message": "message"
+  "message": "message",
+  "Successfully saved work": "Successfully saved work",
+  "Error in saving work": "Error in saving work"
 }

@@ -126,5 +126,7 @@
   "Loaded example valuation successfully": "Beispielbewertung erfolgreich geladen",
   "Loaded JSON file successfully": "JSON-Datei erfolgreich geladen",
   "Error in loading JSON file": "Fehler beim Laden der JSON-Datei",
-  "message": "Nachricht"
+  "message": "Nachricht",
+  "Successfully saved work": "Erfolgreich gespeicherte Arbeit",
+  "Error in saving work": "Fehler beim Speichern der Arbeit"
 }

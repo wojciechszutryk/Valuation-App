@@ -7,7 +7,10 @@ import { findObjectsWithOneNotEqualValue, showToast } from 'utils/functions'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import XLSX from 'xlsx'
 import { font } from 'utils/fonts/RobotoRegular'
-import { fetchWorksFromAPI } from '../../../data/fetch/valuationsFetch'
+import {
+    createValuationObject,
+    fetchWorksFromAPI,
+} from '../../../data/fetch/valuationsFetch'
 import { workCrateNew } from '../../../data/fetch/worksFetch'
 import { useStyles } from './componentsStyles'
 import TocIcon from '@material-ui/icons/Toc'
@@ -695,12 +698,37 @@ const ExportResults = () => {
     ])
 
     const saveToAccount = useCallback(async () => {
-        const response = await workCrateNew({
-            parameters: valuationParametersObjects,
-            userId,
-        })
-        if (response.createdWork) {
-            const workId = response.createdWork.id
+        try {
+            const response = await workCrateNew({
+                parameters: valuationParametersObjects,
+                userId,
+            })
+            if (response.createdWork) {
+                const workId = response.createdWork.id
+                for (let i = 0; i < valuationObjects.length; i++) {
+                    await createValuationObject({
+                        workId,
+                        name: valuationObjects[i],
+                        parametersValues: Object.values(
+                            valuationObjectsParameters[i]
+                        ),
+                        price: valuationObjectsPrices[i],
+                        area: valuationObjectsAreas[i],
+                        isForValuation: false,
+                    })
+                }
+                await createValuationObject({
+                    workId,
+                    name: valuationObject,
+                    parametersValues: Object.values(valuationObjectParameters),
+                    price: 0,
+                    area: valuationObjectArea,
+                    isForValuation: true,
+                })
+                showToast(t('Successfully saved work'))
+            }
+        } catch (err) {
+            showToast(t('Error in saving work') + ' ' + err)
         }
     }, [])
 
