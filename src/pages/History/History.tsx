@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import Table from '@material-ui/core/Table'
 import { TableBody, Typography, Button, Container } from '@material-ui/core'
 import TableCell from '@material-ui/core/TableCell'
@@ -7,6 +7,8 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { useTranslation } from 'react-i18next'
+import Skeleton from '@material-ui/lab/Skeleton'
+import { ClipLoader, ClockLoader } from 'react-spinners'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
@@ -34,19 +36,23 @@ import {
 import { ValuationObjectInteface } from 'typings'
 import { useAppDispatch } from 'utils/hooks/useAppDispach'
 import { showToast } from 'utils'
+import { useTheme } from '@material-ui/core/styles'
 
 const History = () => {
     const classes = useStyles()
     const { t } = useTranslation()
     const dispatch = useAppDispatch()
     let history = useHistory()
+    const theme = useTheme()
+    const [loading, setLoading] = useState(false)
     const queryClient = useQueryClient()
     const userId = useAppSelector((state) => state.user.userId)
     const userName = useAppSelector((state) => state.user.userName)
-    const { data: works } = useQuery(['works', { id: userId }], () =>
-        fetchUserWorksFromAPI({ id: userId })
+    const { data: works, isFetching } = useQuery(
+        ['works', { id: userId }],
+        () => fetchUserWorksFromAPI({ id: userId })
     )
-    const removeWorkMutation = useMutation(workDelete, {
+    const removeWorkMutation = useMutation((id: string) => workDelete({ id }), {
         onSuccess: () => {
             queryClient.invalidateQueries('works')
         },
@@ -94,7 +100,8 @@ const History = () => {
 
     const handleWorkDelete = React.useCallback(
         (index: number) => {
-            removeWorkMutation.mutate(works[index].id)
+            const workId = works[index].id
+            removeWorkMutation.mutate(workId)
             showToast(t('Work removed successfuly'))
         },
         [removeWorkMutation, t, works]
@@ -102,6 +109,7 @@ const History = () => {
 
     const handleWorkOpen = React.useCallback(
         async (index: number) => {
+            setLoading(true)
             const workId = works[index].id
             const { parameters } = await fetchWorksFromAPI(workId)
             const allValuationObjects = await fetchWorksValuationObjectFromAPI(
@@ -133,7 +141,6 @@ const History = () => {
                     return obj.parametersValues
                 }
             )
-            console.log(valuationObjectParameters)
             const valuationParametersObjects = await parameters
             dispatch(setValuationObject(valuationObjectName))
             dispatch(setValuationObjects(valuationObjectsNames))
@@ -159,70 +166,99 @@ const History = () => {
                 ])
             )
             showToast(t('Valuation loaded successfuly'))
+            setLoading(false)
             history.push('/valuation/new')
         },
         [dispatch, history, t, works]
     )
+
+    if (loading)
+        return (
+            <Container className={classes.loaderCenter}>
+                <ClockLoader size={150} color={theme.palette.secondary.dark} />
+                <Typography className={classes.loadingText}>
+                    {t('Loading work') + '...'}
+                </Typography>
+            </Container>
+        )
 
     return (
         <Container className={classes.container}>
             <Typography className={classes.header} variant="h2">
                 {t('history of user') + ' ' + userName + ':'}
             </Typography>
-            <TableContainer
-                component={Paper}
-                elevation={0}
-                className={classes.tableContainer}
-            >
-                <Table
-                    className={classes.table}
-                    aria-label="valuation details table"
+            {isFetching ? (
+                <Container className={classes.container}>
+                    <div className={classes.root}>
+                        <Skeleton height={50} />
+                        <Skeleton animation={false} height={50} />
+                        <Skeleton animation="wave" height={50} />
+                    </div>
+                </Container>
+            ) : (
+                <TableContainer
+                    component={Paper}
+                    elevation={0}
+                    className={classes.tableContainer}
                 >
-                    <TableHead>
-                        <TableRow>
-                            {rowsHeader.map((row, index) => (
-                                <TableCell
-                                    key={index}
-                                    className={classes.tableHeadCell}
-                                >
-                                    {row}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((row, index) => (
-                            <TableRow
-                                key={index}
-                                className={classes.tableBodyRow}
-                            >
-                                {Object.values(row).map((value, index) => (
+                    <Table
+                        className={classes.table}
+                        aria-label="valuation details table"
+                    >
+                        <TableHead>
+                            <TableRow>
+                                {rowsHeader.map((row, index) => (
                                     <TableCell
                                         key={index}
-                                        className={classes.tableBodyCell}
+                                        className={classes.tableHeadCell}
                                     >
-                                        {value}
+                                        {row}
                                     </TableCell>
                                 ))}
-                                <TableCell className={classes.tableBodyCell}>
-                                    <Button
-                                        onClick={() => handleWorkDelete(index)}
-                                    >
-                                        <DeleteForeverIcon />
-                                    </Button>
-                                </TableCell>
-                                <TableCell className={classes.tableBodyCell}>
-                                    <Button
-                                        onClick={() => handleWorkOpen(index)}
-                                    >
-                                        <CloudDownloadIcon />
-                                    </Button>
-                                </TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map((row, index) => (
+                                <TableRow
+                                    key={index}
+                                    className={classes.tableBodyRow}
+                                >
+                                    {Object.values(row).map((value, index) => (
+                                        <TableCell
+                                            key={index}
+                                            className={classes.tableBodyCell}
+                                        >
+                                            {value}
+                                        </TableCell>
+                                    ))}
+                                    <TableCell
+                                        className={classes.tableBodyCell}
+                                    >
+                                        <Button
+                                            onClick={() =>
+                                                handleWorkDelete(index)
+                                            }
+                                        >
+                                            <DeleteForeverIcon />
+                                        </Button>
+                                    </TableCell>
+                                    <TableCell
+                                        className={classes.tableBodyCell}
+                                    >
+                                        <Button
+                                            onClick={() =>
+                                                handleWorkOpen(index)
+                                            }
+                                        >
+                                            <CloudDownloadIcon />
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            )}
         </Container>
     )
 }

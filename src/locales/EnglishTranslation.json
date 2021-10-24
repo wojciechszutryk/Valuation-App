@@ -130,5 +130,6 @@
   "Error in loading JSON file": "Error in loading JSON file",
   "message": "message",
   "Successfully saved work": "Successfully saved work",
-  "Error in saving work": "Error in saving work"
+  "Error in saving work": "Error in saving work",
+  "Loading work": "Loading work"
 }

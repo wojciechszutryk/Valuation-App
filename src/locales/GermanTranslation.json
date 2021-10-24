@@ -128,5 +128,6 @@
   "Error in loading JSON file": "Fehler beim Laden der JSON-Datei",
   "message": "Nachricht",
   "Successfully saved work": "Erfolgreich gespeicherte Arbeit",
-  "Error in saving work": "Fehler beim Speichern der Arbeit"
+  "Error in saving work": "Fehler beim Speichern der Arbeit",
+  "Loading work": "Ladearbeit"
 }

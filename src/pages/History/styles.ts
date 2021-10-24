@@ -2,10 +2,26 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        root: {
+            width: '100%',
+            marginTop: 20,
+        },
         container: {
             marginTop: 20,
         },
-        textCenter: {},
+        loaderCenter: {
+            height: '50vh',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        loadingText: {
+            marginTop: 20,
+            textAlign: 'center',
+            fontSize: 30,
+            color: theme.palette.primary.main,
+        },
         tableContainer: {
             marginBottom: 20,
         },
