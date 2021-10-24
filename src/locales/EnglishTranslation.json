@@ -131,5 +131,10 @@
   "message": "message",
   "Successfully saved work": "Successfully saved work",
   "Error in saving work": "Error in saving work",
-  "Loading work": "Loading work"
+  "Loading work": "Loading work",
+  "Valuation History": "Valuation History",
+  "Hello": "Hello",
+  "Delete account": "Delete account",
+  "Logout": "Logout"
+
 }

@@ -1,16 +1,14 @@
-import { Button, Grid, Paper, Typography } from '@material-ui/core'
+import { Box, Button, Grid, Paper, Typography } from '@material-ui/core'
 import { jsPDF } from 'jspdf'
 import autoTable from 'jspdf-autotable'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { ClipLoader } from 'react-spinners'
 import { findObjectsWithOneNotEqualValue, showToast } from 'utils/functions'
 import { useAppSelector } from 'utils/hooks/useAppSelector'
 import XLSX from 'xlsx'
 import { font } from 'utils/fonts/RobotoRegular'
-import {
-    createValuationObject,
-    fetchWorksFromAPI,
-} from '../../../data/fetch/valuationsFetch'
+import { createValuationObject } from '../../../data/fetch/valuationsFetch'
 import { workCrateNew } from '../../../data/fetch/worksFetch'
 import { useStyles } from './componentsStyles'
 import TocIcon from '@material-ui/icons/Toc'
@@ -21,6 +19,7 @@ import HistoryIcon from '@material-ui/icons/History'
 const ExportResults = () => {
     const { t } = useTranslation()
     const classes = useStyles()
+    const [loading, setLoading] = useState(false)
     const userId = useAppSelector((state) => state.user.userId)
     const valuationObjectsParameters = useAppSelector(
         (state) => state.valuation.valuationObjectsParameters
@@ -699,6 +698,7 @@ const ExportResults = () => {
 
     const saveToAccount = useCallback(async () => {
         try {
+            setLoading(true)
             const response = await workCrateNew({
                 parameters: valuationParametersObjects,
                 userId,
@@ -726,6 +726,7 @@ const ExportResults = () => {
                     isForValuation: true,
                 })
                 showToast(t('Successfully saved work'))
+                setLoading(false)
             }
         } catch (err) {
             showToast(t('Error in saving work') + ' ' + err)
@@ -781,21 +782,29 @@ const ExportResults = () => {
             </Grid>
             <Grid item xs={6} md={3}>
                 <Paper className={classes.exportChild}>
-                    <Typography variant={'h5'}>
-                        {t('Save work to history')}
-                    </Typography>
-                    <Typography variant={'subtitle1'}>
-                        {t(
-                            'save the valuation in the history on your application account, you will be able to return to the report after logging in'
-                        )}
-                    </Typography>
-                    <Button
-                        variant="outlined"
-                        fullWidth
-                        onClick={saveToAccount}
-                    >
-                        <HistoryIcon color="secondary" />
-                    </Button>
+                    {loading ? (
+                        <Box className={classes.loaderCenter}>
+                            <ClipLoader size={100} />
+                        </Box>
+                    ) : (
+                        <>
+                            <Typography variant={'h5'}>
+                                {t('Save work to history')}
+                            </Typography>
+                            <Typography variant={'subtitle1'}>
+                                {t(
+                                    'save the valuation in the history on your application account, you will be able to return to the report after logging in'
+                                )}
+                            </Typography>
+                            <Button
+                                variant="outlined"
+                                fullWidth
+                                onClick={saveToAccount}
+                            >
+                                <HistoryIcon color="secondary" />
+                            </Button>
+                        </>
+                    )}
                 </Paper>
             </Grid>
         </Grid>

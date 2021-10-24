@@ -129,5 +129,9 @@
   "message": "wiadomość",
   "Successfully saved work": "Praca zapisana pomyślnie",
   "Error in saving work": "Błąd zapisywania pracy",
-  "Loading work": "Ładowanie pracy"
+  "Loading work": "Ładowanie pracy",
+  "Valuation History": "Historia wycen",
+  "Hello": "Cześć",
+  "Delete account": "Usuń konto",
+  "Logout": "Wyloguj"
 }

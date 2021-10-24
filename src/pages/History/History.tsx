@@ -187,7 +187,7 @@ const History = () => {
             <Typography className={classes.header} variant="h2">
                 {t('history of user') + ' ' + userName + ':'}
             </Typography>
-            {isFetching ? (
+            {isFetching || removeWorkMutation.isLoading ? (
                 <Container className={classes.container}>
                     <div className={classes.root}>
                         <Skeleton height={50} />

@@ -129,5 +129,9 @@
   "message": "Nachricht",
   "Successfully saved work": "Erfolgreich gespeicherte Arbeit",
   "Error in saving work": "Fehler beim Speichern der Arbeit",
-  "Loading work": "Ladearbeit"
+  "Loading work": "Ladearbeit",
+  "Valuation History": "Bewertungshistorie",
+  "Hello": "Hallo",
+  "Delete account": "Konto löschen",
+  "Logout": "Abmelden"
 }

@@ -119,5 +119,12 @@ export const useStyles = makeStyles((theme: Theme) =>
         addObjectsToValuationError: {
             marginBottom: 20,
         },
+        loaderCenter: {
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
     })
 )

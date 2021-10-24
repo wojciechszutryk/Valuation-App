@@ -17,9 +17,10 @@ interface Props {
     message: string
 }
 
-const Home = ({ token = false, message = '' }: Props) => {
+const Home = () => {
     const themeString = useAppSelector((state) => state.app.theme)
     const curThemeName = themeString || 'lightTheme'
+    const userName = useAppSelector((state) => state.user.userName)
     const theme = getThemeByName(curThemeName)
     useEffect(() => {
         Aos.init()
@@ -71,12 +72,14 @@ const Home = ({ token = false, message = '' }: Props) => {
             spacing={3}
         >
             <Grid item data-aos="fade-right" md={6}>
-                {message && (
-                    <Box className={classes.userInformation}>{t(message)}</Box>
-                )}
-                {!token ? (
+                {!userName ? (
                     <>
-                        <Box className={classes.userButtons}>
+                        <Box
+                            className={clsx(
+                                classes.userButtons,
+                                classes.userInformation
+                            )}
+                        >
                             <Link
                                 to="/valuation/new"
                                 className={classes.newValuation}
@@ -100,10 +103,28 @@ const Home = ({ token = false, message = '' }: Props) => {
                         </Box>
                     </>
                 ) : (
-                    <Box className={classes.userInformation}>
-                        {t(
-                            'Logged in successfully, you can access Budget and Transaction Page'
+                    <Box
+                        className={clsx(
+                            classes.loggedUserButtons,
+                            classes.userInformation
                         )}
+                    >
+                        <Typography variant={'h2'}>
+                            {t('Hello') + ', ' + userName + '! '}
+                        </Typography>
+                        <Link to="/history" className={classes.pageLink}>
+                            <Button variant="outlined">
+                                {t('Valuation History')}
+                            </Button>
+                        </Link>
+                        <Link to="/valuation/new" className={classes.pageLink}>
+                            <Button variant="outlined">
+                                {t('Start Valuation')}
+                            </Button>
+                        </Link>
+                        <Box className={classes.pageLink}>
+                            <FileUpload />
+                        </Box>
                     </Box>
                 )}
                 <SadMac />

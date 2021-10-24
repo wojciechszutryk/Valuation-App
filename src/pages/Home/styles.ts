@@ -29,18 +29,34 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
 
         userInformation: {
-            width: '80%',
+            width: '100%',
+            position: 'relative',
             marginLeft: 'auto',
             marginRight: 'auto',
             fontWeight: 700,
             textAlign: 'center',
+            // whiteSpace: 'nowrap',
             color:
                 theme.palette.type === 'light'
                     ? theme.palette.primary.dark
                     : theme.palette.primary.light,
             backgroundColor: theme.palette.background.paper,
             padding: 10,
-            border: `3px solid ${theme.palette.divider}`,
+            borderRadius: 30,
+            '&::after': {
+                content: "''",
+                position: 'absolute',
+                bottom: '0',
+                left: '50%',
+                width: '0',
+                height: '0',
+                border: '25px solid transparent',
+                borderTopColor: theme.palette.background.paper,
+                borderBottom: 0,
+                marginLeft: '-25px',
+                marginBottom: '-25px',
+            },
+            // border: `3px solid ${theme.palette.divider}`,
         },
 
         userButtons: {
@@ -62,6 +78,25 @@ export const useStyles = makeStyles((theme: Theme) =>
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'start',
+            },
+        },
+        loggedUserButtons: {
+            width: '80%',
+            margin: '0 auto',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            '& h2': {
+                width: '100%',
+                fontSize: 40,
+            },
+            '& div, & a': {
+                margin: 3,
+                height: '100%',
+                width: '100%',
+                '& button': {
+                    width: '100%',
+                },
             },
         },
 
