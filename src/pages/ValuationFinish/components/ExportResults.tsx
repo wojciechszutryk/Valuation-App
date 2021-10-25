@@ -799,7 +799,16 @@ const ExportResults = () => {
                             <Button
                                 variant="outlined"
                                 fullWidth
-                                onClick={saveToAccount}
+                                onClick={
+                                    userId
+                                        ? saveToAccount
+                                        : () =>
+                                              showToast(
+                                                  t(
+                                                      'You need to be logged in to access this feature'
+                                                  )
+                                              )
+                                }
                             >
                                 <HistoryIcon color="secondary" />
                             </Button>
