@@ -1,32 +1,32 @@
 {
   "files": {
-    "main.css": "/Valuation-App/static/css/main.a3dde582.chunk.css",
-    "main.js": "/Valuation-App/static/js/main.472f8162.chunk.js",
-    "main.js.map": "/Valuation-App/static/js/main.472f8162.chunk.js.map",
-    "runtime-main.js": "/Valuation-App/static/js/runtime-main.adc47933.js",
-    "runtime-main.js.map": "/Valuation-App/static/js/runtime-main.adc47933.js.map",
+    "main.css": "/Valuation-App/static/css/main.5cecd378.chunk.css",
+    "main.js": "/Valuation-App/static/js/main.38f7ad3f.chunk.js",
+    "main.js.map": "/Valuation-App/static/js/main.38f7ad3f.chunk.js.map",
+    "runtime-main.js": "/Valuation-App/static/js/runtime-main.b7769d2e.js",
+    "runtime-main.js.map": "/Valuation-App/static/js/runtime-main.b7769d2e.js.map",
     "static/css/2.173f71c7.chunk.css": "/Valuation-App/static/css/2.173f71c7.chunk.css",
-    "static/js/2.c7ecbaaa.chunk.js": "/Valuation-App/static/js/2.c7ecbaaa.chunk.js",
-    "static/js/2.c7ecbaaa.chunk.js.map": "/Valuation-App/static/js/2.c7ecbaaa.chunk.js.map",
-    "static/js/3.2ab8980e.chunk.js": "/Valuation-App/static/js/3.2ab8980e.chunk.js",
-    "static/js/3.2ab8980e.chunk.js.map": "/Valuation-App/static/js/3.2ab8980e.chunk.js.map",
+    "static/js/2.aae843a5.chunk.js": "/Valuation-App/static/js/2.aae843a5.chunk.js",
+    "static/js/2.aae843a5.chunk.js.map": "/Valuation-App/static/js/2.aae843a5.chunk.js.map",
+    "static/js/3.8ab921fa.chunk.js": "/Valuation-App/static/js/3.8ab921fa.chunk.js",
+    "static/js/3.8ab921fa.chunk.js.map": "/Valuation-App/static/js/3.8ab921fa.chunk.js.map",
     "static/js/4.d901a970.chunk.js": "/Valuation-App/static/js/4.d901a970.chunk.js",
     "static/js/4.d901a970.chunk.js.map": "/Valuation-App/static/js/4.d901a970.chunk.js.map",
     "static/js/5.2f5b9130.chunk.js": "/Valuation-App/static/js/5.2f5b9130.chunk.js",
     "static/js/5.2f5b9130.chunk.js.map": "/Valuation-App/static/js/5.2f5b9130.chunk.js.map",
     "index.html": "/Valuation-App/index.html",
     "static/css/2.173f71c7.chunk.css.map": "/Valuation-App/static/css/2.173f71c7.chunk.css.map",
-    "static/css/main.a3dde582.chunk.css.map": "/Valuation-App/static/css/main.a3dde582.chunk.css.map",
-    "static/js/2.c7ecbaaa.chunk.js.LICENSE.txt": "/Valuation-App/static/js/2.c7ecbaaa.chunk.js.LICENSE.txt",
-    "static/js/3.2ab8980e.chunk.js.LICENSE.txt": "/Valuation-App/static/js/3.2ab8980e.chunk.js.LICENSE.txt",
+    "static/css/main.5cecd378.chunk.css.map": "/Valuation-App/static/css/main.5cecd378.chunk.css.map",
+    "static/js/2.aae843a5.chunk.js.LICENSE.txt": "/Valuation-App/static/js/2.aae843a5.chunk.js.LICENSE.txt",
+    "static/js/3.8ab921fa.chunk.js.LICENSE.txt": "/Valuation-App/static/js/3.8ab921fa.chunk.js.LICENSE.txt",
     "static/js/4.d901a970.chunk.js.LICENSE.txt": "/Valuation-App/static/js/4.d901a970.chunk.js.LICENSE.txt",
     "static/js/5.2f5b9130.chunk.js.LICENSE.txt": "/Valuation-App/static/js/5.2f5b9130.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.adc47933.js",
+    "static/js/runtime-main.b7769d2e.js",
     "static/css/2.173f71c7.chunk.css",
-    "static/js/2.c7ecbaaa.chunk.js",
-    "static/css/main.a3dde582.chunk.css",
-    "static/js/main.472f8162.chunk.js"
+    "static/js/2.aae843a5.chunk.js",
+    "static/css/main.5cecd378.chunk.css",
+    "static/js/main.38f7ad3f.chunk.js"
   ]
 }
